@@ -12,6 +12,8 @@ website:
         text: Tema 1
       # Cada semana añadirás una línea aquí
 
+lang: ca
+
 format:
   html:
     theme: cosmo
