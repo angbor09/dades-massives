@@ -1,0 +1,17 @@
+ciutat	lat	lon
+Madrid	40.4165	-3.70256
+Barcelona	41.38879	2.15899
+Valencia	39.46975	-0.37739
+Zaragoza	41.65606	-0.87734
+Málaga	36.72016	-4.42034
+Murcia	37.98704	-1.13004
+Palma de Mallorca	39.56939	2.65024
+Bilbao	43.26271	-2.92528
+Sevilla	37.38283	-5.97317
+Valladolid	41.65518	-4.72372
+Vigo	42.23282	-8.72264
+La Coruña	43.37135	-8.396
+Granada	37.18817	-3.60667
+Oviedo	43.36029	-5.84476
+Oporto	41.15724	-8.62539
+Lisboa	38.72783	-9.14568

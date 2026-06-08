@@ -1,0 +1,11 @@
+id_viatge	dia_setmana	franja	estacio_any	tipus_servei	num_parades	dist_km	ocupacio	vent	pluja	visibilitat	retard_min	puntualitat
+2001	dj	tarda	hivern	regional	11	598	alta	cap	cap	regular	13	tard
+2002	dl	migdia	estiu	regional	14	1121	alta	fort	cap	bona	21	molt_tard
+2003	dj	tarda	tardor	mitja_distancia	10	1362	mitjana	cap	febla	bona	5	puntual
+2004	dv	migdia	tardor	regional	12	665	baixa	moderat	febla	bona	5	puntual
+2005	dc	nit	estiu	alta_velocitat	1	5146	mitjana	cap	cap	bona	1	puntual
+2006	dj	tarda	tardor	regional	12	787	baixa	cap	cap	dolenta	1	puntual
+2007	dg	mati	hivern	mitja_distancia	6	1789	baixa	moderat	cap	bona	10	tard
+2008	dc	nit	hivern	regional	11	257	mitjana	moderat	cap	bona	17	molt_tard
+2009	dv	migdia	tardor	mitja_distancia	4	1915	mitjana	cap	cap	bona	0	puntual
+2010	dj	mati	estiu	regional	9	569	alta	moderat	intensa	regular	14	tard

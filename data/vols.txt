@@ -1,0 +1,15 @@
+Cel	Temperatura	Humitat	Vent	Volar
+sol	calor	alta	suau	no
+sol	calor	alta	fort	no
+nuvols	calor	alta	suau	si
+pluja	temperada	alta	suau	si
+pluja	fred	normal	suau	si
+pluja	fred	normal	fort	no
+nuvols	fred	normal	fort	si
+sol	temperada	alta	suau	no
+sol	fred	normal	suau	si
+pluja	temperada	normal	suau	si
+sol	temperada	normal	fort	si
+nuvols	temperada	alta	fort	si
+nuvols	calor	normal	suau	si
+pluja	temperada	alta	fort	no
