@@ -8,7 +8,7 @@ website:
     left:
       - href: index.qmd
         text: Inici
-      - href: tema01.qmd
+      - href: tema_01.qmd
         text: Tema 1
       # Cada semana añadirás una línea aquí
 
