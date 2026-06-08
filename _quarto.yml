@@ -1,21 +1,18 @@
 project:
   type: website
+  output-dir: docs
 
 website:
-  title: "dades-massives"
+  title: "Dades Massives"
   navbar:
     left:
       - href: index.qmd
-        text: Home
-      - about.qmd
+        text: Inici
+      - href: tema01.qmd
+        text: Tema 1
+      # Cada semana añadirás una línea aquí
 
 format:
   html:
-    theme:
-      - cosmo
-      - brand
-    css: styles.css
+    theme: cosmo
     toc: true
-
-editor: visual
-
