@@ -1,7 +1,7 @@
 ---
 title: "1. Introducció a R"
 author: ""
-date: "`r format(Sys.time(), '%d/%m/%Y')`"
+date: today
 output:
   html_document:
     toc: true
@@ -9,7 +9,6 @@ output:
     number_sections: true
     toc_float: true
     df_print: paged
-
 ---
 
 ```{r setup, include=FALSE}
@@ -17,9 +16,10 @@ xaringanExtra::use_clipboard()
 ```
 
 # Què és R i RStudio?
+
 R és un entorn i llenguatge de programació enfocat a l'anàlisi estadística molt popular per l'anàlisi de dades massives. A partir de la seva versió fonamental (el que es coneix com a «R base»), qualsevol usuari pot publicar paquets que estenen aquesta configuració bàsica.
 
-Començarem familiaritzant-nos amb l'entorn de treball R i l'*integrated development environment* (IDE)  RStudio. Podem descarregar tots dos programes des de la següent adreça. És important fer la instal·lació en aquest ordre, primer R i després RStudio.
+Començarem familiaritzant-nos amb l'entorn de treball R i l'*integrated development environment* (IDE) RStudio. Podem descarregar tots dos programes des de la següent adreça. És important fer la instal·lació en aquest ordre, primer R i després RStudio.
 
 RStudio Desktop: <https://posit.co/download/rstudio-desktop/>
 
@@ -31,7 +31,7 @@ knitr::include_graphics("figures/RStudio.png")
 
 Consola (1): aquí és on R espera que li donem instruccions. Per a executar-les i obtenir el resultat premem «Intro». La primera vegada que obrim RStudio aquesta secció ocuparà tota la part esquerra de la pantalla.
 
-*Scripts* (2): treballar en la consola és molt limitat ja que les instruccions s'han d'introduir una a una. És més habitual treballar amb *scripts* o fitxers d'instruccions que podem guardar i compartir. Per a veure aquesta secció en la pantalla cal obrir un *script* nou («File > New File > R Script»). Una altra opció una mica més avançáda és crear fitxers RMarkdown amb codi i narrativa.
+*Scripts* (2): treballar en la consola és molt limitat ja que les instruccions s'han d'introduir una a una. És més habitual treballar amb *scripts* o fitxers d'instruccions que podem guardar i compartir. Per a veure aquesta secció en la pantalla cal obrir un *script* nou («File \> New File \> R Script»). Una altra opció una mica més avançáda és crear fitxers RMarkdown amb codi i narrativa.
 
 Entorn, etc. (3) que inclou diverses pestanyes: *Environment* (on s'aniran registrant els objectes creats en la sessió de treball); *History* (es registren les instruccions executades); *Connections* i *Tutorial*.
 
@@ -41,13 +41,15 @@ El més habitual serà treballar amb *scripts* en el panell 2 de la figura. All�
 
 Sovint utilitzarem «paquets» (*libraries*) que estenen la configuració bàsica de R. Per a utilitzar un paquet primer haurem d'instal·lar-lo (això ho farem una única vegada) i cridar-lo (això caldrà fer-ho cada vegada que obrim una sessió en R). És recomanable fer la crida al paquet a l'inici del *script*. Per exemple, aquests són els dos comandos per instal·lar i executar el paquet `tidyverse`:
 
-```
+```         
 install.packages("tidyverse")
 library(tidyverse)
 ```
+
 A mesura que treballem amb R anirem acumulant fitxers (dades, *scripts*, resultats de les anàlisis, figures, etc.). Per a mantenir organitzada la informació, és recomanable treballar amb «projectes» (*projects*). Cada projecte té el seu propi directori, de manera que, en indicar un fitxer que volem utilitzar, no és necessari detallar la ruta per a accedir, sinó que R el buscarà en el directori del projecte. En el cas de projectes d'envergadura, és convenient crear subdirectoris de dades, *scripts* i *outputs*.
 
 # Elements bàsics de R
+
 En la seva versió més simple, és possible utilitzar R com una calculadora. Si introduïm en la consola 2+2, R ens retorna el resultat.
 
 ```{r}
@@ -62,7 +64,7 @@ Per a crear un objecte, simplement li donem un nom i li assignem un valor usant 
 objecte_1 <- 5
 ```
 
-Acabem de crear un objecte anomenat `objecte_1` i li hem assignat el valor 5. És important evitar els espais en blanc en els noms d'objectes. Generalment se substitueixen per «_» o per «.» Tampoc no podem iniciar el nom d'un objecte amb un dígit.
+Acabem de crear un objecte anomenat `objecte_1` i li hem assignat el valor 5. És important evitar els espais en blanc en els noms d'objectes. Generalment se substitueixen per «\_» o per «.» Tampoc no podem iniciar el nom d'un objecte amb un dígit.
 
 Ara creem un segon objecte:
 
@@ -111,6 +113,7 @@ head(iris)
 ```
 
 # Importació de datasets
+
 Malgrat que és possible introduir dades directament en R (per exemple, creant vectors), el més habitual és importar-los des d'Excel o una altra font. Hi ha múltiples funcions per a fer-ho. Una forma senzilla és desar el fitxer Excel com un text separat per tabulacions i importar-lo des de RStudio amb la funció `read.table`.
 
 En el següent exemple, s'ha importat des de R un fitxer anomenat «mostra.txt» amb tres paràmetres que indiquen que les dades tenen encapçalaments, les columnes estan separades per tabulacions i el símbol que utilitzem per a separar els decimals és la coma (R les convertirà en punts). Una vegada importats, les dades es guarden en un objecte anomenat «dades»:
@@ -125,8 +128,8 @@ dades <- read.table(file = "data/mostra.txt",
 
 També podem importar arxius «.csv» amb la funció `read.csv` o importar fitxers des d'Excel amb l'opció «Import Dataset» de la pestanya «Environment». No obstant, verifiqueu sempre que les dades s'han important correctament, especialment si el fitxer Excel està formatat (inclou negretes, colors, etc.).
 
-
 # Funcions bàsiques d'anàlisi
+
 Ara podem treballar amb l'objecte «dades». Podem consultar l'estructura del *dataframe*:
 
 ```{r}
@@ -141,7 +144,7 @@ summary(dades)
 
 ```
 
-Podem obtenir un estadístic d'una variable concreta (els noms de les variables s'indiquen amb el símbol «$»), com ara la mitjana del pes:
+Podem obtenir un estadístic d'una variable concreta (els noms de les variables s'indiquen amb el símbol «\$»), com ara la mitjana del pes:
 
 ```{r}
 mean(dades$Pes)
@@ -164,6 +167,7 @@ recompte_colors
 ```
 
 # Processament de dades
+
 Molt sovint haurem de transformar, netejar i estructurar les dades per facilitar la seva anàlisi. Un dels paquets més utilitzats per a aquestes tasques és `dplyr`, que forma part de l’ecosistema `tidyverse`. Aquest paquet proporciona diverses funcions per manipular dades en format dataframe o tibble (una estructura de dades similar al dataframe).
 
 ```{r, message=FALSE, warning=FALSE}
@@ -171,7 +175,7 @@ library(tidyverse)
 
 ```
 
-Per treballar amb `dplyr` és habitual fer servir *pipes*. Un *pipe* `%>%` és un operador que permet encadenar funcions. El *pipe* passa el resultat d'una expressió com a argument de la següent funció, evitant l'ús de parèntesis. A continuació, veurem l'ús de diverses funcions de `dplyr` fent servir *pipes*. 
+Per treballar amb `dplyr` és habitual fer servir *pipes*. Un *pipe* `%>%` és un operador que permet encadenar funcions. El *pipe* passa el resultat d'una expressió com a argument de la següent funció, evitant l'ús de parèntesis. A continuació, veurem l'ús de diverses funcions de `dplyr` fent servir *pipes*.
 
 - `count()`: fa recomptes de casos
 
@@ -179,27 +183,27 @@ Per treballar amb `dplyr` és habitual fer servir *pipes*. Un *pipe* `%>%` és u
 dades %>% count(Genere)
 ```
 
-- `filter()`: filtra files segons una condició 
+- `filter()`: filtra files segons una condició
 
 ```{r}
 dades %>% filter(Edat > 80)
 ```
 
-- `select()`: selecciona columnes específiques 
+- `select()`: selecciona columnes específiques
 
 ```{r}
 noms <- dades %>% select(Nom)
 head(noms)
 ```
 
-- `mutate()`: crea o modifica columnes 
+- `mutate()`: crea o modifica columnes
 
 ```{r}
 dades.2 <- dades %>% mutate(edat_doble = Edat * 2)
 head(dades.2)
 ```
 
-- `arrange()`: crea o modifica columnes 
+- `arrange()`: crea o modifica columnes
 
 ```{r}
 dades %>% arrange(Pes)
@@ -219,24 +223,25 @@ dades %>% group_by(Genere) %>% summarise(mean(Edat))
 ```
 
 # Exercici per familiaritzar-se amb R i RStudio
+
 A continuació, es proposa un exercici per començar a treballar amb R. No cal lliurar-lo.
 
-1. Instal·la R i RStudio en el teu ordinador.
+1.  Instal·la R i RStudio en el teu ordinador.
 
-2. Inicia RStudio. Crea un nou projecte en un nou directori («File > New Project» en el menú principal). Pots utilitzar aquest directori per a guardar les activitats del curs.
+2.  Inicia RStudio. Crea un nou projecte en un nou directori («File \> New Project» en el menú principal). Pots utilitzar aquest directori per a guardar les activitats del curs.
 
-3. Crea un *script* nou dins d'aquest projecte («File > New File > R Script») i guarda'l. Consulta la pestanya "Files" (panell inferior dret) per comprovar que s'ha guardat en el directori correcte.
+3.  Crea un *script* nou dins d'aquest projecte («File \> New File \> R Script») i guarda'l. Consulta la pestanya "Files" (panell inferior dret) per comprovar que s'ha guardat en el directori correcte.
 
-4. Explora els panells de RStudio per familiaritzar-te amb les diferents pestanyes.
+4.  Explora els panells de RStudio per familiaritzar-te amb les diferents pestanyes.
 
-5. En l'editor de *scripts*, escriu help("mean") i executa l'ordre («Run»). Observa que el text d'ajuda s'obre en una pestanya del panell inferior dret. Examina les parts del text d'ajuda i els exemples del final.
+5.  En l'editor de *scripts*, escriu help("mean") i executa l'ordre («Run»). Observa que el text d'ajuda s'obre en una pestanya del panell inferior dret. Examina les parts del text d'ajuda i els exemples del final.
 
-6. Crea una variable anomenada «primer_num» i assigna-li el valor 12 usant l'operador `<-`. A continuació, crea una altra variable anomenada «primer_text» i assigna-li el valor “aquest és el meu primer text”. Comprova en la pestanya *Environment* que s'han creat correctament.
+6.  Crea una variable anomenada «primer_num» i assigna-li el valor 12 usant l'operador `<-`. A continuació, crea una altra variable anomenada «primer_text» i assigna-li el valor “aquest és el meu primer text”. Comprova en la pestanya *Environment* que s'han creat correctament.
 
-7. Assigna el valor "el meu segon text" a la variable «primer_text». Observa què ocorre en *Environment*. Per a mostrar el valor de les variables introdueix el seu nom en la consola.
+7.  Assigna el valor "el meu segon text" a la variable «primer_text». Observa què ocorre en *Environment*. Per a mostrar el valor de les variables introdueix el seu nom en la consola.
 
-8. Importa el *dataset* de mostra que hem fet servir a l'explicació (està disponible al Campus Virtual).
+8.  Importa el *dataset* de mostra que hem fet servir a l'explicació (està disponible al Campus Virtual).
 
-9. Instal·la i executa el paquet `tidyverse`. Fes un recompte de quantes persones tenen com a favorit cadascun dels colors en el *dataset*. A continuació, calcula la mitjana de pes dels homes i dones del *dataset*.
+9.  Instal·la i executa el paquet `tidyverse`. Fes un recompte de quantes persones tenen com a favorit cadascun dels colors en el *dataset*. A continuació, calcula la mitjana de pes dels homes i dones del *dataset*.
 
-10. No oblidis guardar el teu *script*. Si vols, pots tancar el teu projecte seleccionant «File > Close Project». No obstant això, no és obligatori que ho facis. Si no ho fas, la pròxima vegada que obris R Studio tornaràs a estar en aquest mateix projecte.
+10. No oblidis guardar el teu *script*. Si vols, pots tancar el teu projecte seleccionant «File \> Close Project». No obstant això, no és obligatori que ho facis. Si no ho fas, la pròxima vegada que obris R Studio tornaràs a estar en aquest mateix projecte.
