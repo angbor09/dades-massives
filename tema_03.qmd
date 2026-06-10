@@ -160,7 +160,7 @@ ggplot(dades, aes(x = Color, fill = Genere)) +
 ## Histogrames
 Els histogrames s'utilitzen per representar variables quantitatives contínues, com ara el pes dels subjectes. El paràmetre `bindwidth` permite definir l'amplada dels intervals (en aquest cas franges de 10 kg de pes: de 45 a 55, de 55 a 65, etc.).
 
-```{r}
+```
 ggplot(dades, aes(x = Pes)) +
   geom_histogram(binwidth = 10)
   

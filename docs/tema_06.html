@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ca" xml:lang="ca"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="">
+<meta name="dcterms.date" content="2026-10-06">
+
+<title>6. Arbres de decisió – Dades Massives</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-a0f9fd0d421825b736dc1bbcbcba2219.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Cap resultat",
+    "search-matching-documents-text": "documents que coincideixen",
+    "search-copy-link-title": "Copia l'enllaç a la cerca",
+    "search-hide-matches-text": "Amaga les coincidències addicionals",
+    "search-more-match-text": "altra coincidència en aquest document",
+    "search-more-matches-text": "altres coincidències en aquest document",
+    "search-clear-button-title": "Neteja",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel·la",
+    "search-submit-button-title": "Envia",
+    "search-label": "Cerca"
+  }
+}</script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Dades Massives</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Cerca"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Commuta la navegació" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Inici</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./tema_01.html"> 
+<span class="menu-text">Tema 1</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./tema_02.html"> 
+<span class="menu-text">Tema 2</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./tema_03.html"> 
+<span class="menu-text">Tema 3</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./tema_04.html"> 
+<span class="menu-text">Tema 4</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./tema_05.html"> 
+<span class="menu-text">Tema 5</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./tema_06.html" aria-current="page"> 
+<span class="menu-text">Tema 6</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./tema_07.html"> 
+<span class="menu-text">Tema 7</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./tema_08.html"> 
+<span class="menu-text">Tema 8</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./tema_09.html"> 
+<span class="menu-text">Tema 9</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./tema_10.html"> 
+<span class="menu-text">Tema 10</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./tema_11.html"> 
+<span class="menu-text">Tema 11</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En aquesta pàgina</h2>
+   
+  <ul class="collapse">
+  <li><a href="#arbres-de-decisió" id="toc-arbres-de-decisió" class="nav-link active" data-scroll-target="#arbres-de-decisió"><span class="header-section-number">1</span> Arbres de decisió</a></li>
+  <li><a href="#creació-dun-arbre-de-decisió-amb-r" id="toc-creació-dun-arbre-de-decisió-amb-r" class="nav-link" data-scroll-target="#creació-dun-arbre-de-decisió-amb-r"><span class="header-section-number">2</span> Creació d’un arbre de decisió amb R</a>
+  <ul class="collapse">
+  <li><a href="#exemple-1-morositat-amb-el-paquet-party" id="toc-exemple-1-morositat-amb-el-paquet-party" class="nav-link" data-scroll-target="#exemple-1-morositat-amb-el-paquet-party"><span class="header-section-number">2.1</span> Exemple 1: morositat amb el paquet <code>party</code></a></li>
+  <li><a href="#exemple-2-classificació-de-flors-amb-el-paquet-rpart" id="toc-exemple-2-classificació-de-flors-amb-el-paquet-rpart" class="nav-link" data-scroll-target="#exemple-2-classificació-de-flors-amb-el-paquet-rpart"><span class="header-section-number">2.2</span> Exemple 2: classificació de flors amb el paquet <code>rpart</code></a></li>
+  <li><a href="#exemple-3-classificació-de-parlants-natius-amb-el-paquet-party" id="toc-exemple-3-classificació-de-parlants-natius-amb-el-paquet-party" class="nav-link" data-scroll-target="#exemple-3-classificació-de-parlants-natius-amb-el-paquet-party"><span class="header-section-number">2.3</span> Exemple 3: classificació de parlants natius amb el paquet <code>party</code></a></li>
+  </ul></li>
+  <li><a href="#exercici-portar-ulleres-o-lentilles" id="toc-exercici-portar-ulleres-o-lentilles" class="nav-link" data-scroll-target="#exercici-portar-ulleres-o-lentilles"><span class="header-section-number">3</span> Exercici: portar ulleres o lentilles?</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">6. Arbres de decisió</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Publicat</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">10/06/2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="arbres-de-decisió" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Arbres de decisió</h1>
+<p>Un arbre de decisió és un tipus d’algoritme que consisteix en una sèrie de preguntes de resposta «sí» o «no» que porten a preguntes successives fins a prendre una decisió. Es basen en una estructura jeràrquica en forma d’arbre, on cada node representa una condició sobre una variable, cada branca correspon a un resultat possible d’aquesta condició i cada fulla indica una predicció o classe final. Aquests algoritmes són populars per la seva simplicitat i facilitat d’interpretació. Funcionen dividint el conjunt de dades en subconjunts més petits mitjançant regles basades en les variables d’entrada, buscant maximitzar la separació entre classes.</p>
+<p>La següent figura mostra un exemple d’arbre. Partint de la part superior, l’arbre segmenta les dades de manera que cada costat correspon a un únic camí. Tornant a l’exemple de la morositat que vam fer servir al Tema 2, imaginem que volem classificar un subjecte de 40 anys, sense ocupació i amb uns estalvis de 115.000 €. Començant en la part superior, com que no té «ocupació», prenem el camí de la dreta. El següent node és el dels «estalvis». Com són superiors a 50 000 €, prenem de nou el camí de la dreta fins al node «edat». El valor és 40, de manera que anem a l’esquerra que ens indica que la predicció és que aquest subjecte no serà morós. Habitualment, més que saber la categoria en la queda classificat un subjecte, el que retornarà l’algoritme serà la probabilitat que acabi dins d’aquesta categoria. En aquest cas, les branques de l’arbre inclouran les probabilitats en comptes d’un valor simple.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/arbol.png" class="img-fluid figure-img" style="width:40.0%"></p>
+<figcaption>Exemple d’arbre de decisió</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Vegem un segon exemple. La nit del 14 al 15 d’abril de 1912, el «Titanic» es va enfonsar en xocar contra un iceberg en el seu viatge inaugural. Van sobreviure unes 700 persones d’entre les 2.200, entre passatgers i tripulació, que viatjaven en el vaixell. Diversos estudis han mostrat que les possibilitats de salvar-se depenien de diversos factors.</p>
+<p>Podem intentar construir un algoritme que sigui capaç de predir si un determinat viatger se salvarà o no. Per a això comptem amb un fitxer amb les dades corresponents a 1309 passatgers disponible en https://www.kaggle.com/datasets/yasserh/titanic-dataset. Entre les variables predictores trobem la classe en la qual viatjava cada passatger («pclass» amb tres possibles valors: “primera”, “segona” o “tercera”), el tractament (“Mr”, “Mrs”, “Miss”, “Master”, etc.), el sexe («sex»), l’edat («age»), la tarifa («fare») o el port d’embarcament («embarked» que adopta tres valors: “Southampton”, “Cherbourg” o “Queenstown”), entre altres variables. La variable de resposta («survived») indica si cada passatger va sobreviure (“1”) o no (“0”).</p>
+<p>L’exercici és purament teòric perquè el succés no es repetirà, però pot resultar un repte intel·lectual. El portal Kaggle.com inclou competicions en ciència de dades seguint sempre la mateixa dinàmica: s’ofereix als participants un conjunt de dades (<em>training set</em>) per a construir el seu algoritme i, a continuació, es mesura el rendiment amb un nou fitxer de dades (<em>test set</em>).</p>
+<p>Una manera molt senzilla d’enfrontar-se al problema seria predir que cap viatger va sobreviure. D’aquesta manera tan simple classifiquem correctament el 62% dels casos (el 62% dels passatgers van perdre la vida).</p>
+<p>Podem complicar lleugerament l’arbre de classificació i afirmar que tots els homes van morir mentre que totes les dones van sobreviure. Amb aquesta afirmació el nostre algoritme ha millorat i el percentatge de casos classificats correctament s’ha elevat fins al 78% (els marcats en gris en la figura).</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/titanic.png" class="img-fluid figure-img" style="width:40.0%"></p>
+<figcaption>Exemple d’arbre de classificació</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>A partir d’aquesta formulació tan simple podem explorar si es produeixen millores com a resultat d’introduir regles més sofisticades (per exemple, una nova regla que determini que els homes que viatjaven en primera classe es van salvar mentre que la resta van morir).</p>
+</section>
+<section id="creació-dun-arbre-de-decisió-amb-r" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Creació d’un arbre de decisió amb R</h1>
+<section id="exemple-1-morositat-amb-el-paquet-party" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="exemple-1-morositat-amb-el-paquet-party"><span class="header-section-number">2.1</span> Exemple 1: morositat amb el paquet <code>party</code></h2>
+<p>Per fer aquesta activitat recuperarem el <em>dataset</em> sobre morositat del Tema 2. Les dades estan en format <em>character</em>. Per construir l’algoritme, necessitem convertir-les a <em>factor</em>. Ho podem fer camp a camp.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>morositat <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"data/morositat.txt"</span>, <span class="at">header =</span> T, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>morositat<span class="sc">$</span>Estalvis <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(morositat<span class="sc">$</span>Estalvis)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>morositat<span class="sc">$</span>Habitatge <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(morositat<span class="sc">$</span>Habitatge)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>morositat<span class="sc">$</span>Morositat <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(morositat<span class="sc">$</span>Morositat)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>També és possible fer la transformació per a tot el <em>dataframe</em> amb el paquet <code>dplyr</code> que forma part de <code>tidyverse</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>morositat <span class="ot">&lt;-</span> morositat <span class="sc">%&gt;%</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is.character, as.factor)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Ara crearem un arbre de decisió que ens permeti determinar la probabilitat que un nou client sigui o no morós. Per a això, utilitzarem el paquet <code>party</code>. Aquest paquet té una funció anomenada <code>ctree()</code> que serà la que usarem per crear l’arbre. La seva sintaxi bàsica és <code>ctree(formula, data)</code>. En <code>formula</code> indicarem la variable resposta i les variables predictores i en <code>data</code> les dades amb els quals alimentarem l’algoritme.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(party)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>arbre_morositat <span class="ot">&lt;-</span> <span class="fu">ctree</span>(<span class="at">formula =</span> Morositat <span class="sc">~</span> Estalvis <span class="sc">+</span> Habitatge, <span class="at">data =</span> morositat)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>A continuació, visualitzem l’arbre que resulta ser molt senzill. Recordem que els «estalvis» era la variable més informativa per determinar la probabilitat de morositat. De fet, segons l’arbre, un subjecte amb menys de 50.000 euros d’estalvis té una probabilitat superior al 90% d’esdevenir morós. Aquesta probabilitat està lleugerament per sobre del 20% entre els individus amb més de 50.000 euros.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(arbre_morositat)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="tema_06_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="exemple-2-classificació-de-flors-amb-el-paquet-rpart" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="exemple-2-classificació-de-flors-amb-el-paquet-rpart"><span class="header-section-number">2.2</span> Exemple 2: classificació de flors amb el paquet <code>rpart</code></h2>
+<p>Per aquest exemple, utilitzarem un segon paquet anomenat <code>rpart</code>. També necessitarem carregar el paquet <code>rpart.plot</code> per representar l’arbre.`</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart.plot)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Hi ha diferències en els tests estadístics que utilitzen <code>party</code> i <code>rpart</code> per crear els arbres i l’un o l’altre poden ser més o menys adient segons les variables estiguin més o menys equilibrades o amb diferents escales.</p>
+<p>Per aquest exemple, farem servir el paquet <code>iris</code> que conté mesures de tres espècies diferents de flors Iris: “setosa”, “versicolor” i “virginica”.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(iris)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(iris)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Sepal.Length"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["Sepal.Width"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Petal.Length"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Petal.Width"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Species"],"name":[5],"type":["fct"],"align":["left"]}],"data":[{"1":"5.1","2":"3.5","3":"1.4","4":"0.2","5":"setosa","_rn_":"1"},{"1":"4.9","2":"3.0","3":"1.4","4":"0.2","5":"setosa","_rn_":"2"},{"1":"4.7","2":"3.2","3":"1.3","4":"0.2","5":"setosa","_rn_":"3"},{"1":"4.6","2":"3.1","3":"1.5","4":"0.2","5":"setosa","_rn_":"4"},{"1":"5.0","2":"3.6","3":"1.4","4":"0.2","5":"setosa","_rn_":"5"},{"1":"5.4","2":"3.9","3":"1.7","4":"0.4","5":"setosa","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>Creem l’arbre de decisió per predir la variable ‘Species’:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>arbre_flors <span class="ot">&lt;-</span> <span class="fu">rpart</span>(Species <span class="sc">~</span> ., iris)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>I el representem.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rpart.plot</span>(arbre_flors)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="tema_06_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="exemple-3-classificació-de-parlants-natius-amb-el-paquet-party" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="exemple-3-classificació-de-parlants-natius-amb-el-paquet-party"><span class="header-section-number">2.3</span> Exemple 3: classificació de parlants natius amb el paquet <code>party</code></h2>
+<p>Una escola d’anglès ha fet una prova de nivell a 200 nens d’entre 5 i 11 anys. Per a cadascun tenim l’edat i el resultat d’una prova d’escriptura i una altra de lectura. Així mateix, sabem si els nens són parlants natius d’anglès o no. A continuació es presenta un extracte amb els 10 primers casos.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>natius <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"data/natius.txt"</span>, <span class="at">header =</span> T, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>natius<span class="sc">$</span>Natiu <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(natius<span class="sc">$</span>Natiu)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(natius, <span class="dv">10</span>)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Edat"],"name":[1],"type":["int"],"align":["right"]},{"label":["Lectura"],"name":[2],"type":["int"],"align":["right"]},{"label":["Escriptura"],"name":[3],"type":["int"],"align":["right"]},{"label":["Natiu"],"name":[4],"type":["fct"],"align":["left"]}],"data":[{"1":"5","2":"25","3":"32","4":"si","_rn_":"1"},{"1":"6","2":"26","3":"37","4":"si","_rn_":"2"},{"1":"11","2":"30","3":"50","4":"no","_rn_":"3"},{"1":"7","2":"29","3":"40","4":"si","_rn_":"4"},{"1":"11","2":"32","3":"55","4":"si","_rn_":"5"},{"1":"10","2":"30","3":"53","4":"si","_rn_":"6"},{"1":"7","2":"27","3":"34","4":"no","_rn_":"7"},{"1":"11","2":"31","3":"56","4":"si","_rn_":"8"},{"1":"5","2":"26","3":"32","4":"si","_rn_":"9"},{"1":"7","2":"27","3":"34","4":"no","_rn_":"10"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>A partir de les dades d’edat i del resultat de les proves de lectura i escriptura, crearem un arbre de decisió que ens permeti determinar si un nen és parlant natiu d’anglès o no.</p>
+<p>En comptes de treballar amb totes les dades, seleccionarem les primeres 105 entrades que emmagatzemem en l’objecte <code>natius_1</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>natius_1 <span class="ot">&lt;-</span> natius[<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">105</span>), ]</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Creem l’arbre utilitzant la funció <code>ctree</code>. Indiquem que la variable que volem predir és la probabilitat que un nen sigui natiu basant-nos en tres variables predictores: edat, lectura i escriptura. Emmagatzemem el resultat en un objecte denominat <code>arbre</code> i el representem.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>arbre_natiu <span class="ot">&lt;-</span> <span class="fu">ctree</span>(<span class="at">formula =</span> Natiu <span class="sc">~</span> Edat <span class="sc">+</span> Lectura <span class="sc">+</span> Escriptura,</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> natius_1)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(arbre_natiu)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="tema_06_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Provem ara a repetir el procés amb les dades dels 200 nens. En tenir més informació, l’arbre es torna més complex. Si no el veieu completament, podeu reproduir el codi en RStudio.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>arbre_natiu2 <span class="ot">&lt;-</span> <span class="fu">ctree</span>(Natiu <span class="sc">~</span> Edat <span class="sc">+</span> Lectura <span class="sc">+</span> Escriptura,</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>                natius)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(arbre_natiu2)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="tema_06_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Utilitzarem aquest últim arbre per fer una predicció sobre un nou cas. Es tracta d’un nen de 5 anys amb un resultat de 50 tant a la prova de lectura com a la d’escriptura.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>cas<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Edat =</span> <span class="fu">as.integer</span>(<span class="dv">5</span>),</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Lectura =</span> <span class="fu">as.integer</span>(<span class="dv">50</span>),</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Escriptura =</span> <span class="fu">as.integer</span>(<span class="dv">50</span>))</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(arbre_natiu2, <span class="at">newdata =</span> cas<span class="fl">.1</span>, <span class="at">type =</span> <span class="st">"response"</span>)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] si
+Levels: no si</code></pre>
+</div>
+</div>
+<p>L’algoritme classifica el cas com a parlant natiu. Per consultar la probabilitat, modifiquem el paràmetre “type”.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(arbre_natiu2, <span class="at">newdata =</span> cas<span class="fl">.1</span>, <span class="at">type =</span> <span class="st">"prob"</span>)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] 0.06451613 0.93548387</code></pre>
+</div>
+</div>
+<p>Acabarem amb la classificació d’un nou cas, corresponent a un nen de 10 anys amb un resultat de 43 tant a la prova de lectura com a la d’escriptura.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>cas<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Edat =</span> <span class="fu">as.integer</span>(<span class="dv">10</span>),</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Lectura =</span> <span class="fu">as.integer</span>(<span class="dv">45</span>),</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Escriptura =</span> <span class="fu">as.integer</span>(<span class="dv">45</span>))</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(arbre_natiu2, <span class="at">newdata =</span> cas<span class="fl">.2</span>, <span class="at">type =</span> <span class="st">"response"</span>)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] no
+Levels: no si</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(arbre_natiu2, <span class="at">newdata =</span> cas<span class="fl">.2</span>, <span class="at">type =</span> <span class="st">"prob"</span>)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] 0.94117647 0.05882353</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="exercici-portar-ulleres-o-lentilles" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Exercici: portar ulleres o lentilles?</h1>
+<p>Una òptica ha recopilat la següent informació sobre una mostra de clients: edat, patologia, astigmatisme i lacrimosidad. A partir d’aquestes dades, s’indica si la persona ha de portar lents de contacte (toves o rígides) o si és convenient que usi lents de contacte. L’objectiu de l’activitat és elaborar un arbre de decisió per determinar la prescripció adequada per a un jove amb miopia i astigmatisme i lacrimosidad reduïda.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>lents <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"data/lents.txt"</span>, <span class="at">header =</span> T, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>lents</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["edat"],"name":[1],"type":["chr"],"align":["left"]},{"label":["patologia"],"name":[2],"type":["chr"],"align":["left"]},{"label":["astigmatisme"],"name":[3],"type":["chr"],"align":["left"]},{"label":["lacrimositat"],"name":[4],"type":["chr"],"align":["left"]},{"label":["lents"],"name":[5],"type":["chr"],"align":["left"]}],"data":[{"1":"adolescent","2":"miopia","3":"no","4":"reduida","5":"no"},{"1":"adolescent","2":"miopia","3":"no","4":"normal","5":"suaus"},{"1":"adolescent","2":"miopia","3":"si","4":"reduida","5":"no"},{"1":"adolescent","2":"miopia","3":"si","4":"normal","5":"rigides"},{"1":"adolescent","2":"hipermetropia","3":"no","4":"reduida","5":"no"},{"1":"adolescent","2":"hipermetropia","3":"no","4":"normal","5":"suaus"},{"1":"adolescent","2":"hipermetropia","3":"si","4":"reduida","5":"no"},{"1":"adolescent","2":"hipermetropia","3":"si","4":"normal","5":"rigides"},{"1":"jove","2":"miopia","3":"no","4":"reduida","5":"no"},{"1":"jove","2":"miopia","3":"no","4":"normal","5":"suaus"},{"1":"jove","2":"miopia","3":"si","4":"reduida","5":"no"},{"1":"jove","2":"miopia","3":"si","4":"normal","5":"rigides"},{"1":"jove","2":"hipermetropia","3":"no","4":"reduida","5":"no"},{"1":"jove","2":"hipermetropia","3":"no","4":"normal","5":"suaus"},{"1":"jove","2":"hipermetropia","3":"si","4":"reduida","5":"no"},{"1":"jove","2":"hipermetropia","3":"si","4":"normal","5":"no"},{"1":"adult","2":"miopia","3":"no","4":"reduida","5":"no"},{"1":"adult","2":"miopia","3":"no","4":"normal","5":"no"},{"1":"adult","2":"miopia","3":"si","4":"reduida","5":"no"},{"1":"adult","2":"miopia","3":"si","4":"normal","5":"rigides"},{"1":"adult","2":"hipermetropia","3":"no","4":"reduida","5":"no"},{"1":"adult","2":"hipermetropia","3":"no","4":"normal","5":"suaus"},{"1":"adult","2":"hipermetropia","3":"si","4":"reduida","5":"no"},{"1":"adult","2":"hipermetropia","3":"si","4":"normal","5":"no"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiat!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiat!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

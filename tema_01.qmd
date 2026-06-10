@@ -11,6 +11,7 @@ format:
     number-sections: true
     toc-float: true
     df-print: paged
+    
 ---
 
 # Què és R i RStudio?

@@ -62,7 +62,7 @@ paraules <- discurs %>%
 
 Com hem comentat, també podriem dividir el text en frases (o en caràcters):
 
-```{r}
+```
 frases <- discurs %>%
   tidytext::unnest_tokens(frase, text, token = "sentences")
 
