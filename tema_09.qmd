@@ -1,14 +1,16 @@
 ---
 title: "9. Anàlisi textual"
 author: ""
-date: "`r format(Sys.time(), '%d/%m/%Y')`"
-output:
-  html_document:
+date: today
+date-format: "DD/MM/YYYY"
+lang: ca
+format:
+  html:
     toc: true
-    toc_depth: 2
-    number_sections: true
-    toc_float: true
-    df_print: paged
+    toc-depth: 2
+    number-sections: true
+    toc-float: true
+    df-print: paged
 ---
 
 # Introducció
