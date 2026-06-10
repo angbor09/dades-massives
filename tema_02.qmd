@@ -11,10 +11,6 @@ output:
     df_print: paged
 ---
 
-```{r setup, include=FALSE}
-xaringanExtra::use_clipboard()
-```
-
 # Introducció
 Un dels primers aspectes a considerar en l'anàlisi de grans quantitats de dades té a veure, justament, amb el gran volum d'informació disponible. Per a un conjunt d'individus podem tenir recopilades dades de multitud de variables i el primer problema al qual ens enfrontem consisteix a seleccionar aquelles variables més informatives: quins atributs són els millors per a segmentar la població?
 

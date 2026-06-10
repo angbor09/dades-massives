@@ -12,6 +12,24 @@ website:
         text: Tema 1
       - href: tema_02.qmd
         text: Tema 2
+      - href: tema_03.qmd
+        text: Tema 3
+      - href: tema_04.qmd
+        text: Tema 4
+      - href: tema_05.qmd
+        text: Tema 5
+      - href: tema_06.qmd
+        text: Tema 6
+      - href: tema_07.qmd
+        text: Tema 7
+      - href: tema_08.qmd
+        text: Tema 8
+      - href: tema_09.qmd
+        text: Tema 9
+      - href: tema_10.qmd
+        text: Tema 10
+      - href: tema_11.qmd
+        text: Tema 11
 
 lang: ca
 

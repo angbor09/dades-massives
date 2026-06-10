@@ -1,0 +1,630 @@
+---
+title: "10. Consulta d'APIs bibliogràfiques: OpenAlex"
+author: "Ángel Borrego"
+date: "`r format(Sys.time(), '%d/%m/%Y')`"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    number_sections: true
+    toc_float: true
+    df_print: paged
+---
+
+# Introducció: què és una API?
+Una API (*Application Programming Interface*) és un mecanisme que permet que un programa es comuniqui amb un altre per demanar dades de manera automatitzada, sense necessitat d’intervenció humana directa ni de copiar i enganxar informació manualment.
+
+Per exemple, imagina una web de turisme que mostra informació sobre una destinació, com ara Barcelona. A més de descriure monuments o activitats, aquesta web també vol mostrar el temps actual (temperatura, pluja, vent, etc.). En lloc d’introduir aquestes dades manualment cada dia, la web fa una petició a una API d’un servei meteorològic, com podria ser el del Servei Meteorològic de Catalunya. D’aquesta manera les dades estan sempre actualitzades i s’eviten errors humans.
+
+En el nostre cas, una API ens permet consultar de manera automatitzada bases de dades bibliogràfiques i recuperar registres d’articles, llibres o autors sense haver d’interactuar manualment amb una interfície web.
+
+## Diferències en la consulta de bases de dades bibliogràfiques de forma manual i a través de l'API
+Quan es consulta una base de dades bibliogràfica de manera manual, habitualment es fa a través d’interfícies web (com les d'Scopus o Google Scholar, per exemple). Aquestes eines estan pensades per a la interacció directa amb l’usuari: permeten introduir una cerca, visualitzar resultats i navegar-hi de forma intuïtiva.
+
+Aquest tipus de consulta presenta algunes limitacions. D’una banda, el nombre de registres descarregables acostuma a ser restringit o es mostra fragmentat en diverses pàgines. De l’altra, el procés és poc automatitzable i difícil de reproduir amb exactitud, ja que depèn de les accions manuals de l’usuari i de factors com l’ordre de presentació dels resultats.
+
+Quan es treballa amb una API, la consulta es fa mitjançant codi (per exemple des de R) i no a través d’una interfície web. Això permet enviar peticions estructurades i recuperar grans volums de dades de manera sistemàtica. A diferència de la cerca manual, una API facilita l’automatització del procés i garanteix la reproductibilitat: la mateixa consulta, amb els mateixos paràmetres, retornarà els mateixos resultats (o molt similars si la base de dades s’ha actualitzat).
+
+No obstant, cal tenir en compte que no totes les APIs són obertes o accessibles lliurement. Algunes requereixen una clau d’accés (*API key*) o tenen restriccions d’ús. Sovint imposen límits en el nombre de peticions que es poden fer en un determinat període de temps.
+
+Finalment, és imprescindible consultar la documentació de cada API per entendre’n el funcionament, els paràmetres disponibles i les possibles limitacions.
+
+## OpenAlex i la seva API
+En el nostre cas, treballarem amb l’API de OpenAlex, una plataforma oberta que proporciona dades bibliogràfiques a gran escala sobre la producció científica mundial. OpenAlex recull informació sobre articles, llibres, autors, institucions, revistes, etc. Es planteja com una alternativa oberta a bases de dades comercials. Les seves dades provenen de diverses fonts, especialment de Crossref.
+
+A través de la seva API, OpenAlex permet fer consultes estructurades i recuperar grans volums de dades de manera automatitzada. La documentació sobre l'API d'OpenAlex està disponible a: https://developers.openalex.org/api-reference/introduction
+
+## Funcionament general d'una API
+El funcionament d'una API segueix una estructura força simple:
+
+- *Request* (petició): envies una consulta
+
+- *Processament*: el servidor interpreta la petició
+
+- *Response* (resposta): el servidor retorna dades estructurades
+
+Exemple amb l'API d'OpenAlex:
+
+```
+https://api.openalex.org/works?search=academic%20libraries
+```
+
+Aquesta petició demana:
+
+- un tipus concret de dades: *works* (publicacions)
+
+- una consulta concreta: *academic libraries*
+
+Podem diferenciar tres elements:
+
+- *endpoint*: l’adreça base de l’API. En aquest cas: https://api.openalex.org/works
+
+- paràmetres de la consulta. Per exemple:  
+search=library  
+filter=publication_year:2025  
+per_page=50  
+
+- resposta: normalment vindrà en un format estructurat com JSON (JavaScript Object Notation). Exemple simplificat de JSON:
+
+```
+{  
+  "title": "Public libraries and digital inclusion",  
+  "year": 2021,  
+  "author": "Smith, John"  
+}  
+```
+
+En els següents apartats veurem:
+
+- com fer peticions a l'API d'OpenAlex des de R
+- com interpretar les respostes en format JSON
+- com convertir les respostes JSON en taules
+- com fer una anàlisi exploratòria de les dades bibliogràfiques
+- com exportar les taules en format CSV
+
+
+# Dues opcions de consulta de l'API: via HTTP o mitjançant un paquet
+Quan es treballa amb una API com la d'OpenAlex, hi ha dues maneres d’enfocar la cerca: la consulta directa a l’API o l’ús de paquets que "encapsulen" aquesta consulta.
+
+La consulta directa consisteix a construir manualment la petició HTTP: definir la URL, afegir-hi els paràmetres de cerca i enviar-la des de R amb paquets com `httr2`. El resultat és una resposta en format JSON que cal transformar en una estructura útil, com un dataframe. Aquest enfocament té l’avantatge que permet entendre clarament què s’està demanant a l’API i com respon. A més, ofereix un control total sobre els paràmetres de la consulta i facilita l’accés a funcionalitats més avançades. No obstant, també implica una major complexitat tècnica: cal familiaritzar-se amb estructures de dades sovint poc intuïtives i gestionar la paginació.
+
+Quan s’utilitza un paquet específic, com `openalexR`, aquesta complexitat queda en gran part amagada. El paquet actua com una capa intermèdia que tradueix funcions de R en consultes a l’API i retorna els resultats en formats més nets i fàcils de manipular. Això fa que el procés sigui més accessible. Aquesta simplicitat té un cost: es perd part del control sobre la consulta i, en alguns casos, no es pot accedir a totes les opcions que ofereix l’API. A més, es depèn del manteniment del paquet, que pot quedar desactualitzat si l’API evoluciona.
+
+En aquesta sessió, començarem treballant la consulta directa via HTTP amb exemples senzills. Això ens permetrà introduir els conceptes fonamentals i tenir una certa comprensió de què està passant "per sota". Un cop establerta aquesta base, l’ús de `openalexR` ens permetrà simplificar aquest procés i entendre què guanyem i què perdem amb cada aproximació.
+
+# Consulta de l’API d’OpenAlex via HTTP
+Quan treballem amb l’API de OpenAlex mitjançant HTTP, el que estem fent, en essència, és construir una adreça URL que conté la nostra consulta i enviar-la al servidor perquè ens retorni els resultats. Aquesta manera de treballar és la més directa i també la més transparent, ja que permet veure amb claredat quines dades es demanen i com es formulen les cerques.
+
+El punt de partida és l’*endpoint*, és a dir, l’adreça base de l’API. En el cas d’OpenAlex, si volem consultar publicacions, treballem amb:
+
+```
+https://api.openalex.org/works
+```
+
+A partir d’aquí, la consulta es construeix afegint paràmetres a la URL. Aquests paràmetres defineixen què volem buscar i com volem que es retornin els resultats. Per exemple, una cerca senzilla sobre *public libraries* es pot expressar així:
+
+```
+https://api.openalex.org/works?search=public%20libraries
+```
+
+En aquesta URL, el símbol `?` indica l’inici dels paràmetres, mentre que cada paràmetre es defineix amb una estructura `clau=valor`. Si hi ha més d’un paràmetre, es separen amb `&`. Per exemple:
+
+```
+https://api.openalex.org/works?search=public%20libraries&per_page=50
+```
+
+Aquí, a més de la cerca, estem indicant que volem 50 resultats per pàgina (per defecte són 25 i el màxim 200).
+
+Un dels paràmetres més potents és `filter` que permet restringir els resultats segons criteris específics. Per exemple, si només volem publicacions d’un any concret:
+
+```
+https://api.openalex.org/works?filter=publication_year:2025
+```
+
+Un cop enviada la petició, l’API retorna una resposta en format JSON que conté les dades bibliogràfiques. Aquesta resposta no és una taula plana (bidimensional), sinó una estructura jeràrquica amb llistes i subllistes. Per exemple, cada registre pot incloure camps com l'identificador de l'obra (el DOI, per exemple), el títol, una llista d'autors amb les seves afiliacions, l’any de publicació, les referències, etc. Aquesta estructura és molt rica, però també requereix un cert treball amb paquets com `jsonlite` per transformar-la en un format analitzable.
+
+Un exemple bàsic de petició a l'API d'OpenAlex seria el següent:
+
+```r
+library(httr2)
+library(jsonlite)
+
+resposta <- request("https://api.openalex.org/works") |>
+  req_url_query(search = "public libraries", per_page = 20) |>
+  req_perform()
+
+dades <- resposta |>
+  resp_body_json()
+  
+```
+
+L'objecte `dades` és una llista amb tres elements. Si analitzem la seva estructura (`names(dades`), veurem que conté 3 parts:
+
+- meta: informació sobre la consulta (nombre total de resultats, paginació, etc.)
+
+- results: els registres bibliogràfics, que és el que realment ens interessa
+
+- group by: només en algunes consultes retorna resultats agregats (pot estar buit)
+
+L'estructura és la següent:
+
+```r
+dades  
+├── meta              → informació sobre la consulta  
+├── results           → llista de documents  
+│   ├── [[1]]         → document 1  
+│   ├── [[2]]         → document 2  
+│   ├── ...  
+│   └── [[20]]        → document 20  
+└── group_by  
+```
+
+## Conversió de JSON a taula
+Com acabem de veure, la resposta de l'API no està pensada per ser llegida directament, sinó per ser processada. El JSON té una estructura jeràrquica (llistes dins de llistes), irregular (no tots els camps apareixen sempre) i poc manejable. Per això, el següent pas consisteix a convertir aquesta estructura en una taula (dataframe) amb fileres (registres) i columnes (camps).
+
+D'entrada, examinarem l'estructura dels registres bibliogràfics:
+
+```r
+names(dades$results[[1]]) # Primer nivell 
+str(dades$results[[1]], max.level = 2) # Primer i segon nivell
+str(dades$results[[1]]) # Tota l'estructura
+str(dades$results[[1]]$authorships) # Un camp concret
+
+```
+
+Generalment, no cal (ni convé) extreure tota la informació, sinó aquella que necessitem. Per exemple, ens centrarem ara en l'extracció, en forma de taula, de quatre camps: títol (*display_name*); any (*publication_year*); tipus de document (*type*); i citacions rebudes (*cited_by_count*).
+
+En el següent codi, `sapply` s’utilitza per extreure informació d’una llista d’articles i convertir-la en vectors que després formen les columnes d’un dataframe. Per a cada camp, `sapply` recorre tots els articles i aplica una funció. Recull els resultats i els simplifica en un vector.
+
+```r
+articles <- dades$results
+
+df <- data.frame(
+  titol = sapply(articles, function(x) x$display_name),
+  any = sapply(articles, function(x) x$publication_year),
+  tipus = sapply(articles, function(x) x$type),
+  cites = sapply(articles, function(x) x$cited_by_count)
+)
+
+```
+
+L'exemple anterior funciona correctament perquè els camps seleccionats són senzills, amb un únic valor per a cada camp, però podríem trobar diferents problemes, com ara que hi hagués camps buits (proveu, per exemple, a extreure també el DOI) o camps en format de llista (com els diferents autors d'un únic article).
+
+El següent codi, converteix els valor buits en `NA` i després fa l'extracció per evitar el problema dels camps buits:
+
+```
+get_safe <- function(x, field) {
+  if (is.null(x[[field]])) return(NA)
+  return(x[[field]])
+}
+
+df <- data.frame(
+  titol = sapply(articles, get_safe, "display_name"),
+  any = sapply(articles, get_safe, "publication_year"),
+  tipus = sapply(articles, get_safe, "type"),
+  cites = sapply(articles, get_safe, "cited_by_count"),
+  doi = sapply(articles, get_safe, "doi")
+)
+
+```
+
+## Camps en format de llista 
+Fins ara hem treballat amb poques dades (20 registres) i poc complexes (camps amb un únic valor). No obstant, hi ha camps més complexos, com els autors. Un document pot tenir més d'un autor i cada autor diferents camps (nom, ORCID, afiliació, etc.).
+
+Observem, per exemple, la informació disponible sobre els autors del primer article dels nostres resultats.
+
+```
+str(articles[[1]]$authorships, max.level = 2)
+```
+Ens centrarem, per exemple, en el primer autor:
+
+```
+articles[[1]]$authorships[[1]]
+articles[[1]]$authorships[[1]]$author
+articles[[1]]$authorships[[1]]$author$display_name
+```
+
+El problema radica en introduir aquesta informació en una taula, ja que per un article pot haver infinitat d'autors. De moment, per fer-ho fàcil, ens quedarem només amb el primer autor. El següent codi comprova si el document té autors i, si en té, agafa el primer (si no en té posa `NA`).
+
+```
+primer_autor <- sapply(articles, function(x) {
+  if (length(x$authorships) > 0) {
+    x$authorships[[1]]$author$display_name
+  } else {
+    NA
+  }
+})
+
+```
+Afegim els primers autors al nostre dataset.
+
+```
+df$primer_autor <- primer_autor
+```
+
+## Paginació per a la descàrrega de tots els resultats
+Fins ara només hem extret els 20 primers registres, però evidentment voldrem recuperar-los tots. Per il·lustrar-lo, recuperarem la producció de la Universitat de Lleida durant 2025.
+
+A OpenAlex, les institucions tenen un identificador únic que, en el cas de la Universitat de Lleida, és `I15766328`. Per esbrinar l'identificador d'una institució podeu fer una consulta a través la web d'OpenAlex.
+
+La versió URL de la consulta seria:
+```
+https://api.openalex.org/works?filter=institutions.id:I15766328,publication_year:2025
+```
+
+El codi R:
+
+```
+resposta <- request("https://api.openalex.org/works") |>
+  req_url_query(
+    filter = "institutions.id:I15766328,publication_year:2025"
+  ) |>
+  req_perform()
+
+dades <- resposta |> resp_body_json()
+
+articles <- dades$results
+```
+
+L'API ens ha retornat els 25 resultats de la primera pàgina. Podriem consultar els resultats de la segona pàgina amb el codi següent:
+
+```
+resposta_p2 <- request("https://api.openalex.org/works") |>
+  req_url_query(
+    filter = "institutions.id:I15766328,publication_year:2025",
+    page = 2
+  ) |>
+  req_perform()
+
+dades_p2 <- resposta_p2 |> resp_body_json()
+
+articles_p2 <- dades_p2$results
+```
+
+Des del punt de vista de la programació, hi ha diverses solucions per fer un bucle que descarregui tots els resultats i els uneixi en un únic objecte. A continuació teniu un exemple:
+
+```
+articles <- list()
+pagina <- 1
+
+repeat {
+  
+  resposta <- request("https://api.openalex.org/works") |>
+    req_url_query(
+      filter = "institutions.id:I15766328,publication_year:2025",
+      page = pagina
+    ) |>
+    req_perform()
+  
+  dades <- resposta |> resp_body_json()
+  
+  # Si ja no hi ha resultats, sortim del bucle
+  if (length(dades$results) == 0) {
+   break
+  }
+  
+  # Afegim els resultats d'aquesta pàgina
+  articles <- c(articles, dades$results)
+  
+  pagina <- pagina + 1
+  
+  Sys.sleep(0.1) # Fa una petita pausa per fer-ho més respectuós amb l'API
+}
+
+```
+
+## Extracció completa de tots els camps
+Un cop descarregats tots els registres a l’objecte `articles`, el següent pas és convertir aquesta informació, que encara està en forma de llista complexa, en una taula (dataframe) que puguem analitzar fàcilment.
+
+En un apartat anterior hem vist com extreure camps simples, com el títol o l’any de publicació. Ara anirem un pas més enllà per construir un dataset més complet que inclogui també camps més complexos com els autors o les institucions. Per fer-ho, recorrem tots els elements de la llista i, per a cada un, extraiem la informació que ens interessa. Per als camps simples, com el títol (*display_name*) o l’any (*publication_year*), el procés és directe: cada document té un únic valor que es pot convertir fàcilment en una columna del dataframe.
+
+En el cas del DOI, introduïm una petita precaució. No tots els documents tenen DOI, de manera que, per evitar problemes en la construcció de la taula, substituïm aquests casos per `NA`, que és la manera estàndard de representar valors absents en R.
+
+El cas dels autors és diferent. Cada document pot tenir un nombre variable d’autors, i aquests es troben dins del camp *authorships*, que és una llista. Per obtenir els noms, cal recórrer aquesta llista i extreure, per a cada autor, el camp *display_name*. Un cop tenim tots els noms, els concatenem en una sola cadena de text separada per punts i coma. D’aquesta manera, convertim una estructura complexa en un únic valor que es pot emmagatzemar en una columna.
+
+Amb les institucions passa una cosa similar. Cada autor pot tenir una o més afiliacions, de manera que la informació està encara més imbricada. El que fem és recórrer tots els autors, extreure les institucions associades, aplanar aquesta informació en un únic vector, eliminar duplicats i, finalment, concatenar els noms en una sola cadena de text. Això ens permet tenir, per a cada document, un resum de les institucions implicades.
+
+Aquest procés implica una simplificació important: perdem l’estructura relacional entre autors i institucions. Tanmateix, és una decisió habitual quan es vol treballar amb dades en format tabular i fer anàlisi descriptiva de manera ràpida.
+
+El resultat final és un dataframe on cada fila correspon a un document i cada columna a una variable, incloent-hi tant camps simples com representacions simplificades de camps complexos.
+
+El codi complet és el següent:
+
+```
+library(dplyr)
+
+# funcions auxiliars per camps complexos
+get_autors <- function(x) {
+  if (length(x$authorships) == 0) return(NA)
+  
+  noms <- sapply(x$authorships, function(a) a$author$display_name)
+  paste(noms, collapse = "; ")
+}
+
+get_institucions <- function(x) {
+  if (length(x$authorships) == 0) return(NA)
+  
+  inst <- unlist(sapply(x$authorships, function(a) {
+    sapply(a$institutions, function(i) i$display_name)
+  }))
+  
+  inst <- unique(inst)
+  
+  if (length(inst) == 0) return(NA)
+  paste(inst, collapse = "; ")
+}
+
+# construcció del dataframe
+df <- data.frame(
+  titol = sapply(articles, function(x) x$display_name),
+  any = sapply(articles, function(x) x$publication_year),
+  tipus = sapply(articles, function(x) x$type),
+  cites = sapply(articles, function(x) x$cited_by_count),
+  doi = sapply(articles, function(x) ifelse(is.null(x$doi), NA, x$doi)),
+  autors = sapply(articles, get_autors),
+  institucions = sapply(articles, get_institucions),
+  stringsAsFactors = FALSE
+)
+
+```
+
+En projectes avançats, normalment no es força tota la informació a cabre en una sola taula. En lloc d’això, es conserva millor l’estructura original de les dades creant diverses taules relacionades.
+
+# Consulta a l’API d’OpenAlex amb el paquet `openalexR`
+openalexR és un paquet d’R que actua com a intermediari amb l’API d’OpenAlex: en lloc de construir manualment la URL, enviar la petició i convertir el JSON, fem servir funcions ja preparades. La funció central és oa_fetch(), que integra en un sol pas la construcció de la consulta, la petició a l’API i la conversió dels resultats en un dataframe.
+
+El següent exemple permet recuperar la producció de la Universitat de Lleida en 2025:
+
+```
+install.packages("openalexR")
+
+library(openalexR)
+
+df_oa <- oa_fetch(
+  entity = "works",
+  institutions.id = "I15766328",
+  publication_year = 2025
+)
+```
+# Exploració dels resultats
+```{r, include=FALSE}
+library(tidyverse)
+library(openalexR)
+df_oa <- oa_fetch(
+  entity = "works",
+  institutions.id = "I15766328",
+  publication_year = 2025
+)
+```
+
+Anem a fer algunes anàlisis relatives a la producció bibliogràfica de la Universitat de Lleida durant 2025.
+
+Quins tipus de documents ha publicat el personal investigador?
+
+```{r}
+df_oa |>
+  count(type, sort = TRUE)
+```
+
+Quina part d'aquesta producció està en accés obert?
+
+```{r}
+df_oa |>
+  count(oa_status)
+```
+
+En quines revistes (fonts) s'ha publicat aquesta producció?
+
+```{r}
+df_oa |>
+  count(source_display_name, sort = TRUE) |>
+  head(10)
+```
+
+Quantes citacions han rebut aquests documents?
+
+```{r}
+summary(df_oa$cited_by_count)
+```
+
+Aquestes anàlisis són immediates perquè les dades ja estan en format tabular (són camps simples). Resulta més complicat fer l'anàlisi de la informació continguda en camps anidats. 
+
+Analitzem, per exemple, el nombre d'autors per article:
+
+```{r}
+num_autors <- sapply(df_oa$authorships, nrow)
+summary(num_autors)
+```
+
+Qui són els autors més productius?
+
+```{r}
+tots_autors <- unlist(lapply(df_oa$authorships, function(a) {
+  a$display_name
+}))
+
+sort(table(tots_autors), decreasing = TRUE)[1:20]
+```
+
+Quines institucions són les responsables d'aquesta producció?
+
+```{r}
+totes_inst <- unlist(lapply(df_oa$authorships, function(a) {
+  
+  if (is.null(a) || nrow(a) == 0) return(NA)
+  
+  unlist(lapply(a$affiliations, function(af) {
+    
+    if (is.null(af) || nrow(af) == 0) return(NA)
+    
+    af$display_name
+  }))
+}))
+
+totes_inst <- na.omit(totes_inst)
+
+sort(table(totes_inst), decreasing = TRUE)[1:10]
+```
+
+
+Els resultat anterior mostra la Universitat de Lleida com responsable d'un nombre de documents superior al que hi ha al dataset. Cal suposar que la raó és que hi ha  articles amb més d'un autor de la Universitat de Lleida en els quals se suma aquesta afiliació de forma repetida.
+
+Per evitar aquest problema, cal aplicar `unique()` dins de cada article abans d’ajuntar totes les institucions.
+
+```{r}
+totes_inst <- unlist(lapply(df_oa$authorships, function(a) {
+  
+  if (is.null(a) || nrow(a) == 0) return(NA)
+  
+  inst_article <- unlist(lapply(a$affiliations, function(af) {
+    
+    if (is.null(af) || nrow(af) == 0) return(NA)
+    
+    af$display_name
+  }))
+  
+  unique(inst_article)
+}))
+
+totes_inst <- na.omit(totes_inst)
+
+sort(table(totes_inst), decreasing = TRUE)[1:10]
+
+```
+
+
+# Exportació de registres
+És possible que en ocasions vulguem exportar els registres per treballar amb ells amb algun altre programa. A l'igual que passa amb el seu tractament en R, l'exportació de registres amb camps únics (amb un únic valor) és senzilla, però es complica en el cas de camps anidats com els d'autors i institucions.
+
+Veurem, en primer lloc, un exemple d'exportació en format CSV d'una selecció de camps simples. Després, provarem de fer una exportació més complerta amb els camps autors i institucions.
+
+
+```
+# seleccionem alguns camps simples
+df_simple <- df_oa |>
+  dplyr::select(
+    id,
+    title,
+    publication_year,
+    type,
+    cited_by_count,
+    fwci,
+    is_oa,
+    oa_status,
+    source_display_name
+  )
+
+# exportem a CSV
+write.csv(df_simple, "openalex_resultats.csv", row.names = FALSE)
+```
+
+En el cas de l'exportació d'autors i institucions, l'estratègia consisteix a convertir les taules d'autors i institucions en text (una cadena per fila), de manera similar al que hem fet a l'apartat 3.4.
+
+En primer lloc, preparems els autors com a text:
+
+```
+autors_txt <- sapply(df_oa$authorships, function(a) {
+  if (is.null(a) || nrow(a) == 0) return(NA)
+  paste(a$display_name, collapse = "; ")
+})
+```
+
+A continuació, preparem les institucions:
+
+```
+institucions_txt <- sapply(df_oa$authorships, function(a) {
+  
+  if (is.null(a) || nrow(a) == 0) return(NA)
+  
+  inst <- unlist(lapply(a$affiliations, function(af) {
+    if (is.null(af) || nrow(af) == 0) return(NULL)
+    af$display_name
+  }))
+  
+  inst <- unique(inst)
+  
+  if (length(inst) == 0) return(NA)
+  
+  paste(inst, collapse = "; ")
+})
+```
+
+Ja podem crear el dataframe complet:
+
+```
+df_export <- df_oa |>
+  dplyr::select(
+    id,
+    title,
+    publication_year,
+    type,
+    cited_by_count,
+    fwci,
+    is_oa,
+    oa_status,
+    source_display_name
+  )
+
+df_export$autors <- autors_txt
+df_export$institucions <- institucions_txt
+```
+
+Finalment, l'exportem en format CSV:
+```
+write.csv(
+  df_export,
+  "openalex_resultats_complet.csv",
+  row.names = FALSE,
+  fileEncoding = "UTF-8" # Per evitar problmes amb accents i similars
+)
+```
+
+# Ús de la *API key*
+L'API d'OpenAlex és gratuita per a un ús "normal" o a petita escala. No obstant, el febrer de 2026, OpenAlex va anunciar que les claus passen a ser el mecanisme normal d’autenticació. Aquesta clau és gratuïta i s’obté des del compte d’OpenAlex (*Account* > *Settings* > *API key*).
+
+En el nostre cas, probablement les peticions han funcionat sense autenticació perquè eren petites proves que estaven dins del marge de consultes sense clau. No obstant, caldria incorporar l'API key en el codi. La manera seria la següent:
+
+```
+resposta <- request("https://api.openalex.org/works") |>
+  req_url_query(
+    filter = "institutions.id:I15766328,publication_year:2025",
+    api_key = "LA_TEVA_API_KEY"
+  ) |>
+  req_perform()
+```
+
+En tot cas, en lloc d'introduir la clau en cada consulta, és millor guardar-la com una variable d'entorn. Això evita haver-la d’escriure a cada consulta i evita que quedi visible quan comparteixes codi.
+
+El procés és el següent. En primer lloc, cal obrir el fitxer `.Renviron`:
+
+```
+file.edit("~/.Renviron")
+```
+
+Escriu una línia així:
+
+```
+OPENALEX_API_KEY=la_teva_clau_aqui
+```
+
+Cal guardar el fitxer i reiniciar R. A continuació, per comprovar que funciona, el següent codi hauria de retornar la clau:
+
+```
+Sys.getenv("OPENALEX_API_KEY")
+```
+
+Ara ja no cal escriure el codi en les consultes:
+
+```
+resposta <- request("https://api.openalex.org/works") |>
+  req_url_query(
+    filter = "institutions.id:I15766328,publication_year:2025",
+    api_key = Sys.getenv("OPENALEX_API_KEY")
+  ) |>
+  req_perform()
+```
+
+
+
+
+

@@ -1,0 +1,377 @@
+---
+title: "9. Anàlisi textual"
+author: ""
+date: "`r format(Sys.time(), '%d/%m/%Y')`"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+    number_sections: true
+    toc_float: true
+    df_print: paged
+---
+
+# Introducció
+En aquest apartat explicarem com analitzar informació en format textual. En sessions prèvies, hem treballat amb `tidyverse`, un conjunt de paquets en R pensats per manipular, transformar i visualitzar dades. En aquest apartat, combinarem el seu ús amb `tidytext`, un paquet que permet fer anàlisi de textos utilitzant eines com la *tokenització* o d'eliminació de paraules buides (*stopwords*). La *tokenització* és la divisió d'un text en unitats bàsiques anomenades *tokens*. Aquests *tokens* poden ser paraules, frases, síl·labes o fins i tot caràcters, segons l’anàlisi que es vulgui fer.
+
+```{r, message=FALSE, warning=FALSE}
+library("tidyverse")
+library("tidytext")
+
+```
+
+
+# Anàlisi de la declaració de l'estat d'alarma pel COVID-19
+Comencarem amb una anàlisi del "Real Decreto 463/2020, de 14 de marzo, por el que se declara el estado de alarma para la gestión de la situación de crisis sanitaria ocasionada por el COVID-19". Trobareu el text de la declaració en format en format `.txt` al Campus Virtual.
+
+En el cas de textos en català o castellà que incorporen accents i caràcters com la "ç" o o la "ñ", és important indicar la codificació per garantir que s'importen correctament. En primer lloc, esbrinem la codificació del fitxer amb el paquet `readr` i la funció `guess_encoding()`.
+
+```{r}
+library(readr)
+guess_encoding("data/declaracion.txt")
+
+```
+
+Per carregar el text, farem servir la funció `readLines` que llegeix un fitxer de text línia a línia, tot indicant la codificació.
+
+```{r}
+declaracio <- readLines("data/declaracion.txt", encoding = "ISO-8859-1")
+declaracio
+
+```
+
+## Càlcul de la freqüència dels termes
+Estructurarem la informació en un `tibble`, una estructura de dades tabular (files i columnes) similar a un `dataframe`, però amb algunes característiques millorades, introduïda pel paquet `tidyverse`. En el nostre cas, el `tibble` tindrà dues columnes: una amb el número del paràgraf i una altra amb el text.
+
+```{r}
+discurs <- tibble(num_par = seq_along(declaracio),
+                  text = declaracio)
+discurs
+
+```
+
+El següent pas consisteix a separar individualment les paraules. Amb aquesta finalitat, farem servir la funció `unnest_tokens` del paquet `tidytext`. Per defecte, interpreta que les `tokens` en què volem divir el text són paraules, però també podriem dividir el text en frases, com veurem a continuació. Totes les paraules quedaran en minúscules, la qual cosa facilitarà l'anàlisi.
+
+```{r}
+paraules <- discurs %>%
+  tidytext::unnest_tokens(paraula, text)
+
+```
+
+Com hem comentat, també podriem dividir el text en frases (o en caràcters):
+
+```{r}
+frases <- discurs %>%
+  tidytext::unnest_tokens(frase, text, token = "sentences")
+
+```
+
+L'anàlisi més simple consisteix a fer un recompte de la freqüència de les paraules que apareixen en el text. Per defecte, les paraules s'ordenen alfabèticament, de manera que afegim el paràmetre `sort` que permet indicar que volem una ordenació per freqüència.
+
+```{r}
+paraules %>%
+  count(paraula, sort = TRUE)
+
+```
+
+Podem observar que les paraules més freqüents són paraules buides (articles, conjuncions, preposicons, etc.) sense valor semàntic. Per tant, abans de proseguir, el millor serà eliminar aquestes paraules buides. El paquet `tidytext` porta carregats diversos diccionaris de paraules buides en diferents idiomes, inclòs el castellà però no el català. En aquest cas, carreguem el conjunt de paraules buides en castellà en un objecte que anomenem `vacias`.
+
+```{r}
+vacias <- tidytext::get_stopwords("es")
+
+```
+
+Podeu observar que hi ha 308 paraules buides. L'encapçalament de la columna en el `tibble` és `word`. El canviem per `paraula` que és el nom del camp en el `tibble` amb el discurs. D'aquesta manera podrem creuar fàcilment els dos `tibbles` per eliminar les paraules buides.
+
+```{r}
+vacias <- vacias %>%
+  rename(paraula = word)
+str(vacias)
+
+```
+
+Ara ja podem eliminar les paraules buides. Fem servir la funció `anti_join()` que serveix per quedar-se amb les files d’una taula que no tenen correspondència en una altra.
+
+```{r}
+paraules2 <- paraules %>%
+  anti_join(vacias)
+
+```
+
+I fem un recompte de les paraules.
+
+```{r}
+freq.paraules <- paraules2 %>%
+  count(paraula, sort = TRUE)
+
+```
+
+
+## Representació gràfica de les paraules més freqüents
+Farem una gràfica de les 5 paraules més freqüents.
+
+```{r}
+frequents <- freq.paraules %>%
+  top_n(5, n)
+
+ggplot(frequents, aes(x = paraula, y = n)) +
+  geom_col() +
+  labs(title = "Paraules més freqüents",
+       y = "Freqüència") +
+  theme_minimal()
+
+```
+
+Una altra opció, més atractiva, consisteix a representar totes les paraules de la declaració en un núvol.
+
+```{r}
+library(wordcloud2)
+wordcloud2(freq.paraules)
+
+```
+
+
+# Anàlisi de les lletres de les cançons de Taylor Swift
+En primer lloc, carreguem les lletres de les cançons. Les teniu disponibles al Campus Virtual. Veureu que el fitxer conté quatre camps amb: un número correlatiu, que ens permetrà referir-nos fàcilment a qualsevol cançó; el títol de l'àlbum; el títol de la cançó; i la lletra.
+
+```{r}
+TS_lyrics <- readxl::read_excel("data/TS_data.xlsx")
+
+```
+
+Igual que a l'exemple anterior, procedim a separar les lletres de les cançons en paraules. Visualitzem les 20 primeres paraules per observar l'estructura del *dataset*.
+
+```{r}
+lletresTS_brut <- TS_lyrics %>%
+  unnest_tokens(word, Lyrics)
+
+head(lletresTS_brut, 20)
+
+```
+
+A continuació, procedim a eliminar les paraules buides. Fem servir la llista de paraules buides en anglès que conté `tidytext`. Com que al fitxer de lletres ja estan en una columna que es diu "word", podem eliminar-les directament.
+
+```{r}
+lletresTS <- lletresTS_brut %>%
+  anti_join(stop_words)
+
+```
+
+De què parlen les lletres de Taylor Swift? Es a dir, quines són les paraules més freqüents?
+
+```{r}
+top <- lletresTS %>%
+  count(word, sort = T)
+
+top
+
+```
+
+Ho visualitzem en format de núvol de paraules.
+
+```{r}
+wordcloud2(top)
+
+```
+
+Pot ser interessant analitzar si els termes més freqüents són els mateixos a tots els discos o si les paraules més freqüents han canviat amb el pas del temps.
+
+```{r}
+lletresTS %>% 
+  group_by(Album) %>% 
+  count(word, sort = TRUE) %>% 
+  slice(1,2,3) %>%
+  ggplot() +
+  geom_bar(aes(x = word, weight = n, fill = word)) +
+  coord_flip() +
+  facet_wrap(~Album) +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+```
+
+# Anàlisi de sentiments
+L’anàlisi de sentiments consisteix a classificar paraules o textos segons la seva polaritat emocional:
+
+- Positiva / Negativa
+
+- Alegria, tristesa, por, ira, etc. (emocions específiques)
+
+Aquestes classificacions es basen en diccionaris predefinits anomenats *lexicons*. Amb el paquet `tidytext`, podem carregar diversos *lexicons*, però tots estan en anglès:
+
+- `bing`:	Positiu / Negatiu. Exemple: "happy" → positiu
+
+- `afinn`: escala de -5 a +5. Exemple: "hate" → -3
+
+- `nrc`: emocions (alegria, por, tristesa…). Exemple: "fear", "joy"
+
+
+Imaginem que tenim una pizzeria i volem analitzar les ressenyes que alguns clients han escrit sobre el nostre negoci. Carregarem algunes frases que ens serviran d'exemple.
+
+
+```{r}
+ressenyes <- tibble(ressenya = 1:5,
+                    text = c("The pizza was absolutely delicious and the crust was perfect.",
+                            "Terrible service. We waited 40 minutes for our order.",
+                            "The staff was friendly and made us feel welcome.",
+                            "The sauce was too salty and the dough was undercooked.",
+                            "Great experience! We'll definitely come back again."))
+
+```
+
+El primer pas, consistirà a individualitzar les paraules.
+
+```{r}
+paraules <- ressenyes %>%
+            unnest_tokens(word, text)
+
+```
+
+A continuació, creuem les paraules presents a les ressenyes amb el lexicon `bing`.
+
+```{r}
+sentiments <- paraules %>%
+  inner_join(get_sentiments("bing"))
+
+```
+
+Fem un resum del tipus de sentiment present a les ressenyes de la nostra pizzeria.
+
+```{r}
+resum_sentiments <- sentiments %>%
+  count(sentiment)
+
+ggplot(resum_sentiments, aes(x = sentiment, y = n, fill = sentiment)) +
+  geom_col(show.legend = FALSE) +
+  labs(title = "Anàlisi de sentiments (bing)", y = "Nombre de paraules")
+
+```
+
+Farem un segon exemple d'anàlisi de les emocions en un text polític fent servir el paquet `NRC`. La descàrrega d'aquest paquet és una mica pesada. No cal que el descarregueu, simplement podeu veure l'exemple a continuació.
+
+```{r}
+text.politic <- tibble(linia = 1, text = "Our nation stands at a crossroads. Citizens demand justice, transparency, and strong leadership. While fear and uncertainty grow, we must choose unity over division. Together, we can build a future rooted in hope and equality. We reject corruption and violence, and embrace progress, dialogue, and peace.")
+
+```
+
+Com és habitual, comencem amb l'extracció de les paraules.
+
+```{r}
+tokens <- text.politic %>%
+  unnest_tokens(word, text)
+
+```
+
+A continuació, creuem aquestes paraules amb les del lexicon `NRC`.
+
+```{r}
+library(textdata)
+nrc_sentiments <- get_sentiments("nrc")
+
+sentiments <- tokens %>%
+  inner_join(nrc_sentiments, by = "word")
+
+```
+
+Resumim i visualitzem les conclusions.
+
+```{r}
+sentiments_summary <- sentiments %>%
+  count(sentiment, sort = TRUE)
+
+ggplot(sentiments_summary, aes(x = reorder(sentiment, n), y = n, fill = sentiment)) +
+  geom_col(show.legend = FALSE) +
+  coord_flip() +
+  labs(title = "Emotions in political text (NRC lexicon)",
+       x = "Emotion",
+       y = "Word count")
+
+```
+
+
+
+# Estilometria
+L’estilometria és l’estudi quantitatiu de l’estil d’escriptura, generalment amb l’objectiu d’atribuir l’autoria d’un text o d’analitzar característiques estilístiques d’un autor, període o gènere. Utilitza mètodes estadístics i computacionals per analitzar elements lingüístics com ara la freqüència de paraules (sobretot les paraules funcionals com "i", "de", "que", etc.), la longitud de les frases, l’ús de signes de puntuació i patrons gramaticals o lèxics.
+
+Veurem un exemple bàsic d'anàlisi estilomètrica.  No obstant, hi ha paquets específics per aquest tipus d’anàlis com `stylo`.
+
+Carreguem 6 textos, de diferents estils, corresponents a 3 suposats autors.
+
+```{r, message=FALSE, warning=FALSE}
+textos <- tibble(
+  autor = rep(c("Clara Montes", "Mario Fuentes", "Sofía Delgado"), each = 2),
+  texto_id = paste0("texto", 1:6),
+  texto = c(
+    # Clara Montes
+    "La luna se alzaba lenta sobre el horizonte, plateada y silenciosa. Los árboles susurraban secretos al viento...",
+    "La bruma cubría la ciudad como un velo tenue. Las luces difusas pintaban siluetas inciertas...",
+    # Mario Fuentes
+    "Juan llegó temprano. Nadie lo esperaba. Caminó al centro del cuarto y encendió la lámpara...",
+    "Corrió sin mirar atrás. Los pasos resonaban. El túnel era largo. Oscuro. Húmedo...",
+    # Sofía Delgado
+    "A veces pensaba que el tiempo no era más que una ilusión cuidadosamente construida...",
+    "Aquella mañana no fue distinta a las demás, y sin embargo algo en la manera en que el sol atravesaba..."
+  )
+)
+
+```
+
+Extreiem les paraules i comptabilitzem les que utilitza més freqüentment cada autora.
+
+```{r}
+tokens <- textos %>%
+  unnest_tokens(paraula, texto) %>%
+  count(autor, paraula, sort = TRUE)
+
+tokens
+
+```
+
+Ho representem gràficament.
+
+```{r}
+ggplot(tokens, aes(x = paraula, y = n, fill = autor)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~autor, scales = "free") +
+  coord_flip() +
+  labs(title = "Paraules més freqüents de cada autora", y = "Freqüència", x = "Paraula")
+
+```
+
+Per acabar, compararem la longitud de les frases de cada autora, tant el nombre de paraules per frase com el nombre de caràcteres per frase. Comencem separant els textos en frases.
+
+```{r}
+frases <- textos %>%
+  unnest_tokens(frase, texto, token = "sentences")
+
+```
+
+
+Calculem la longitud de les frases.
+
+```{r}
+frases <- frases %>%
+  mutate(
+    n_paraules = str_count(frase, "\\S+"),  # Compta paraules per espais
+    n_caracteres = nchar(frase))             # Compta caràcters
+
+```
+
+
+```{r}
+frases %>%
+  group_by(autor) %>%
+  summarise(
+    mitjana_paraules = mean(n_paraules),
+    mitjana_caracteres = mean(n_caracteres))
+
+```
+
+
+# Exercicis
+
+## Anàlisi d'un text de Mario Benedetti
+En el Campus Virtual encontrarás el texto del cuento *Pacto de sangre* del escritor uruguayo Mario Benedetti. Identifica los términos más frecuentes en el texto y reprodúcelos en una nube de palabras.
+
+## Anàlisi de sentiments
+Localitza a Google Maps 10 ressenyes de negocis. Poden ser del mateix botiga o diferents negocis. Intenta combinar ressenyes positives i negatives. Aplica una anàlisi de sentiments.

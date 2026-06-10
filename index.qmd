@@ -1,5 +1,13 @@
 ---
-title: "Dades Massives"
+title: "Introducció a la Ciència de Dades amb R"
+subtitle: "Grau en Gestió d'Informació i Documentació Digital · Universitat de Barcelona"
+author:
+  - name: "Ángel Borrego"
+    email: borrego@ub.edu
+    affiliation: "Universitat de Barcelona"
+date: today
+date-format: "DD/MM/YYYY"
+lang: ca
 ---
 
 ## Benvinguts a l'assignatura

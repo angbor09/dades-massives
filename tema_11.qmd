@@ -1,0 +1,167 @@
+---
+title: "11. Informes R Markdown"
+author: ""
+date: "`r format(Sys.time(), '%d/%m/%Y')`"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+    number_sections: true
+    toc_float: true
+    df_print: paged
+---
+
+# Introducció
+En aquesta sessió ens centrarem en la comunicació dels resultats d'una anàlisi de dades de manera clara, estructurada i reproduïble. Fins ara, hem treballat principalment amb *scripts*, però en un context real, el valor de l’anàlisi depèn tant de la qualitat tècnica de l'anàlisi com de la manera en què es presenta. Per això, introduirem l’ús de R Markdown, una eina que permet integrar **text, codi i resultats** en un únic document dinàmic.
+
+L’objectiu és entendre com elaborar un informe complet que combini explicació narrativa, codi i visualitzacions. L'objectiu és fer informes reproduibles, és a dir, que puguin regenerar-se automàticament a partir de les dades i el codi, evitant errors derivats de copiar i enganxar resultats manualment o de tenir diferents versions d'un mateix document.
+
+Crearem un informe en format HTML i veurem com publicar-lo en línia mitjançant plataformes com RPubs, de manera que es pugui compartir amb altres persones.
+
+# Estructura d'un document en R Markdown
+Un document d’R Markdown es basa en la combinació de text, codi i resultats en un únic fitxer font (.Rmd) que després es transforma en un document final (habitualment HTML). Aquesta estructura està pensada per facilitar la lectura humana sense perdre la capacitat d’execució automàtica.
+
+Un document R Markdown conté tres elements principals:
+
+- Capçalera YAML
+
+- Text en Markdown (Markdown és un llenguatge de marcatge molt senzill que permet escriure text amb format, com ara títols, llistes, cursives, negreta, etc.)
+
+- Blocs de codi (*chunks*)
+
+## Capçalera YAML
+És la primera secció del document i defineix les metadades i el format de sortida. Està delimitada per tres guions (`---`) abans i tres guions (`---`) després. Exemple de capçalera bàsic:
+
+```
+---
+title: "Títol de l'informe"
+author: "Nom de l'autor"
+date: "2026-04-24" (pot ser automàtica amb "r Sys.Date()")
+output: html_document
+---
+```
+
+## El text amb Markdown
+El cos del document s’escriu amb Markdown, un llenguatge lleuger per formatar text. Exemples habituals:
+
+- *cursiva* (text entre asterics)
+
+- **negreta** (text entre dobles asterics asterics)
+
+- `codi` (text entre accents oberts). Exemple: Calcula la mitjana aritmètica amb la funció `mean`.
+
+## Blocs de codi (*chunks*)
+Els *chunks* són la part dinàmica del document. Permeten executar codi R i inserir-ne els resultats automàticament. Estàn identificats amb ```{r}.
+
+En el procés de creació del document R Markdown, es poden executar els *chunks* per comprovar el seu funcionament clicant sobre la fletxa verde de la dreta.
+
+```{r}
+a <- 5
+b <- 3
+c <- a+b
+c
+
+```
+
+Un altre exemple de *chunk*:
+
+```{r}
+data(cars)
+summary(cars)
+
+```
+
+Els *chunks* poden tenir opcions dins dels claudàtors:
+
+- echo = FALSE: no es mostra el codi, però sí el resultat.
+
+- message = FALSE: evita que els missatges que genera el codi apareguin al document.
+
+- warning = FALSE: evita que els missatges de *warning* generats pel codi apareguin al document.
+
+- include = FALSE: ni el codi ni el resultat apareix en el document (però s'executa i es pot aprofitar en un altre *chunk*).
+
+# Generació del document
+## Renderitzat (*knit*)
+L'últim pas és el renderitzat (*knit*). Quan cliquem aquesta opció, R executa tots els *chunks* i genera el document HTML final.
+
+Aquest procés garanteix que els resultats són actuals, tot és reproduïble i no hi ha manipulació manual.
+
+## Mostrar un dataframe
+Per defecte, un dataframe es veu igual que a RStudio.
+
+```{r}
+head(mtcars, 10)
+
+```
+
+Hi ha diversos paquets que permeten fer taules. Una opció és la funció `kabble` del paquet `knitr`. Per exemple:
+
+```{r, echo=FALSE}
+library(knitr)
+kable(mtcars[1:4, 1:3], caption = "Característiques dels quatre primers cotxes")
+
+```
+
+## Inclusió de gràfics
+És possible incorporar gràfics al document. Per exemple:
+
+```{r}
+plot(cars)
+
+```
+
+## Un altre exemple
+El següent *chunk* carrega un dataset des de l’ordinador (el fitxer de “mostra” que vam fer servir a la primera sessió del curs), realitza una petita anàlisi i mostra el resultat per pantalla. La idea clau és que, si canviem el fitxer original (per exemple, perquè ens adonem que ens faltaven alguns casos que havíem oblidat afegir), R importarà el nou dataset i recalcularà automàticament tots els resultats. 
+
+```{r}
+dades <- read.table(file = "data/mostra.txt",
+                   header = TRUE,
+                   sep = "\t",
+                   dec = ",")
+mean(dades$Edat)
+
+```
+
+A més, podeu inserir càlculs directament dins de la narrativa: "L'edat mitjana dels subjectes és `r mean(dades$Edat)` anys".
+
+Recordeu que també podeu carregar les dades directament des d'Internet. Per exemple, per generar aquest gràfic que mostra l'evolució del preu del bitcoin entre 2013 i 2018.
+
+```{r}
+library(tidyverse)
+bitcoin <- read.table("https://bit.ly/3dyZXbz", header = T)
+bitcoin$date <- as.Date(bitcoin$date)
+ggplot(bitcoin, aes(x = date, y = value)) +
+                  geom_line() +
+                  xlab("Evolució del preu del bitcoin") +
+                  ylab("Dòlars")
+ 
+```
+
+# Publicació d'informes en línia
+Un cop tenim l’informe generat en HTML, el pas final és fer-lo accessible a altres persones. En aquest apartat veurem com publicar-lo fàcilment a Internet mitjançant RPubs.
+
+Publicar un informe en línia permet compartir resultats sense necessitat d'enviar fitxers adjunts, crear un portfoli personal de projectes, etc.
+
+RPubs és la forma més senzilla de publicar informes HTML creats amb R Markdown. El procés és el següent:
+
+- Generar el document HTML (botó *Knit*)
+
+- A RStudio, clicar “Publish”
+
+- Seleccionar RPubs
+
+- Iniciar sessió (o crear compte, si és la primera vegada que el feu servir)
+
+- Afegir un títol i una descripció (opcional)
+
+El resultat és una URL pública que podeu compartir.
+
+Tot i que RPubs és ideal per començar, hi ha altres opcions més potents com Quarto, una evolució de R Markdown que permet webs complets, blogs i llibres, així com la integració de R amb altres llenguatges com Python.
+
+# Exercici
+Crea un document senzill amb R Markdown, que inclogui com a mínim una breu introducció en text, algun càlcul o resum de dades i una visualització bàsica (gràfic o mapa).
+
+Un cop redactat el document, genera la versió final en format HTML mitjançant el procés de *knit*. Verifica que el document es crea correctament i que tots els elements (text, codi i resultats) es mostren de manera adequada.
+
+Finalment, publica l'informe utilitzant la funcionalitat integrada de RStudio cap a RPubs. Aquest pas et permetrà obtenir una adreça web pública que podràs compartir.

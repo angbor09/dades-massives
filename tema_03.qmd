@@ -1,0 +1,313 @@
+---
+title: "3. Gràfics i animacions"
+author: ""
+date: "`r format(Sys.time(), '%d/%m/%Y')`"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+    number_sections: true
+    toc_float: true
+    df_print: paged
+
+---
+
+# Gràfics amb R base
+R base té algunes funcions que permeten fer gràfics. Començarem amb alguns exemple a partir del dataset `cars`, disponible en R. En primer lloc, el carreguem i examinem la seva estructura.
+
+```{r}
+data(cars) 
+str(cars)
+```
+
+La funció `plot` permet crear un diagrama de dispersió. Per defecte, es representa la primera variable a l'eix horitzonal (x) i la segona a l'eix vertical (y).
+
+```{r}
+plot(cars)
+```
+
+No obstant això, podem indicar quines variables concretes d'un dataset s'han de representar a cada eix.
+
+```{r}
+plot(cars$dist, cars$speed)
+```
+
+A partir d'aquí, podem introduir canvis en la representació dels punts (*type = points, lines, both*), emprar colors (*col*), afegir títols (*main*, *xlab*, *ylab*) o modificar els marcadors (*pch*). Per conèixer els diferents paràmetres que es poden fer servir, cal consultar l'ajuda `help(plot)`.
+
+```{r}
+plot(cars, type = "p", col = "red",
+     main = "Relació entre velocitat i distància de frenada",
+     xlab = "Velocitat (km/h)",
+     ylab = "Distància (metres)",
+     pch = 19)
+```
+
+Altres tipus de gràfic disponibles en R base inclouen:
+
+```{r}
+boxplot(cars, main = "Diagrama de caixa")
+```
+
+```{r}
+hist(cars$speed, main = "Histograma")
+```
+
+```{r}
+pie(cars$speed, main = "Gràfic de sectors")
+```
+
+# Gràfics amb el paquet `ggplot2`
+Tot i que, com acabem de veure, R base conté algunes funcions per crear gràfics, per fer gràfics més elaborats és habitual utilitzar el paquet `ggplot2` que forma part de `tidyverse`. Farem servir el *dataset* de mostra que vam emprar en el primer tema de l'assignatura per elaborar alguns gràfics.
+
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+
+dades <- read.table(file = "data/mostra.txt",
+                   header = TRUE,
+                   sep = "\t",
+                   dec = ",")
+
+str(dades)
+
+```
+
+Els gràfics `ggplot` tenen tres arguments:
+
+-data: un *data.frame* amb les dades que volem representar
+
+-aes() *aesthetics*: permet definir les variables (x, y), el color, la mida, la forma, etc.
+
+-geom() *geometry*: permet definir el tipus de gràfic (dispersió, barres, línies, etc.).
+
+Per fer un gràfic, comencem amb la funció *ggplot* especificant les variables que volem representar a l'eix horitzontal (x) i vertical (y). Cal nomenar les variables tal com apareixen al dataset.
+
+```{r}
+ggplot(dades, aes(x = Edat, y = Pes))
+
+```
+
+La funció anterior simplement ha creat el llençol sobre el qual fer el gràfic. Amb la geometria, especifiquem el tipus de gràfic que volem representar:
+
+- geom_point(): diagrames de dispersió amb dues variables quantitatives (*scatter plot*)
+
+- geom_bar(): gràfics de columnes i barres
+
+- geom_histogram(): histogrames
+
+- geom_boxplot(): diagrames de caixa (*boxplot*)
+
+- geom_tile(): mapes de calor (*heatmap*)
+
+- geom_line(): gràfics de línies
+
+
+## Diagrames de dispersió
+Començarem amb un diagrama de dispersió per representar l'edat i el pes dels 50 subjectes del *dataset*.
+
+```{r}
+ggplot(dades, aes(x = Edat, y = Pes)) +
+  geom_point()
+
+```
+
+Podem agregar propietats a cadascun dels elements visuals del gràfic i proporcionar informació addicional o simplement millorar l’estètica.
+
+- color: classifica els casos per colors segons una altra variable
+
+- fill: similar a color, però per a les geometries que tenen àrea interior
+
+- size: defineix la mida de les geometries, per exemple, les dimensions dels punts
+
+- alpha: defineix la transparència de les geometries (per exemple, quan hi ha punts que se superposen). Els valors poden anar de 0 a 1.
+
+Per exemple, en el següent gràfic, assignarem un color als punts en funció del gènere del subjecte i els farem més grossos.
+
+```{r}
+ggplot(dades, aes(x = Edat, y = Pes, color = Genere)) +
+  geom_point(size = 3)
+  
+```
+
+## Gràfics de columnes i de barres
+Farem ara un gràfic de columnes per representar els colors favorits dels subjectes presents al *dataset*.
+
+```{r}
+ggplot(dades, aes(x = Color)) +
+  geom_bar()
+
+```
+
+Podem fer servir dos colors diferents per representar el gènere dels subjectes.
+
+```{r}
+ggplot(dades, aes(x = Color, fill = Genere)) +
+  geom_bar()
+
+```
+
+Si volem que les barres siguin horitzontals, simplement hem d'afegir (amb el simbol `+`) l'argument `coord_flip()`.
+
+```{r}
+ggplot(dades, aes(x = Color, fill = Genere)) +
+  geom_bar() +
+  coord_flip()
+
+```
+
+
+## Histogrames
+Els histogrames s'utilitzen per representar variables quantitatives contínues, com ara el pes dels subjectes. El paràmetre `bindwidth` permite definir l'amplada dels intervals (en aquest cas franges de 10 kg de pes: de 45 a 55, de 55 a 65, etc.).
+
+```{r}
+ggplot(dades, aes(x = Pes)) +
+  geom_histogram(binwidth = 10)
+  
+```
+
+## Diagrames de caixes
+A continuació, farem un diagrama de caixes per representar l'edat dels subjectes segons el seu gènere. En els gràfics anteriors hem vist que, per defecte, els gràfics de `ggplot` es creen sobre un fons gris amb línies blanques de quadrícula. No obstant, hi ha altres *themes* que es poden fer servir com `theme_bw()`, `theme_minimal()`, `theme_classic()`, `theme_light()`, `theme_dark()`, `theme_void()`, etc.
+
+```{r}
+ggplot(dades, aes(x = Genere, y = Edat)) +
+  geom_boxplot() +
+  theme_minimal()
+  
+```
+
+## Mapes de calor
+Un mapa de calor (*heatmap*) és útil per visualitzar valors numèrics associats a dues variables categòriques mitjançant una escala de colors. Representarem els colors favorits per gènere. Primer, calculem els valors i, a continuació, elaborem el gràfic.
+
+
+```{r}
+df <- dades %>%
+  count(Genere, Color)
+
+ggplot(df, aes(x = Color, y = Genere, fill = n)) +
+  geom_tile() +
+  scale_fill_gradient(low = "white", high = "steelblue")
+
+```
+
+## Gràfics de línies
+Els gràfics de línies són útils per il·lustrar tendències temporals. En el nostre dataset no hi ha dades d'aquest tipus. Importarem un *dataset* disponible en Internet amb l'evolució del preu del bitcoin entre 2013 i 2018 i el representarem gràficament. Observeu el codi i els comentaris en color verd.
+
+```{r}
+bitcoin <- read.table("https://bit.ly/3dyZXbz", header = T) # Importem el dataset
+
+bitcoin$date <- as.Date(bitcoin$date) # Convertim el camp "date" a format "date"
+
+graf.bitcoin <- ggplot(bitcoin, aes(x = date, y = value)) +
+                  geom_line() +
+                  xlab("Evolució del preu del bitcoin") +
+                  ylab("Dòlars") +
+                  theme_classic()
+
+graf.bitcoin
+ 
+```
+
+# Gràfics interactius
+En ocasions és útil fer els nostres gràfics interactius, per exemple si volem publicar-los a una pàgina web. El paquet `plotly` ens permet fer-lo de manera sencilla amb la funció `ggplotly`.
+
+Treballarem sobre el gràfic sobre el valor del bitcoin. Observeu que, al pasar el cursor sobre la línia, podeu consultar el valor del bitcoin en una data determinada.
+
+```{r, message=FALSE, warning=FALSE}
+library(plotly)
+graf.bitcoin.interactiu <- plotly::ggplotly(graf.bitcoin)
+graf.bitcoin.interactiu
+
+```
+
+Farem un segon gràfic fent servir el dataset `gapminder` que inclou dades demográfiques de països del món, com ara l'esperança de vida, la població o el PIB per càpita, i ve precarregat en R.
+
+```{r, message=FALSE, warning=FALSE}
+library(gapminder)
+head(gapminder, 15)
+
+```
+
+Filtrarem les dades corresponents a 2007, que és l'últim any disponible, i farem un diagrama de dispersió.
+
+```{r}
+dades.2007 <- gapminder %>% filter(year == 2007)
+
+graf.2007 <- ggplot(dades.2007, aes(x = gdpPercap, y = lifeExp,
+                                    size = pop,
+                                    color = continent,
+                                    label = country)) +
+              geom_point()
+
+graf.2007
+
+```
+
+Finalment, fem el gràfic interactiu per poder consultar la informació sobre cada país. 
+
+```{r}
+graf.2007.int <- ggplotly(graf.2007,
+                          tooltip = c("label", "size", "color"))
+
+graf.2007.int
+
+```
+
+# Gràfics animats
+Una altra opció és animar un gràfic amb el paquet `gganimate`. Per al següent exemple, farem servir un *dataset* disponible en R anomenat `babynames` que inclou la freqüència dels noms de nadons als Estats Units des de 1880. En primer lloc, carreguem les dades i visualitzem els primers registres per fer-nos una idea de la seva estructura.
+
+```{r, message=FALSE, warning=FALSE}
+library(gganimate)
+library(babynames)
+library(gifski)
+head(babynames)
+
+```
+
+Filtrarem tres noms concrets que seran els representarem gràficament: Ashley, Patricia i Helen. 
+
+```{r}
+noms <- babynames %>% 
+  filter(name %in% c("Ashley", "Patricia", "Helen")) %>%
+  filter(sex=="F")
+
+head(noms)
+
+```
+
+Ara creem el gràfic fent servir algunes de les funcions que hem vist de `ggplot`.
+
+```{r, message=FALSE, warning=FALSE}
+graf.noms <- ggplot(noms, aes(x = year, y = n, group = name, color = name)) +
+  geom_line(linewidth = 1.2) +
+  geom_point(size = 2) +
+  ggtitle("Popularitat de tres noms als Estats Units") +
+  ylab("Nombre de nadons") +
+  theme_minimal(base_size = 14) +
+  gganimate::transition_reveal(year)
+
+graf.noms
+
+```
+
+Farem un segon gràfic amb l'evolució de població, PIB i esperança de vida a Espanya. Primer filtrem les dades d'Espanya i, a continuació, elaborem el gràfic.
+
+```{r}
+spain <- gapminder %>% filter(country == "Spain")
+
+graf.spain <- ggplot(spain, aes(x = gdpPercap, y = lifeExp,
+                                    size = pop)) +
+              geom_point() +
+              gganimate::transition_reveal(year)
+
+graf.spain
+```
+
+# Exercicis
+
+## Creació de gràfics
+Utilitza els diferents *datasets* comentats en aquest document o altres de la teva elecció per crear tres gràfics de diferent tipus (dispersió, columnes, diagrama de caixa, etc.). Intenta millorar l'estètica dels gràfics tant com et sigui possible.
+
+## Gràfic de l'evolució de la població de Catalunya
+Elabora un gràfic de línies de l'evolució de la població de Catalunya desde 1857 fins a l'actualidad. Les dades de població estan disponibles a l'Idescat: https://www.idescat.cat/indicadors/?id=aec&n=15223
+
+Millora l'estètica del gràfic en la mesura del possible. Pots intentar fer el gràfic interactiu (que apareguin les dades en pasar el ratolí sobre la línia) i, fins i tot, animat. També pots intentar incorporar més línies al gràfic corresponents, per exemple, a la població de cada província.
+
