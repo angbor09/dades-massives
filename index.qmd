@@ -2,10 +2,55 @@
 title: "Dades Massives"
 ---
 
-This is a Quarto website.
+## Benvinguts a l'assignatura
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+La ciència de dades és avui una de les disciplines més transversals i demandades del món professional. Combina estadística, programació i pensament crític per extreure coneixement útil de dades en brut, i s'aplica en àmbits tan diversos com la salut, les ciències socials, el màrqueting, la investigació científica o la gestió pública.
 
-```{r}
-1 + 1
-```
+Aquesta assignatura és una introducció pràctica a la ciència de dades utilitzant **R**, un dels llenguatges de referència en l'àmbit estadístic i científic. No es requereix experiència prèvia en programació: aprendrem des dels fonaments, amb un enfocament orientat a la resolució de problemes reals.
+
+## Què aprendràs
+
+Al llarg de les **17 sessions** del curs, recorrerem tot el cicle de vida d'un projecte de dades:
+
+- **Preparar i netejar** dades del món real, sovint imperfectes i desordenades.
+- **Explorar i visualitzar** per descobrir patrons, tendències i anomalies.
+- **Modelar** amb tècniques d'aprenentatge supervisat i no supervisat.
+- **Treballar amb dades especials**: text, mapes, APIs i dades obertes.
+- **Comunicar** resultats de manera clara, reproduïble i professional.
+- **Reflexionar** sobre l'ètica i els biaixos en el tractament de dades.
+
+## Estructura del curs
+
+El curs s'organitza en **6 blocs temàtics**:
+
+| Bloc | Contingut | Sessions |
+|------|-----------|----------|
+| 1 | Fonaments i preparació de dades | S1–S4 |
+| 2 | Visualització de dades | S5–S7 |
+| 3 | Aprenentatge supervisat | S8–S11 |
+| 4 | Aprenentatge no supervisat | S12–S13 |
+| 5 | Tipologies de dades especials | S14–S15 |
+| 6 | Comunicació, ètica i perspectiva professional | S16–S17 |
+
+## Eines i tecnologia
+
+Treballarem principalment amb:
+
+- [**R**](https://www.r-project.org/) com a llenguatge de programació.
+- [**RStudio**](https://posit.co/products/open-source/rstudio/) com a entorn de desenvolupament.
+- L'ecosistema [**tidyverse**](https://www.tidyverse.org/) (`dplyr`, `ggplot2`, `tidyr`…) per a manipulació i visualització de dades.
+- [**Quarto**](https://quarto.org/) per a la comunicació de resultats en format reproduïble.
+
+Al final del curs farem un primer contacte amb **Python** per obrir la perspectiva cap a un ecosistema complementari molt present al món professional.
+
+## Materials i dinàmica de classe
+
+Els materials de l'assignatura es publiquen setmanalment en aquest lloc web. Cada sessió inclou els continguts teòrics, exemples de codi comentats i exercicis pràctics.
+
+La dinàmica de les classes combina explicació i pràctica. Podeu portar l'ordinador a les sessions per executar el codi en temps real.
+
+## Una nota final
+
+Aprendre ciència de dades és un procés acumulatiu: cada bloc construeix sobre l'anterior. La clau no és memoritzar funcions, sinó entendre la lògica de cada pas i saber on buscar quan cal. R té una comunitat enorme i documentació excel·lent — aprendrem també a fer-la servir.
+
+Benvinguts al curs.

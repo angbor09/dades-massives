@@ -106,14 +106,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Cerca"
   }
 }</script>
-<script src="site_libs/clipboard-2.0.6/clipboard.min.js"></script>
-
-<link href="site_libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet">
-
-<script src="site_libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
-
-<script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
-
 
 
 </head>
@@ -142,6 +134,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li class="nav-item">
     <a class="nav-link active" href="./tema_01.html" aria-current="page"> 
 <span class="menu-text">Tema 1</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./tema_02.html"> 
+<span class="menu-text">Tema 2</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -184,7 +180,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Publicat</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">8 de juny del 2026</p>
+      <p class="date">10 de juny del 2026</p>
     </div>
   </div>
   
@@ -307,7 +303,7 @@ library(tidyverse)</code></pre>
  $ Genere: chr  "Dona" "Home" "Dona" "Home" ...
  $ Color : chr  "Vermell" "Blau" "Groc" "Lila" ...
  $ Edat  : int  73 59 36 32 13 44 78 61 40 73 ...
- $ Pes   : chr  "55,2" "86,8" "59,3" "88" ...</code></pre>
+ $ Pes   : chr  "55,2" "86,8" "59,3" "88,0" ...</code></pre>
 </div>
 </div>
 <p>Per obtenir un resum estadístic de les dades:</p>
@@ -417,7 +413,7 @@ retorna NA</code></pre>
 1  1  Laia   Dona Vermell   73 55,2        146
 2  2   Pau   Home    Blau   59 86,8        118
 3  3 Clara   Dona    Groc   36 59,3         72
-4  4  Eloi   Home    Lila   32   88         64
+4  4  Eloi   Home    Lila   32 88,0         64
 5  5  Anna   Dona    Blau   13 83,8         26
 6  6 Oriol   Home    Blau   44 75,9         88</code></pre>
 </div>
@@ -430,7 +426,7 @@ retorna NA</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Id    Nom Genere   Color Edat  Pes
 1  25   Anna   Dona    Lila   67 51,5
-2  38   Anna   Dona    Verd   23   52
+2  38   Anna   Dona    Verd   23 52,0
 3  45  Marta   Dona    Blau   65 53,6
 4  21  Jordi   Home    Lila   58 53,9
 5  35  Marta   Dona    Verd   56 54,7
@@ -448,13 +444,13 @@ retorna NA</code></pre>
 17 49   Marc   Home    Verd   66 60,7
 18 43  Roger   Home    Blau   47 61,7
 19 26  Clara   Dona Vermell   75 62,7
-20 34  Gemma   Dona Vermell   63   63
+20 34  Gemma   Dona Vermell   63 63,0
 21 32  Clara   Dona    Lila   38 63,5
 22 20   Marc   Home    Verd   64 64,4
 23 12    Pol   Home    Groc   42 65,6
 24 41   Emma   Dona    Verd   74 66,3
 25 36  Oriol   Home    Groc   55 67,1
-26 27  Oriol   Home    Blau   62   68
+26 27  Oriol   Home    Blau   62 68,0
 27 18  Clara   Dona Vermell   78 69,2
 28 39  Irene   Dona    Blau   32 71,6
 29 28   Emma   Home    Verd   67 72,2
@@ -463,7 +459,7 @@ retorna NA</code></pre>
 32  6  Oriol   Home    Blau   44 75,9
 33  9 Raquel   Dona Vermell   40 75,9
 34 46   Laia   Dona    Lila   31 76,3
-35 30    Pol   Home    Groc   58   77
+35 30    Pol   Home    Groc   58 77,0
 36 48   Anna   Dona    Blau   23 77,3
 37  7  Clara   Dona    Groc   78 77,9
 38 51 Vicent   Home    Groc 4098 78.2
@@ -477,7 +473,7 @@ retorna NA</code></pre>
 46 15   Laia   Dona    Verd   55 85,1
 47 42   Eloi   Home    Groc   42 85,8
 48  2    Pau   Home    Blau   59 86,8
-49  4   Eloi   Home    Lila   32   88
+49  4   Eloi   Home    Lila   32 88,0
 50 47    Pau   Home    Blau   65 89,2
 51 37   Olga   Dona Vermell   53 89,7</code></pre>
 </div>

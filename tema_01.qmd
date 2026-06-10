@@ -11,10 +11,6 @@ output:
     df_print: paged
 ---
 
-```{r setup, include=FALSE}
-xaringanExtra::use_clipboard()
-```
-
 # Què és R i RStudio?
 
 R és un entorn i llenguatge de programació enfocat a l'anàlisi estadística molt popular per l'anàlisi de dades massives. A partir de la seva versió fonamental (el que es coneix com a «R base»), qualsevol usuari pot publicar paquets que estenen aquesta configuració bàsica.

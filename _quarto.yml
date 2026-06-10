@@ -10,7 +10,8 @@ website:
         text: Inici
       - href: tema_01.qmd
         text: Tema 1
-      # Cada semana añadirás una línea aquí
+      - href: tema_02.qmd
+        text: Tema 2
 
 lang: ca
 
