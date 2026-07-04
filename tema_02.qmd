@@ -1,5 +1,5 @@
 ---
-title: "2. Valor informatiu de les variables"
+title: "Valor informatiu de les variables"
 author: ""
 date: today
 date-format: "DD/MM/YYYY"
@@ -58,9 +58,9 @@ Nosaltres desitgem mesurar com d'informativa és una variable, és a dir, quanta
 
 Seguint amb l'exemple, calculem l'entropia dels dos subgrups de clients creats en funció dels seus «estalvis» (Figura 2):
 
-$entropia (< 50 000 €) = – [0,92 × –0,1 + 0,08 × –3,7]= 0,39$
+$entropia (< 50 000 \text{€}) = - [0,92 \times -0,1 + 0,08 \times -3,7]= 0,39$
 
-$entropia (> 50 000 €) = – [0,24 × –2,1 + 0,76 × –0,4]= 0,79$
+$entropia (> 50 000 \text{€}) = - [0,24 \times -2,1 + 0,76 \times -0,4]= 0,79$
 
 Amb aquestes dades ja podem calcular el guany informatiu (*IG*) d'acord amb la següent fórmula:
 
@@ -105,7 +105,7 @@ El següent *script* conté tres ordres per a cridar a la llibreria (prèviament
 
 ```{r, message = FALSE, warning=FALSE}
 library(FSelectorRcpp)
-data <- read.table("data/morositat.txt", header=T, sep = "\t")
+data <- read.table("data/morositat.txt", header=T, sep = "\t", dec = ",")
 head(data)
 ```
 
@@ -122,6 +122,14 @@ FSelectorRcpp::information_gain(Morositat ~ ., data)
 ```
 
 Veiem que la variable més informativa són els «Estalvis» i, en menor mesura, l'«Habitatge». Les xifres que facilita `FSelectorRcpp` no coincideixen amb les que havíem obtingut anteriorment perquè, en lloc d'utilitzar el $log_2$, aquesta llibreria utilitza el logaritme natural (base *e*). En qualsevol cas, no canvia l'ordre de les variables ni la utilitat pràctica del guany informatiu, només l'escala numèrica.
+
+La sortida de `information_gain()` és un *dataframe* amb dues columnes: *attributes*, que indica el nom de cada variable analitzada, i *importance*, que mostra el seu guany informatiu (com més alt el valor, més informativa és la variable per predir la classe d'interès). Quan es treballa amb molts atributs, resulta útil ordenar els resultats de major a menor importància per identificar ràpidament les variables més rellevants; això es pot fer amb la funció `arrange()` del paquet `dplyr`, indicant l'ordre descendent amb `desc()`:
+
+```{r}
+library(dplyr)
+FSelectorRcpp::information_gain(Morositat ~ ., data) %>%
+  arrange(desc(importance))
+```
 
 
 # Exercicis
@@ -150,7 +158,7 @@ Com a resultat de l'anàlisi, els llibres queden classificats en dues categories
 Utilitza el paquet `FSelectorRcpp` per a determinar quina variable és més útil a l'hora de predir la sortida en préstec d'un llibre. Justifica la teva resposta.
 
 ## És verinós aquest bolet?
-En la siguiente <a href="https://www.kaggle.com/datasets/uciml/mushroom-classification" target="_blank">pàgina web</a> està disponible un *dataset* amb informació sobre 8124 bolets. Cada bolet està representat en una fila amb dades en 23 columnes. La primera columna indica si el bolet és comestible (e, *edible*) o verinós (p, *poisonous*). Les 22 variables restants indiquen característiques com la forma, la textura, el color, l'olor, etc. Per exemple, la segona columna indica la forma del barret (*cap shape*) i pot adoptar sis valors (*bell=b*, *conical=c*, *convex=x*, *flat=f*, *knobbed=k*, *sunken=s*).
+En aquesta <a href="https://www.kaggle.com/datasets/uciml/mushroom-classification" target="_blank">pàgina web</a> està disponible un *dataset* amb informació sobre 8124 bolets. Cada bolet està representat en una fila amb dades en 23 columnes. La primera columna indica si el bolet és comestible (e, *edible*) o verinós (p, *poisonous*). Les 22 variables restants indiquen característiques com la forma, la textura, el color, l'olor, etc. Per exemple, la segona columna indica la forma del barret (*cap shape*) i pot adoptar sis valors (*bell=b*, *conical=c*, *convex=x*, *flat=f*, *knobbed=k*, *sunken=s*).
 
 Igual que a les preguntes anteriors, l'objectiu és determinar quines són les tres característiques que aporten més informació sobre el caràcter comestible o verinós d'un bolet.
 

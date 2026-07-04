@@ -1,5 +1,5 @@
 ---
-title: "4. Mapes i visualització espacial"
+title: "Mapes i visualització espacial"
 author: ""
 date: today
 date-format: "DD/MM/YYYY"

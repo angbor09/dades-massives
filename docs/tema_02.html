@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="">
-<meta name="dcterms.date" content="2026-10-06">
+<meta name="dcterms.date" content="2026-04-07">
 
-<title>2. Valor informatiu de les variables – Dades Massives</title>
+<title>Valor informatiu de les variables – Dades massives</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -152,7 +152,7 @@ window.Quarto = {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Dades Massives</span>
+    <span class="navbar-title">Dades massives</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Cerca"></div>
@@ -242,7 +242,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">2. Valor informatiu de les variables</h1>
+<h1 class="title">Valor informatiu de les variables</h1>
 </div>
 
 
@@ -253,7 +253,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Publicat</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">10/06/2026</p>
+      <p class="date">04/07/2026</p>
     </div>
   </div>
   
@@ -301,8 +301,8 @@ window.Quarto = {
 <p>L’entropia és molt elevada (0,99) ja que el grup és impur en el sentit que hi ha una elevada divisió entre morosos i no morosos. En el cas contrari, si tots els clients fossin morosos (o si cap ho fos), l’entropia tendiria a 0.</p>
 <p>Nosaltres desitgem mesurar com d’informativa és una variable, és a dir, quanta informació ens proporciona sobre el valor de la variable que volem predir. El guany informatiu (<em>information gain</em>, <em>IG</em>) mesura en quina mesura un atribut redueix l’entropia en els segments que crea. Imaginem que la variable que utilitzem per a dividir el grup té <em>k</em> valors. En aquest cas, el grup inicial (progenitor) es dividirà en <em>k</em> subgrups. El valor informacional de l’atribut vindrà donat per l’increment en la puresa dels <em>k</em> subgrups respecte a la població inicial.</p>
 <p>Seguint amb l’exemple, calculem l’entropia dels dos subgrups de clients creats en funció dels seus «estalvis» (Figura 2):</p>
-<p><span class="math inline">\(entropia (&lt; 50 000 €) = – [0,92 × –0,1 + 0,08 × –3,7]= 0,39\)</span></p>
-<p><span class="math inline">\(entropia (&gt; 50 000 €) = – [0,24 × –2,1 + 0,76 × –0,4]= 0,79\)</span></p>
+<p><span class="math inline">\(entropia (&lt; 50 000 \text{€}) = - [0,92 \times -0,1 + 0,08 \times -3,7]= 0,39\)</span></p>
+<p><span class="math inline">\(entropia (&gt; 50 000 \text{€}) = - [0,24 \times -2,1 + 0,76 \times -0,4]= 0,79\)</span></p>
 <p>Amb aquestes dades ja podem calcular el guany informatiu (<em>IG</em>) d’acord amb la següent fórmula:</p>
 <p><span class="math inline">\(IG = entropia (progenitor) – [p(c_1) × entropia (c_1) + p(c_2) × entropia (c_2) + … ]\)</span></p>
 <p>L’entropia de cadascun dels subgrups generats (<span class="math inline">\(c_i\)</span>) es pondera multiplicant-la per la proporció de casos que pertanyen a aquest subgrup, <span class="math inline">\(p(c_i)\)</span>. Seguint amb l’exemple anterior, calculem el guany informatiu resultat de dividir als clients en dos subgrups en funció dels seus «estalvis»:</p>
@@ -343,7 +343,7 @@ window.Quarto = {
 <p>El següent <em>script</em> conté tres ordres per a cridar a la llibreria (prèviament s’ha d’haver instal·lat amb la funció <code>install.packages</code>), importar el <em>dataset</em> (en un objecte que denominem «data») i visualitzar les primeres files:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(FSelectorRcpp)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"data/morositat.txt"</span>, <span class="at">header=</span>T, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"data/morositat.txt"</span>, <span class="at">header=</span>T, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, <span class="at">dec =</span> <span class="st">","</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
@@ -376,6 +376,33 @@ window.Quarto = {
 </div>
 </div>
 <p>Veiem que la variable més informativa són els «Estalvis» i, en menor mesura, l’«Habitatge». Les xifres que facilita <code>FSelectorRcpp</code> no coincideixen amb les que havíem obtingut anteriorment perquè, en lloc d’utilitzar el <span class="math inline">\(log_2\)</span>, aquesta llibreria utilitza el logaritme natural (base <em>e</em>). En qualsevol cas, no canvia l’ordre de les variables ni la utilitat pràctica del guany informatiu, només l’escala numèrica.</p>
+<p>La sortida de <code>information_gain()</code> és un <em>dataframe</em> amb dues columnes: <em>attributes</em>, que indica el nom de cada variable analitzada, i <em>importance</em>, que mostra el seu guany informatiu (com més alt el valor, més informativa és la variable per predir la classe d’interès). Quan es treballa amb molts atributs, resulta útil ordenar els resultats de major a menor importància per identificar ràpidament les variables més rellevants; això es pot fer amb la funció <code>arrange()</code> del paquet <code>dplyr</code>, indicant l’ordre descendent amb <code>desc()</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+S'està adjuntant el paquet: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Els següents objectes estan emmascarats des de 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Els següents objectes estan emmascarats des de 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>FSelectorRcpp<span class="sc">::</span><span class="fu">information_gain</span>(Morositat <span class="sc">~</span> ., data) <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(importance))</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["attributes"],"name":[1],"type":["chr"],"align":["left"]},{"label":["importance"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Estalvis","2":"0.26423766"},{"1":"Habitatge","2":"0.09443674"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
 </section>
 <section id="exercicis" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Exercicis</h1>
@@ -383,10 +410,10 @@ window.Quarto = {
 <h2 data-number="3.1" class="anchored" data-anchor-id="predir-la-classe-dun-objecte"><span class="header-section-number">3.1</span> Predir la classe d’un objecte</h2>
 <p>Crea el següent <em>dataset</em> en R. Recorda que pots copiar i enganxar les dades fent servir l’opció <code>Copy Code</code> a la part superior dreta del requadre.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Classe  =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"A"</span>),</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Color  =</span> <span class="fu">c</span>(<span class="st">"Vermell"</span>, <span class="st">"Vermell"</span>, <span class="st">"Blau"</span>, <span class="st">"Blau"</span>, <span class="st">"Vermell"</span>, <span class="st">"Vermell"</span>, <span class="st">"Blau"</span>, <span class="st">"Vermell"</span>, <span class="st">"Vermell"</span>, <span class="st">"Blau"</span>),</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Mida =</span> <span class="fu">c</span>(<span class="st">"Gran"</span>, <span class="st">"Petit"</span>, <span class="st">"Gran"</span>, <span class="st">"Petit"</span>, <span class="st">"Gran"</span>, <span class="st">"Gran"</span>, <span class="st">"Petit"</span>, <span class="st">"Gran"</span>, <span class="st">"Petit"</span>, <span class="st">"Gran"</span>))</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Classe  =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"A"</span>),</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Color  =</span> <span class="fu">c</span>(<span class="st">"Vermell"</span>, <span class="st">"Vermell"</span>, <span class="st">"Blau"</span>, <span class="st">"Blau"</span>, <span class="st">"Vermell"</span>, <span class="st">"Vermell"</span>, <span class="st">"Blau"</span>, <span class="st">"Vermell"</span>, <span class="st">"Vermell"</span>, <span class="st">"Blau"</span>),</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Mida =</span> <span class="fu">c</span>(<span class="st">"Gran"</span>, <span class="st">"Petit"</span>, <span class="st">"Gran"</span>, <span class="st">"Petit"</span>, <span class="st">"Gran"</span>, <span class="st">"Gran"</span>, <span class="st">"Petit"</span>, <span class="st">"Gran"</span>, <span class="st">"Petit"</span>, <span class="st">"Gran"</span>))</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Utilitza el paquet <code>FSelectorRcpp</code> per determinar quina variable és més informativa per predir la classe d’un objecte. Com interpretes el resultat? Justifica la teva resposta.</p>
 </section>
@@ -402,7 +429,7 @@ window.Quarto = {
 </section>
 <section id="és-verinós-aquest-bolet" class="level2" data-number="3.4">
 <h2 data-number="3.4" class="anchored" data-anchor-id="és-verinós-aquest-bolet"><span class="header-section-number">3.4</span> És verinós aquest bolet?</h2>
-<p>En la siguiente <a href="https://www.kaggle.com/datasets/uciml/mushroom-classification" target="_blank">pàgina web</a> està disponible un <em>dataset</em> amb informació sobre 8124 bolets. Cada bolet està representat en una fila amb dades en 23 columnes. La primera columna indica si el bolet és comestible (e, <em>edible</em>) o verinós (p, <em>poisonous</em>). Les 22 variables restants indiquen característiques com la forma, la textura, el color, l’olor, etc. Per exemple, la segona columna indica la forma del barret (<em>cap shape</em>) i pot adoptar sis valors (<em>bell=b</em>, <em>conical=c</em>, <em>convex=x</em>, <em>flat=f</em>, <em>knobbed=k</em>, <em>sunken=s</em>).</p>
+<p>En aquesta <a href="https://www.kaggle.com/datasets/uciml/mushroom-classification" target="_blank">pàgina web</a> està disponible un <em>dataset</em> amb informació sobre 8124 bolets. Cada bolet està representat en una fila amb dades en 23 columnes. La primera columna indica si el bolet és comestible (e, <em>edible</em>) o verinós (p, <em>poisonous</em>). Les 22 variables restants indiquen característiques com la forma, la textura, el color, l’olor, etc. Per exemple, la segona columna indica la forma del barret (<em>cap shape</em>) i pot adoptar sis valors (<em>bell=b</em>, <em>conical=c</em>, <em>convex=x</em>, <em>flat=f</em>, <em>knobbed=k</em>, <em>sunken=s</em>).</p>
 <p>Igual que a les preguntes anteriors, l’objectiu és determinar quines són les tres característiques que aporten més informació sobre el caràcter comestible o verinós d’un bolet.</p>
 <p>Per descarregar el <em>dataset</em> cal crear un compte (n’hi ha prou amb un de Google, per exemple), però per si algú no es vol autenticar, us he posat el fitxer al Campus Virtual.</p>
 

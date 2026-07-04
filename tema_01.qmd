@@ -1,5 +1,5 @@
 ---
-title: "1. Introducció a R"
+title: "Introducció a R"
 author: ""
 date: today
 date-format: "DD/MM/YYYY"
@@ -18,34 +18,41 @@ format:
 
 R és un entorn i llenguatge de programació enfocat a l'anàlisi estadística molt popular per l'anàlisi de dades massives. A partir de la seva versió fonamental (el que es coneix com a «R base»), qualsevol usuari pot publicar paquets que estenen aquesta configuració bàsica.
 
-Començarem familiaritzant-nos amb l'entorn de treball R i l'*integrated development environment* (IDE) RStudio. Podem descarregar tots dos programes des de la següent adreça. És important fer la instal·lació en aquest ordre, primer R i després RStudio.
+Començarem familiaritzant-nos amb l'entorn de treball R i l'*integrated development environment* (IDE) RStudio. Podem descarregar tots dos programes des de les següents adreces. És important fer la instal·lació en aquest ordre, primer R i després RStudio.
+
+R: <https://cran.r-project.org/bin/windows/base/>
 
 RStudio Desktop: <https://posit.co/download/rstudio-desktop/>
 
 RStudio està dividit en quatre panells:
 
-```{r echo=FALSE, out.width='100%', fig.align='center', fig.cap = "Interficie de RStudio"}
+```{r echo=FALSE, out.width='100%', fig.align='center', fig.cap = "Interfície de RStudio"}
 knitr::include_graphics("figures/RStudio.png")
 ```
 
 Consola (1): aquí és on R espera que li donem instruccions. Per a executar-les i obtenir el resultat premem «Intro». La primera vegada que obrim RStudio aquesta secció ocuparà tota la part esquerra de la pantalla.
 
-*Scripts* (2): treballar en la consola és molt limitat ja que les instruccions s'han d'introduir una a una. És més habitual treballar amb *scripts* o fitxers d'instruccions que podem guardar i compartir. Per a veure aquesta secció en la pantalla cal obrir un *script* nou («File \> New File \> R Script»). Una altra opció una mica més avançáda és crear fitxers RMarkdown amb codi i narrativa.
+*Scripts* (2): treballar en la consola és molt limitat ja que les instruccions s'han d'introduir una a una. És més habitual treballar amb *scripts* o fitxers d'instruccions que podem guardar i compartir. Per a veure aquesta secció en la pantalla cal obrir un *script* nou («File \> New File \> R Script»). Una altra opció una mica més avançada és crear fitxers RMarkdown amb codi i narrativa. Ho veurem al Tema 11.
 
 Entorn, etc. (3) que inclou diverses pestanyes: *Environment* (on s'aniran registrant els objectes creats en la sessió de treball); *History* (es registren les instruccions executades); *Connections* i *Tutorial*.
 
 Fitxers, etc. (4) que inclou les pestanyes: *Files*, *Plots*, *Packages*, *Help*, *Viewer* i *Presentation*. De moment, destacarem la pestanya *Packages*, que proporciona un llistat dels paquets disponibles en R i els que han estat carregats en la sessió. A través de les opcions d'aquesta pestanya podem instal·lar nous paquets o actualitzar els existents.
 
-El més habitual serà treballar amb *scripts* en el panell 2 de la figura. Allí escriurem les funcions que volem executar. Així mateix, podem afegir comentaris que, per a diferenciar-los de les funcions, aniran precedits del signe `#` (per a convertir un text en comentari també és possible seleccionar-lo i prémer «Ctrl + Shift + C»). Encara que es poden executar diverses funcions d'una sola vegada, normalment executarem els *script* línia a línia. D'aquesta manera, si es produeix un error, sabrem immediatament en quina línia es troba. Per a executar una línia de codi, situem en ella el cursor i premem «Run» o «Ctrl + Intro».
+El més habitual serà treballar amb *scripts* en el panell 2 de la figura. Allí escriurem les funcions que volem executar. Així mateix, podem afegir comentaris que, per a diferenciar-los de les funcions, aniran precedits del signe `#` (per a convertir un text en comentari també és possible seleccionar-lo i prémer «Ctrl + Shift + C»). Encara que es poden executar diverses funcions d'una sola vegada, normalment executarem els *scripts* línia a línia. D'aquesta manera, si es produeix un error, sabrem immediatament en quina línia es troba. Per a executar una línia de codi, situem en ella el cursor i premem «Run» o «Ctrl + Intro».
 
-Sovint utilitzarem «paquets» (*libraries*) que estenen la configuració bàsica de R. Per a utilitzar un paquet primer haurem d'instal·lar-lo (això ho farem una única vegada) i cridar-lo (això caldrà fer-ho cada vegada que obrim una sessió en R). És recomanable fer la crida al paquet a l'inici del *script*. Per exemple, aquests són els dos comandos per instal·lar i executar el paquet `tidyverse`:
+Sovint utilitzarem «paquets» (*libraries*) que estenen la configuració bàsica de R. Per a utilitzar un paquet primer haurem d'instal·lar-lo (això ho farem una única vegada) i cridar-lo (això caldrà fer-ho cada vegada que obrim una sessió en R). És recomanable fer la crida al paquet a l'inici del *script*. Per exemple, aquestes són les dues ordres per instal·lar i executar el paquet `tidyverse`:
 
-```         
+```{r, eval=FALSE}
 install.packages("tidyverse")
+```
+
+```{r, warning=FALSE, message=FALSE}
 library(tidyverse)
 ```
 
 A mesura que treballem amb R anirem acumulant fitxers (dades, *scripts*, resultats de les anàlisis, figures, etc.). Per a mantenir organitzada la informació, és recomanable treballar amb «projectes» (*projects*). Cada projecte té el seu propi directori, de manera que, en indicar un fitxer que volem utilitzar, no és necessari detallar la ruta per a accedir, sinó que R el buscarà en el directori del projecte. En el cas de projectes d'envergadura, és convenient crear subdirectoris de dades, *scripts* i *outputs*.
+
+Per crear un projecte, cal fer servir l'opció: «File \> New Project».
 
 # Elements bàsics de R
 
@@ -97,7 +104,7 @@ mitjana_vector <- mean(vector)
 mitjana_vector
 ```
 
-Als exemples anteriors, hem vist objectes que contenien dos tipus de valors: numèrics (*numeric*) i caràcters (*character*). R considera dos tipus més d'informació: nombres sencers, sense decimals (*integers*) y lògics (*logical*) que adopten dos possibles valors: TRUE o FALSE.
+Als exemples anteriors, hem vist objectes que contenen dos tipus de valors: numèrics (*numeric*) i caràcters (*character*). R considera dos tipus més d'informació: nombres sencers, sense decimals (*integers*) i lògics (*logical*) que adopten dos possibles valors: TRUE o FALSE.
 
 Pel que fa a les estructures de dades, ja hem vist els vectors (*vectors*). A més, R inclou dades en matrius (*matrices* o *arrays*), llistes (*lists*) i *dataframes*. Aquest últim tipus d'estructura serà el que farem servir més sovint.
 
@@ -111,21 +118,42 @@ head(iris)
 
 ```
 
+# Ajuda dins R
+
+Quan treballem amb R, és habitual necessitar consultar com funciona una funció concreta: quins arguments accepta, què retorna o com s'utilitza. Per a això, R inclou un sistema d'ajuda integrat molt útil. La manera més ràpida de consultar la documentació d'una funció és escriure el símbol d'interrogació seguit del nom de la funció, per exemple `?mean`, o bé fer servir la funció `help()`, amb el mateix resultat: `help(mean)`. En qualsevol dels dos casos, la documentació es mostrarà a la pestanya *Help* del panell 4 de RStudio, on trobarem una descripció de la funció, els seus arguments, el valor que retorna i, sovint, exemples pràctics d'ús que podem executar directament.
+
+Si no recordem el nom exacte d'una funció però sabem aproximadament què volem fer, podem fer una cerca més àmplia amb `??` seguit d'una paraula clau (per exemple, `??regression`), que buscarà coincidències en tots els paquets instal·lats. També és molt recomanable revisar els exemples que acompanyen cada funció d'ajuda, ja que solen incloure codi que es pot copiar i adaptar a les nostres pròpies dades. Consultar l'ajuda de manera sistemàtica és un hàbit que val la pena adquirir des del principi, ja que estalvia molt de temps i evita haver de recórrer a cerques externes per a dubtes que R ja resol internament.
+
 # Importació de datasets
 
-Malgrat que és possible introduir dades directament en R (per exemple, creant vectors), el més habitual és importar-los des d'Excel o una altra font. Hi ha múltiples funcions per a fer-ho. Una forma senzilla és desar el fitxer Excel com un text separat per tabulacions i importar-lo des de RStudio amb la funció `read.table`.
+Malgrat que és possible introduir dades directament en R (per exemple, creant vectors), el més habitual és importar-los des d'un fitxer «csv» o «txt». Quan importem dades a R, hem d'assegurar-nos que el format del fitxer coincideix amb el que la funció d'importació espera. Existeix la funció `read_csv()` però té l'inconvenient que assumeix un format «internacional»: la coma («,») com a separador de columnes i el punt («.») com a separador decimal. El problema és que Excel configurat en català o castellà exporta els fitxers «csv» d'una altra manera: com que la coma ja s'utilitza com a separador decimal (per exemple, «3,14»), Excel fa servir el punt i coma («;») per separar les columnes en lloc de la coma. Si intentéssim llegir aquest tipus de fitxer amb `read_csv(),` R no reconeixeria correctament ni les columnes ni els números.
 
-En el següent exemple, s'ha importat des de R un fitxer anomenat «mostra.txt» amb tres paràmetres que indiquen que les dades tenen encapçalaments, les columnes estan separades per tabulacions i el símbol que utilitzem per a separar els decimals és la coma (R les convertirà en punts). Una vegada importats, les dades es guarden en un objecte anomenat «dades»:
+La funció `read_csv2()` del paquet `readr` (dins del `tidyverse`) està pensada per a aquest escenari: llegeix fitxers on el separador de columnes és «;» i el separador decimal és «,».
 
-```{r}
-dades <- read.table(file = "data/mostra.txt",
-                   header = TRUE,
-                   sep = "\t",
-                   dec = ",")
+En resum, la funció que cal fer servir no depèn només de l'extensió del fitxer (per exemple, «.csv»), sinó de com s'ha generat realment. Per això és una bona pràctica fer sempre una ullada ràpida al fitxer (obrint-lo com a text pla) abans de decidir quina funció d'importació utilitzar.
 
+En el següent exemple, s'ha importat des de R un fitxer anomenat «empleats.csv» amb les dades de 56 empleats d'una empresa. Una vegada importades, les dades es guarden en un objecte anomenat «dades»:
+
+```{r, warning=FALSE, message=FALSE}
+dades <- read_csv2("data/empleats.csv")
 ```
 
-També podem importar arxius «.csv» amb la funció `read.csv` o importar fitxers des d'Excel amb l'opció «Import Dataset» de la pestanya «Environment». No obstant, verifiqueu sempre que les dades s'han important correctament, especialment si el fitxer Excel està formatat (inclou negretes, colors, etc.).
+Quan les dades es troben originalment en un fitxer Excel («.xls» o «.xlsx»), no sempre cal exportar-les prèviament a format «csv» per importar-les a R. El paquet `readxl`, que també forma part de l'entorn `tidyverse`, permet llegir directament fitxers Excel mitjançant la funció `read_excel()`. Aquesta opció té l'avantatge d'evitar els problemes de separadors de columnes i decimals que sovint apareixen amb els fitxers «csv» (com s'ha comentat anteriorment amb `read_csv()` i `read_csv2()`), ja que `read_excel()` llegeix les dades directament de les cel·les del full de càlcul, sense passar per cap conversió intermèdia.
+
+També podem importar fitxers amb l'opció «Import Dataset» de la pestanya «Environment». No obstant, verifiqueu sempre que les dades s'han important correctament, especialment si el fitxer Excel està formatat (inclou negretes, colors, etc.).
+
+En R, els valors perduts o desconeguts es representen amb el símbol especial `NA` (Not Available). Aquest símbol pot aparèixer en qualsevol tipus de dada (numèrica, de caràcter o lògica) i indica que, per a aquella observació concreta, no disposem d'informació. És habitual trobar-nos amb valors `NA` quan importem dades reals, ja sigui perquè hi ha caselles buides en el fitxer original o perquè determinades respostes no es van registrar.
+
+Funcions com `summary()` ja ens mostren quants `NA` conté cada variable, i és important tenir-ho en compte perquè molts càlculs bàsics, com `mean()`, retornaran `NA` si el vector conté algun valor perdut, tret que indiquem explícitament l'argument `na.rm = TRUE`.
+
+# Codificació de caràcters (*encoding*)
+Quan importem fitxers «csv» amb accents, dièresis o la lletra «ç» (habituals en català o castellà), de vegades els caràcters especials es mostren malament un cop importats a R (per exemple, en lloc de «informació» apareix «informaci\xf3» o símbols estranys). Això sol passar perquè el fitxer s'ha guardat amb una codificació diferent de la que R espera per defecte. Per evitar-ho, podem indicar explícitament la codificació del fitxer d'origen amb l'argument `locale`, especificant `encoding = "UTF-8"` o, si el fitxer prové d'Excel en Windows, `encoding = "Latin1"` (o "ISO-8859-1"), que és una codificació habitual en aquest sistema. Per exemple:
+
+```{r}
+dades <- read_csv2("data/empleats.csv", locale = locale(encoding = "UTF-8"))
+```
+
+Si no sabem quina codificació té el fitxer, val la pena provar primer amb «UTF-8» i, si els accents segueixen sortint malament, provar amb «Latin1». En cas de dubte, també es pot obrir el fitxer com a text pla (per exemple, amb el Bloc de notes o un editor de text) i comprovar quina codificació indica el programa.
 
 # Funcions bàsiques d'anàlisi
 
@@ -133,7 +161,12 @@ Ara podem treballar amb l'objecte «dades». Podem consultar l'estructura del *d
 
 ```{r}
 str(dades)
+```
 
+Una altra opció:
+
+```{r}
+glimpse(dades)
 ```
 
 Per obtenir un resum estadístic de les dades:
@@ -143,25 +176,25 @@ summary(dades)
 
 ```
 
-Podem obtenir un estadístic d'una variable concreta (els noms de les variables s'indiquen amb el símbol «\$»), com ara la mitjana del pes:
+Podem obtenir un estadístic d'una variable concreta (els noms de les variables s'indiquen amb el símbol «\$»), com ara la mitjana de l'edat:
 
 ```{r}
-mean(dades$Pes)
+mean(dades$edat)
 
 ```
 
 Com ja hem vist, aquesta mitjana pot guardar-se en un altre objecte per a continuar treballant amb ella:
 
 ```{r}
-mitjana_pes <- mean(dades$Pes)
+mitjana_edat <- mean(dades$edat)
 
 ```
 
 Per fer un recompte de valors d'una variable:
 
 ```{r}
-recompte_colors <- table(dades$Color)
-recompte_colors
+recompte_ciutats <- table(dades$ciutat)
+recompte_ciutats
 
 ```
 
@@ -169,55 +202,70 @@ recompte_colors
 
 Molt sovint haurem de transformar, netejar i estructurar les dades per facilitar la seva anàlisi. Un dels paquets més utilitzats per a aquestes tasques és `dplyr`, que forma part de l’ecosistema `tidyverse`. Aquest paquet proporciona diverses funcions per manipular dades en format dataframe o tibble (una estructura de dades similar al dataframe).
 
-```{r, message=FALSE, warning=FALSE}
-library(tidyverse)
-
-```
-
 Per treballar amb `dplyr` és habitual fer servir *pipes*. Un *pipe* `%>%` és un operador que permet encadenar funcions. El *pipe* passa el resultat d'una expressió com a argument de la següent funció, evitant l'ús de parèntesis. A continuació, veurem l'ús de diverses funcions de `dplyr` fent servir *pipes*.
 
 - `count()`: fa recomptes de casos
 
 ```{r}
-dades %>% count(Genere)
+dades %>% count(departament)
 ```
 
 - `filter()`: filtra files segons una condició
 
+
 ```{r}
-dades %>% filter(Edat > 80)
+dades %>% filter(departament == "Vendes")
 ```
+
+
+```{r}
+dades %>% filter(edat > 55)
+```
+
 
 - `select()`: selecciona columnes específiques
 
 ```{r}
-noms <- dades %>% select(Nom)
+noms <- dades %>% select(nom)
 head(noms)
 ```
 
 - `mutate()`: crea o modifica columnes
 
 ```{r}
-dades.2 <- dades %>% mutate(edat_doble = Edat * 2)
+dades <- mutate(dades, salari_mensual = salari_brut_anual / 12)
+```
+
+
+```{r}
+dades.2 <- dades %>% mutate(edat_doble = edat * 2)
 head(dades.2)
 ```
 
 - `arrange()`: crea o modifica columnes
 
 ```{r}
-dades %>% arrange(Pes)
+dades %>% arrange(vendes_mensuals)
 ```
 
-Les variables qualitatives les ordena alfabèticament i les quantitatives en ordre ascendent. Si volem una ordenació descendent podem fer-ho amb `arrange(desc(Pes))`.
+oLes variables qualitatives les ordena alfabèticament i les quantitatives en ordre ascendent. Si volem una ordenació descendent podem fer-ho amb `arrange(desc())`.
+
+```{r}
+dades %>% arrange(desc(satisfaccio_laboral))
+```
 
 - `group_by()`: agrupa les dades segons els valors d'una o més variables
+
+```{r}
+dades %>% group_by(ciutat) %>% summarise(salari_mitjà = mean(salari_brut_anual))
+```
 
 - `summarise()`: calcula estadístiques resum sobre un conjunt de dades
 
 Aquestes dues últimes funcions són útils utilitzades conjuntament. Per exemple, agrupem els casos per gènere i calculem l'edat mitjana dins de cada grup.
 
 ```{r}
-dades %>% group_by(Genere) %>% summarise(mean(Edat))
+dades %>% group_by(departament) %>% summarise(mean(edat))
 
 ```
 

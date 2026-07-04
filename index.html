@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Ángel Borrego">
+<meta name="dcterms.date" content="2026-04-07">
 
-<title>About – Dades Massives</title>
+<title>Introducció a la Ciència de Dades amb R – Dades massives</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -22,41 +24,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -117,7 +84,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Dades Massives</span>
+    <span class="navbar-title">Dades massives</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Cerca"></div>
@@ -127,7 +94,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link active" href="./index.html" aria-current="page"> 
 <span class="menu-text">Inici</span></a>
   </li>  
   <li class="nav-item">
@@ -185,22 +152,53 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En aquesta pàgina</h2>
+   
+  <ul>
+  <li><a href="#benvinguts-a-lassignatura" id="toc-benvinguts-a-lassignatura" class="nav-link active" data-scroll-target="#benvinguts-a-lassignatura">Benvinguts a l’assignatura</a></li>
+  <li><a href="#què-aprendràs" id="toc-què-aprendràs" class="nav-link" data-scroll-target="#què-aprendràs">Què aprendràs</a></li>
+  <li><a href="#estructura-del-curs" id="toc-estructura-del-curs" class="nav-link" data-scroll-target="#estructura-del-curs">Estructura del curs</a></li>
+  <li><a href="#eines-i-tecnologia" id="toc-eines-i-tecnologia" class="nav-link" data-scroll-target="#eines-i-tecnologia">Eines i tecnologia</a></li>
+  <li><a href="#materials-i-dinàmica-de-classe" id="toc-materials-i-dinàmica-de-classe" class="nav-link" data-scroll-target="#materials-i-dinàmica-de-classe">Materials i dinàmica de classe</a></li>
+  <li><a href="#una-nota-final" id="toc-una-nota-final" class="nav-link" data-scroll-target="#una-nota-final">Una nota final</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">About</h1>
+<h1 class="title">Introducció a la Ciència de Dades amb R</h1>
+<p class="subtitle lead">Grau en Gestió d’Informació i Documentació Digital · Universitat de Barcelona</p>
 </div>
 
 
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Autor/a</div>
+  <div class="quarto-title-meta-heading">Afiliació</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Ángel Borrego <a href="mailto:borrego@ub.edu" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Universitat de Barcelona
+          </p>
+      </div>
+  </div>
 
 <div class="quarto-title-meta">
 
-    
+      
+    <div>
+    <div class="quarto-title-meta-heading">Publicat</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">04/07/2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -210,15 +208,91 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>About this site</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
-</div>
-</div>
+<section id="benvinguts-a-lassignatura" class="level2">
+<h2 class="anchored" data-anchor-id="benvinguts-a-lassignatura">Benvinguts a l’assignatura</h2>
+<p>La ciència de dades és avui una de les disciplines més transversals i demandades del món professional. Combina estadística, programació i pensament crític per extreure coneixement útil de dades en brut, i s’aplica en àmbits tan diversos com la salut, les ciències socials, el màrqueting, la investigació científica o la gestió pública.</p>
+<p>Aquesta assignatura és una introducció pràctica a la ciència de dades utilitzant <strong>R</strong>, un dels llenguatges de referència en l’àmbit estadístic i científic. No es requereix experiència prèvia en programació: aprendrem des dels fonaments, amb un enfocament orientat a la resolució de problemes reals.</p>
+</section>
+<section id="què-aprendràs" class="level2">
+<h2 class="anchored" data-anchor-id="què-aprendràs">Què aprendràs</h2>
+<p>Al llarg de les <strong>17 sessions</strong> del curs, recorrerem tot el cicle de vida d’un projecte de dades:</p>
+<ul>
+<li><strong>Preparar i netejar</strong> dades del món real, sovint imperfectes i desordenades.</li>
+<li><strong>Explorar i visualitzar</strong> per descobrir patrons, tendències i anomalies.</li>
+<li><strong>Modelar</strong> amb tècniques d’aprenentatge supervisat i no supervisat.</li>
+<li><strong>Treballar amb dades especials</strong>: text, mapes, APIs i dades obertes.</li>
+<li><strong>Comunicar</strong> resultats de manera clara, reproduïble i professional.</li>
+<li><strong>Reflexionar</strong> sobre l’ètica i els biaixos en el tractament de dades.</li>
+</ul>
+</section>
+<section id="estructura-del-curs" class="level2">
+<h2 class="anchored" data-anchor-id="estructura-del-curs">Estructura del curs</h2>
+<p>El curs s’organitza en <strong>6 blocs temàtics</strong>:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Bloc</th>
+<th>Contingut</th>
+<th>Sessions</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Fonaments i preparació de dades</td>
+<td>S1–S4</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Visualització de dades</td>
+<td>S5–S7</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Aprenentatge supervisat</td>
+<td>S8–S11</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Aprenentatge no supervisat</td>
+<td>S12–S13</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Tipologies de dades especials</td>
+<td>S14–S15</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>Comunicació, ètica i perspectiva professional</td>
+<td>S16–S17</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="eines-i-tecnologia" class="level2">
+<h2 class="anchored" data-anchor-id="eines-i-tecnologia">Eines i tecnologia</h2>
+<p>Treballarem principalment amb:</p>
+<ul>
+<li><a href="https://www.r-project.org/"><strong>R</strong></a> com a llenguatge de programació.</li>
+<li><a href="https://posit.co/products/open-source/rstudio/"><strong>RStudio</strong></a> com a entorn de desenvolupament.</li>
+<li>L’ecosistema <a href="https://www.tidyverse.org/"><strong>tidyverse</strong></a> (<code>dplyr</code>, <code>ggplot2</code>, <code>tidyr</code>…) per a manipulació i visualització de dades.</li>
+<li><a href="https://quarto.org/"><strong>Quarto</strong></a> per a la comunicació de resultats en format reproduïble.</li>
+</ul>
+<p>Al final del curs farem un primer contacte amb <strong>Python</strong> per obrir la perspectiva cap a un ecosistema complementari molt present al món professional.</p>
+</section>
+<section id="materials-i-dinàmica-de-classe" class="level2">
+<h2 class="anchored" data-anchor-id="materials-i-dinàmica-de-classe">Materials i dinàmica de classe</h2>
+<p>Els materials de l’assignatura es publiquen setmanalment en aquest lloc web. Cada sessió inclou els continguts teòrics, exemples de codi comentats i exercicis pràctics.</p>
+<p>La dinàmica de les classes combina explicació i pràctica. Podeu portar l’ordinador a les sessions per executar el codi en temps real.</p>
+</section>
+<section id="una-nota-final" class="level2">
+<h2 class="anchored" data-anchor-id="una-nota-final">Una nota final</h2>
+<p>Aprendre ciència de dades és un procés acumulatiu: cada bloc construeix sobre l’anterior. La clau no és memoritzar funcions, sinó entendre la lògica de cada pas i saber on buscar quan cal. R té una comunitat enorme i documentació excel·lent — aprendrem també a fer-la servir.</p>
+<p>Benvinguts al curs.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

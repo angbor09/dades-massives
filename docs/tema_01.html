@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="">
-<meta name="dcterms.date" content="2026-10-06">
+<meta name="dcterms.date" content="2026-04-07">
 
-<title>1. Introducció a R – Dades Massives</title>
+<title>Introducció a R – Dades massives</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -123,7 +123,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Dades Massives</span>
+    <span class="navbar-title">Dades massives</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Cerca"></div>
@@ -198,10 +198,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#què-és-r-i-rstudio" id="toc-què-és-r-i-rstudio" class="nav-link active" data-scroll-target="#què-és-r-i-rstudio"><span class="header-section-number">1</span> Què és R i RStudio?</a></li>
   <li><a href="#elements-bàsics-de-r" id="toc-elements-bàsics-de-r" class="nav-link" data-scroll-target="#elements-bàsics-de-r"><span class="header-section-number">2</span> Elements bàsics de R</a></li>
-  <li><a href="#importació-de-datasets" id="toc-importació-de-datasets" class="nav-link" data-scroll-target="#importació-de-datasets"><span class="header-section-number">3</span> Importació de datasets</a></li>
-  <li><a href="#funcions-bàsiques-danàlisi" id="toc-funcions-bàsiques-danàlisi" class="nav-link" data-scroll-target="#funcions-bàsiques-danàlisi"><span class="header-section-number">4</span> Funcions bàsiques d’anàlisi</a></li>
-  <li><a href="#processament-de-dades" id="toc-processament-de-dades" class="nav-link" data-scroll-target="#processament-de-dades"><span class="header-section-number">5</span> Processament de dades</a></li>
-  <li><a href="#exercici-per-familiaritzar-se-amb-r-i-rstudio" id="toc-exercici-per-familiaritzar-se-amb-r-i-rstudio" class="nav-link" data-scroll-target="#exercici-per-familiaritzar-se-amb-r-i-rstudio"><span class="header-section-number">6</span> Exercici per familiaritzar-se amb R i RStudio</a></li>
+  <li><a href="#ajuda-dins-r" id="toc-ajuda-dins-r" class="nav-link" data-scroll-target="#ajuda-dins-r"><span class="header-section-number">3</span> Ajuda dins R</a></li>
+  <li><a href="#importació-de-datasets" id="toc-importació-de-datasets" class="nav-link" data-scroll-target="#importació-de-datasets"><span class="header-section-number">4</span> Importació de datasets</a></li>
+  <li><a href="#codificació-de-caràcters-encoding" id="toc-codificació-de-caràcters-encoding" class="nav-link" data-scroll-target="#codificació-de-caràcters-encoding"><span class="header-section-number">5</span> Codificació de caràcters (<em>encoding</em>)</a></li>
+  <li><a href="#funcions-bàsiques-danàlisi" id="toc-funcions-bàsiques-danàlisi" class="nav-link" data-scroll-target="#funcions-bàsiques-danàlisi"><span class="header-section-number">6</span> Funcions bàsiques d’anàlisi</a></li>
+  <li><a href="#processament-de-dades" id="toc-processament-de-dades" class="nav-link" data-scroll-target="#processament-de-dades"><span class="header-section-number">7</span> Processament de dades</a></li>
+  <li><a href="#exercici-per-familiaritzar-se-amb-r-i-rstudio" id="toc-exercici-per-familiaritzar-se-amb-r-i-rstudio" class="nav-link" data-scroll-target="#exercici-per-familiaritzar-se-amb-r-i-rstudio"><span class="header-section-number">8</span> Exercici per familiaritzar-se amb R i RStudio</a></li>
   </ul>
 </nav>
     </div>
@@ -210,7 +212,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">1. Introducció a R</h1>
+<h1 class="title">Introducció a R</h1>
 </div>
 
 
@@ -221,7 +223,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Publicat</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">10/06/2026</p>
+      <p class="date">04/07/2026</p>
     </div>
   </div>
   
@@ -236,7 +238,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="què-és-r-i-rstudio" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Què és R i RStudio?</h1>
 <p>R és un entorn i llenguatge de programació enfocat a l’anàlisi estadística molt popular per l’anàlisi de dades massives. A partir de la seva versió fonamental (el que es coneix com a «R base»), qualsevol usuari pot publicar paquets que estenen aquesta configuració bàsica.</p>
-<p>Començarem familiaritzant-nos amb l’entorn de treball R i l’<em>integrated development environment</em> (IDE) RStudio. Podem descarregar tots dos programes des de la següent adreça. És important fer la instal·lació en aquest ordre, primer R i després RStudio.</p>
+<p>Començarem familiaritzant-nos amb l’entorn de treball R i l’<em>integrated development environment</em> (IDE) RStudio. Podem descarregar tots dos programes des de les següents adreces. És important fer la instal·lació en aquest ordre, primer R i després RStudio.</p>
+<p>R: <a href="https://cran.r-project.org/bin/windows/base/" class="uri">https://cran.r-project.org/bin/windows/base/</a></p>
 <p>RStudio Desktop: <a href="https://posit.co/download/rstudio-desktop/" class="uri">https://posit.co/download/rstudio-desktop/</a></p>
 <p>RStudio està dividit en quatre panells:</p>
 <div class="cell" data-layout-align="center">
@@ -244,26 +247,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="figures/RStudio.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption>Interficie de RStudio</figcaption>
+<figcaption>Interfície de RStudio</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <p>Consola (1): aquí és on R espera que li donem instruccions. Per a executar-les i obtenir el resultat premem «Intro». La primera vegada que obrim RStudio aquesta secció ocuparà tota la part esquerra de la pantalla.</p>
-<p><em>Scripts</em> (2): treballar en la consola és molt limitat ja que les instruccions s’han d’introduir una a una. És més habitual treballar amb <em>scripts</em> o fitxers d’instruccions que podem guardar i compartir. Per a veure aquesta secció en la pantalla cal obrir un <em>script</em> nou («File &gt; New File &gt; R Script»). Una altra opció una mica més avançáda és crear fitxers RMarkdown amb codi i narrativa.</p>
+<p><em>Scripts</em> (2): treballar en la consola és molt limitat ja que les instruccions s’han d’introduir una a una. És més habitual treballar amb <em>scripts</em> o fitxers d’instruccions que podem guardar i compartir. Per a veure aquesta secció en la pantalla cal obrir un <em>script</em> nou («File &gt; New File &gt; R Script»). Una altra opció una mica més avançada és crear fitxers RMarkdown amb codi i narrativa. Ho veurem al Tema 11.</p>
 <p>Entorn, etc. (3) que inclou diverses pestanyes: <em>Environment</em> (on s’aniran registrant els objectes creats en la sessió de treball); <em>History</em> (es registren les instruccions executades); <em>Connections</em> i <em>Tutorial</em>.</p>
 <p>Fitxers, etc. (4) que inclou les pestanyes: <em>Files</em>, <em>Plots</em>, <em>Packages</em>, <em>Help</em>, <em>Viewer</em> i <em>Presentation</em>. De moment, destacarem la pestanya <em>Packages</em>, que proporciona un llistat dels paquets disponibles en R i els que han estat carregats en la sessió. A través de les opcions d’aquesta pestanya podem instal·lar nous paquets o actualitzar els existents.</p>
-<p>El més habitual serà treballar amb <em>scripts</em> en el panell 2 de la figura. Allí escriurem les funcions que volem executar. Així mateix, podem afegir comentaris que, per a diferenciar-los de les funcions, aniran precedits del signe <code>#</code> (per a convertir un text en comentari també és possible seleccionar-lo i prémer «Ctrl + Shift + C»). Encara que es poden executar diverses funcions d’una sola vegada, normalment executarem els <em>script</em> línia a línia. D’aquesta manera, si es produeix un error, sabrem immediatament en quina línia es troba. Per a executar una línia de codi, situem en ella el cursor i premem «Run» o «Ctrl + Intro».</p>
-<p>Sovint utilitzarem «paquets» (<em>libraries</em>) que estenen la configuració bàsica de R. Per a utilitzar un paquet primer haurem d’instal·lar-lo (això ho farem una única vegada) i cridar-lo (això caldrà fer-ho cada vegada que obrim una sessió en R). És recomanable fer la crida al paquet a l’inici del <em>script</em>. Per exemple, aquests són els dos comandos per instal·lar i executar el paquet <code>tidyverse</code>:</p>
-<pre><code>install.packages("tidyverse")
-library(tidyverse)</code></pre>
+<p>El més habitual serà treballar amb <em>scripts</em> en el panell 2 de la figura. Allí escriurem les funcions que volem executar. Així mateix, podem afegir comentaris que, per a diferenciar-los de les funcions, aniran precedits del signe <code>#</code> (per a convertir un text en comentari també és possible seleccionar-lo i prémer «Ctrl + Shift + C»). Encara que es poden executar diverses funcions d’una sola vegada, normalment executarem els <em>scripts</em> línia a línia. D’aquesta manera, si es produeix un error, sabrem immediatament en quina línia es troba. Per a executar una línia de codi, situem en ella el cursor i premem «Run» o «Ctrl + Intro».</p>
+<p>Sovint utilitzarem «paquets» (<em>libraries</em>) que estenen la configuració bàsica de R. Per a utilitzar un paquet primer haurem d’instal·lar-lo (això ho farem una única vegada) i cridar-lo (això caldrà fer-ho cada vegada que obrim una sessió en R). És recomanable fer la crida al paquet a l’inici del <em>script</em>. Per exemple, aquestes són les dues ordres per instal·lar i executar el paquet <code>tidyverse</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <p>A mesura que treballem amb R anirem acumulant fitxers (dades, <em>scripts</em>, resultats de les anàlisis, figures, etc.). Per a mantenir organitzada la informació, és recomanable treballar amb «projectes» (<em>projects</em>). Cada projecte té el seu propi directori, de manera que, en indicar un fitxer que volem utilitzar, no és necessari detallar la ruta per a accedir, sinó que R el buscarà en el directori del projecte. En el cas de projectes d’envergadura, és convenient crear subdirectoris de dades, <em>scripts</em> i <em>outputs</em>.</p>
+<p>Per crear un projecte, cal fer servir l’opció: «File &gt; New Project».</p>
 </section>
 <section id="elements-bàsics-de-r" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Elements bàsics de R</h1>
 <p>En la seva versió més simple, és possible utilitzar R com una calculadora. Si introduïm en la consola 2+2, R ens retorna el resultat.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">+</span><span class="dv">2</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">+</span><span class="dv">2</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4</code></pre>
 </div>
@@ -271,44 +279,44 @@ library(tidyverse)</code></pre>
 <p>En executar el codi, el resultat es mostra en la consola. No obstant això, moltes vegades serà útil guardar-ho en un objecte per a poder reutilitzar-lo. En R qualsevol cosa pot ser un objecte: una xifra, una paraula, una taula de dades, una figura, etc. Per tant, un objecte pot ser una cosa molt simple o una cosa molt complexa.</p>
 <p>Per a crear un objecte, simplement li donem un nom i li assignem un valor usant l’operador <code>&lt;-</code></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>objecte_1 <span class="ot">&lt;-</span> <span class="dv">5</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>objecte_1 <span class="ot">&lt;-</span> <span class="dv">5</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Acabem de crear un objecte anomenat <code>objecte_1</code> i li hem assignat el valor 5. És important evitar els espais en blanc en els noms d’objectes. Generalment se substitueixen per «_» o per «.» Tampoc no podem iniciar el nom d’un objecte amb un dígit.</p>
 <p>Ara creem un segon objecte:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>objecte_2 <span class="ot">&lt;-</span> <span class="st">"bon dia"</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>objecte_2 <span class="ot">&lt;-</span> <span class="st">"bon dia"</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>En l’«Entorn» de RStudio podem veure els objectes creats, els seus valors i el tipus d’objecte que RStudio els ha assignat. Si assignem un nou valor a un objecte, R el substitueix sense avisar-nos pel que cal ser previngut per a evitar esborrar informació involuntàriament:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>objecte_2 <span class="ot">&lt;-</span> <span class="dv">3</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>objecte_2 <span class="ot">&lt;-</span> <span class="dv">3</span></span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Ara tenim dos objectes del mateix tipus i podem combinar-los:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>objecte_3 <span class="ot">&lt;-</span> objecte_1 <span class="sc">+</span> objecte_2</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>objecte_3</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>objecte_3 <span class="ot">&lt;-</span> objecte_1 <span class="sc">+</span> objecte_2</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>objecte_3</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 8</code></pre>
 </div>
 </div>
 <p>Un altre tipus d’objecte són els vectors. Crearem un vector concatenant vuit xifres:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">7</span>)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">7</span>)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Podem calcular la mitjana del vector fent servir la funció <code>mean</code> i guardar-la en un altre objecte:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>mitjana_vector <span class="ot">&lt;-</span> <span class="fu">mean</span>(vector)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>mitjana_vector</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>mitjana_vector <span class="ot">&lt;-</span> <span class="fu">mean</span>(vector)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>mitjana_vector</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3.625</code></pre>
 </div>
 </div>
-<p>Als exemples anteriors, hem vist objectes que contenien dos tipus de valors: numèrics (<em>numeric</em>) i caràcters (<em>character</em>). R considera dos tipus més d’informació: nombres sencers, sense decimals (<em>integers</em>) y lògics (<em>logical</em>) que adopten dos possibles valors: TRUE o FALSE.</p>
+<p>Als exemples anteriors, hem vist objectes que contenen dos tipus de valors: numèrics (<em>numeric</em>) i caràcters (<em>character</em>). R considera dos tipus més d’informació: nombres sencers, sense decimals (<em>integers</em>) i lògics (<em>logical</em>) que adopten dos possibles valors: TRUE o FALSE.</p>
 <p>Pel que fa a les estructures de dades, ja hem vist els vectors (<em>vectors</em>). A més, R inclou dades en matrius (<em>matrices</em> o <em>arrays</em>), llistes (<em>lists</em>) i <em>dataframes</em>. Aquest últim tipus d’estructura serà el que farem servir més sovint.</p>
 <p>Un <em>dataframe</em> és un objecte bidimensional amb files i columnes. És similar a una matriu, amb la diferència que mentre la matriu només conté dades d’un tipus, els <em>dataframes</em> poden combinar diferents tipus de dades. Normalment, en un <em>dataframe</em> cada fila correspon a una observació individual i cada columna a una variable. En definitiva, un <em>dataframe</em> és similar a un full de càlcul en Microsoft Excel o en LibreOffice Calc.</p>
 <p>A continuació es mostra un extracte del <em>dataframe</em> <code>iris</code> que està inclòs a la instal·lació base de R i que conté informació sobre diferents espècies de flors. Inclou dades numèriques (mesures de longitud i amplada de sèpals i pètals en centímetres) i categòriques (l’espècie):</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(iris)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(iris)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(iris)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(iris)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
@@ -318,99 +326,178 @@ library(tidyverse)</code></pre>
 </div>
 </div>
 </section>
-<section id="importació-de-datasets" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Importació de datasets</h1>
-<p>Malgrat que és possible introduir dades directament en R (per exemple, creant vectors), el més habitual és importar-los des d’Excel o una altra font. Hi ha múltiples funcions per a fer-ho. Una forma senzilla és desar el fitxer Excel com un text separat per tabulacions i importar-lo des de RStudio amb la funció <code>read.table</code>.</p>
-<p>En el següent exemple, s’ha importat des de R un fitxer anomenat «mostra.txt» amb tres paràmetres que indiquen que les dades tenen encapçalaments, les columnes estan separades per tabulacions i el símbol que utilitzem per a separar els decimals és la coma (R les convertirà en punts). Una vegada importats, les dades es guarden en un objecte anomenat «dades»:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>dades <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file =</span> <span class="st">"data/mostra.txt"</span>,</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">header =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>,</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">dec =</span> <span class="st">","</span>)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>També podem importar arxius «.csv» amb la funció <code>read.csv</code> o importar fitxers des d’Excel amb l’opció «Import Dataset» de la pestanya «Environment». No obstant, verifiqueu sempre que les dades s’han important correctament, especialment si el fitxer Excel està formatat (inclou negretes, colors, etc.).</p>
+<section id="ajuda-dins-r" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Ajuda dins R</h1>
+<p>Quan treballem amb R, és habitual necessitar consultar com funciona una funció concreta: quins arguments accepta, què retorna o com s’utilitza. Per a això, R inclou un sistema d’ajuda integrat molt útil. La manera més ràpida de consultar la documentació d’una funció és escriure el símbol d’interrogació seguit del nom de la funció, per exemple <code>?mean</code>, o bé fer servir la funció <code>help()</code>, amb el mateix resultat: <code>help(mean)</code>. En qualsevol dels dos casos, la documentació es mostrarà a la pestanya <em>Help</em> del panell 4 de RStudio, on trobarem una descripció de la funció, els seus arguments, el valor que retorna i, sovint, exemples pràctics d’ús que podem executar directament.</p>
+<p>Si no recordem el nom exacte d’una funció però sabem aproximadament què volem fer, podem fer una cerca més àmplia amb <code>??</code> seguit d’una paraula clau (per exemple, <code>??regression</code>), que buscarà coincidències en tots els paquets instal·lats. També és molt recomanable revisar els exemples que acompanyen cada funció d’ajuda, ja que solen incloure codi que es pot copiar i adaptar a les nostres pròpies dades. Consultar l’ajuda de manera sistemàtica és un hàbit que val la pena adquirir des del principi, ja que estalvia molt de temps i evita haver de recórrer a cerques externes per a dubtes que R ja resol internament.</p>
 </section>
-<section id="funcions-bàsiques-danàlisi" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Funcions bàsiques d’anàlisi</h1>
+<section id="importació-de-datasets" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Importació de datasets</h1>
+<p>Malgrat que és possible introduir dades directament en R (per exemple, creant vectors), el més habitual és importar-los des d’un fitxer «csv» o «txt». Quan importem dades a R, hem d’assegurar-nos que el format del fitxer coincideix amb el que la funció d’importació espera. Existeix la funció <code>read_csv()</code> però té l’inconvenient que assumeix un format «internacional»: la coma («,») com a separador de columnes i el punt («.») com a separador decimal. El problema és que Excel configurat en català o castellà exporta els fitxers «csv» d’una altra manera: com que la coma ja s’utilitza com a separador decimal (per exemple, «3,14»), Excel fa servir el punt i coma («;») per separar les columnes en lloc de la coma. Si intentéssim llegir aquest tipus de fitxer amb <code>read_csv(),</code> R no reconeixeria correctament ni les columnes ni els números.</p>
+<p>La funció <code>read_csv2()</code> del paquet <code>readr</code> (dins del <code>tidyverse</code>) està pensada per a aquest escenari: llegeix fitxers on el separador de columnes és «;» i el separador decimal és «,».</p>
+<p>En resum, la funció que cal fer servir no depèn només de l’extensió del fitxer (per exemple, «.csv»), sinó de com s’ha generat realment. Per això és una bona pràctica fer sempre una ullada ràpida al fitxer (obrint-lo com a text pla) abans de decidir quina funció d’importació utilitzar.</p>
+<p>En el següent exemple, s’ha importat des de R un fitxer anomenat «empleats.csv» amb les dades de 56 empleats d’una empresa. Una vegada importades, les dades es guarden en un objecte anomenat «dades»:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>dades <span class="ot">&lt;-</span> <span class="fu">read_csv2</span>(<span class="st">"data/empleats.csv"</span>)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Quan les dades es troben originalment en un fitxer Excel («.xls» o «.xlsx»), no sempre cal exportar-les prèviament a format «csv» per importar-les a R. El paquet <code>readxl</code>, que també forma part de l’entorn <code>tidyverse</code>, permet llegir directament fitxers Excel mitjançant la funció <code>read_excel()</code>. Aquesta opció té l’avantatge d’evitar els problemes de separadors de columnes i decimals que sovint apareixen amb els fitxers «csv» (com s’ha comentat anteriorment amb <code>read_csv()</code> i <code>read_csv2()</code>), ja que <code>read_excel()</code> llegeix les dades directament de les cel·les del full de càlcul, sense passar per cap conversió intermèdia.</p>
+<p>També podem importar fitxers amb l’opció «Import Dataset» de la pestanya «Environment». No obstant, verifiqueu sempre que les dades s’han important correctament, especialment si el fitxer Excel està formatat (inclou negretes, colors, etc.).</p>
+<p>En R, els valors perduts o desconeguts es representen amb el símbol especial <code>NA</code> (Not Available). Aquest símbol pot aparèixer en qualsevol tipus de dada (numèrica, de caràcter o lògica) i indica que, per a aquella observació concreta, no disposem d’informació. És habitual trobar-nos amb valors <code>NA</code> quan importem dades reals, ja sigui perquè hi ha caselles buides en el fitxer original o perquè determinades respostes no es van registrar.</p>
+<p>Funcions com <code>summary()</code> ja ens mostren quants <code>NA</code> conté cada variable, i és important tenir-ho en compte perquè molts càlculs bàsics, com <code>mean()</code>, retornaran <code>NA</code> si el vector conté algun valor perdut, tret que indiquem explícitament l’argument <code>na.rm = TRUE</code>.</p>
+</section>
+<section id="codificació-de-caràcters-encoding" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Codificació de caràcters (<em>encoding</em>)</h1>
+<p>Quan importem fitxers «csv» amb accents, dièresis o la lletra «ç» (habituals en català o castellà), de vegades els caràcters especials es mostren malament un cop importats a R (per exemple, en lloc de «informació» apareix «informaci» o símbols estranys). Això sol passar perquè el fitxer s’ha guardat amb una codificació diferent de la que R espera per defecte. Per evitar-ho, podem indicar explícitament la codificació del fitxer d’origen amb l’argument <code>locale</code>, especificant <code>encoding = "UTF-8"</code> o, si el fitxer prové d’Excel en Windows, <code>encoding = "Latin1"</code> (o “ISO-8859-1”), que és una codificació habitual en aquest sistema. Per exemple:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>dades <span class="ot">&lt;-</span> <span class="fu">read_csv2</span>(<span class="st">"data/empleats.csv"</span>, <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">"UTF-8"</span>))</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 56 Columns: 13
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr  (5): nom, ciutat, departament, nivell_estudis, te_carnet_conduir
+dbl  (7): id_empleat, edat, anys_experiencia, salari_brut_anual, vendes_mens...
+date (1): data_contractacio
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+</div>
+<p>Si no sabem quina codificació té el fitxer, val la pena provar primer amb «UTF-8» i, si els accents segueixen sortint malament, provar amb «Latin1». En cas de dubte, també es pot obrir el fitxer com a text pla (per exemple, amb el Bloc de notes o un editor de text) i comprovar quina codificació indica el programa.</p>
+</section>
+<section id="funcions-bàsiques-danàlisi" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Funcions bàsiques d’anàlisi</h1>
 <p>Ara podem treballar amb l’objecte «dades». Podem consultar l’estructura del <em>dataframe</em>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(dades)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(dades)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>'data.frame':   51 obs. of  6 variables:
- $ Id    : int  1 2 3 4 5 6 7 8 9 10 ...
- $ Nom   : chr  "Laia" "Pau" "Clara" "Eloi" ...
- $ Genere: chr  "Dona" "Home" "Dona" "Home" ...
- $ Color : chr  "Vermell" "Blau" "Groc" "Lila" ...
- $ Edat  : int  73 59 36 32 13 44 78 61 40 73 ...
- $ Pes   : chr  "55,2" "86,8" "59,3" "88,0" ...</code></pre>
+<pre><code>spc_tbl_ [56 × 13] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ id_empleat               : num [1:56] 1 2 3 4 5 6 7 8 9 10 ...
+ $ nom                      : chr [1:56] "Roger Serra" "Laia Puig" "Carla Sala" "Irene Prat" ...
+ $ ciutat                   : chr [1:56] "Sabadell" "Lleida" "Tarragona" "Sabadell" ...
+ $ departament              : chr [1:56] "Màrqueting" "Màrqueting" "Atenció al Client" "Vendes" ...
+ $ nivell_estudis           : chr [1:56] "Grau" "Batxillerat" "Doctorat" "Doctorat" ...
+ $ edat                     : num [1:56] 23 27 22 60 26 45 46 26 56 25 ...
+ $ anys_experiencia         : num [1:56] 0.3 3.4 0.3 16.1 3.9 5 17.1 1.1 26.9 3.2 ...
+ $ salari_brut_anual        : num [1:56] 22690 44777 24597 54032 54468 ...
+ $ vendes_mensuals          : num [1:56] 5 5 2 24 1 5 0 5 1 0 ...
+ $ satisfaccio_laboral      : num [1:56] 9.2 6.8 3.7 3.6 9.1 3.5 4.6 6.2 10 5.7 ...
+ $ hores_teletreball_setmana: num [1:56] 0 0 2 1 2 4 0 1 0 3 ...
+ $ data_contractacio        : Date[1:56], format: "2021-08-15" "2020-01-14" ...
+ $ te_carnet_conduir        : chr [1:56] "No" "No" "No" "No" ...
+ - attr(*, "spec")=
+  .. cols(
+  ..   id_empleat = col_double(),
+  ..   nom = col_character(),
+  ..   ciutat = col_character(),
+  ..   departament = col_character(),
+  ..   nivell_estudis = col_character(),
+  ..   edat = col_double(),
+  ..   anys_experiencia = col_double(),
+  ..   salari_brut_anual = col_double(),
+  ..   vendes_mensuals = col_double(),
+  ..   satisfaccio_laboral = col_double(),
+  ..   hores_teletreball_setmana = col_double(),
+  ..   data_contractacio = col_date(format = ""),
+  ..   te_carnet_conduir = col_character()
+  .. )
+ - attr(*, "problems")=&lt;externalptr&gt; </code></pre>
+</div>
+</div>
+<p>Una altra opció:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(dades)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 56
+Columns: 13
+$ id_empleat                &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 1…
+$ nom                       &lt;chr&gt; "Roger Serra", "Laia Puig", "Carla Sala", "I…
+$ ciutat                    &lt;chr&gt; "Sabadell", "Lleida", "Tarragona", "Sabadell…
+$ departament               &lt;chr&gt; "Màrqueting", "Màrqueting", "Atenció al Clie…
+$ nivell_estudis            &lt;chr&gt; "Grau", "Batxillerat", "Doctorat", "Doctorat…
+$ edat                      &lt;dbl&gt; 23, 27, 22, 60, 26, 45, 46, 26, 56, 25, 22, …
+$ anys_experiencia          &lt;dbl&gt; 0.3, 3.4, 0.3, 16.1, 3.9, 5.0, 17.1, 1.1, 26…
+$ salari_brut_anual         &lt;dbl&gt; 22689.83, 44776.71, 24597.26, 54032.17, 5446…
+$ vendes_mensuals           &lt;dbl&gt; 5, 5, 2, 24, 1, 5, 0, 5, 1, 0, 2, 12, 19, 2,…
+$ satisfaccio_laboral       &lt;dbl&gt; 9.2, 6.8, 3.7, 3.6, 9.1, 3.5, 4.6, 6.2, 10.0…
+$ hores_teletreball_setmana &lt;dbl&gt; 0, 0, 2, 1, 2, 4, 0, 1, 0, 3, 2, 5, 0, 3, 0,…
+$ data_contractacio         &lt;date&gt; 2021-08-15, 2020-01-14, 2016-02-01, 2024-04…
+$ te_carnet_conduir         &lt;chr&gt; "No", "No", "No", "No", "No", "Sí", "No", "S…</code></pre>
 </div>
 </div>
 <p>Per obtenir un resum estadístic de les dades:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dades)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dades)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>       Id           Nom               Genere             Color          
- Min.   : 1.0   Length:51          Length:51          Length:51         
- 1st Qu.:13.5   Class :character   Class :character   Class :character  
- Median :26.0   Mode  :character   Mode  :character   Mode  :character  
- Mean   :26.0                                                           
- 3rd Qu.:38.5                                                           
- Max.   :51.0                                                           
-      Edat            Pes           
- Min.   :  10.0   Length:51         
- 1st Qu.:  34.0   Class :character  
- Median :  58.0   Mode  :character  
- Mean   : 130.2                     
- 3rd Qu.:  67.0                     
- Max.   :4098.0                     </code></pre>
+<pre><code>   id_empleat        nom               ciutat          departament       
+ Min.   : 1.00   Length:56          Length:56          Length:56         
+ 1st Qu.:14.75   Class :character   Class :character   Class :character  
+ Median :28.50   Mode  :character   Mode  :character   Mode  :character  
+ Mean   :28.50                                                           
+ 3rd Qu.:42.25                                                           
+ Max.   :56.00                                                           
+ nivell_estudis          edat       anys_experiencia salari_brut_anual
+ Length:56          Min.   :22.00   Min.   : 0.000   Min.   :21058    
+ Class :character   1st Qu.:26.75   1st Qu.: 1.325   1st Qu.:31560    
+ Mode  :character   Median :37.00   Median : 4.300   Median :41143    
+                    Mean   :38.54   Mean   : 8.746   Mean   :39695    
+                    3rd Qu.:49.00   3rd Qu.:12.850   3rd Qu.:47421    
+                    Max.   :60.00   Max.   :29.100   Max.   :60780    
+ vendes_mensuals  satisfaccio_laboral hores_teletreball_setmana
+ Min.   : 0.000   Min.   : 3.100      Min.   :0.00             
+ 1st Qu.: 2.000   1st Qu.: 4.600      1st Qu.:1.00             
+ Median : 4.000   Median : 6.250      Median :2.00             
+ Mean   : 7.018   Mean   : 6.350      Mean   :2.25             
+ 3rd Qu.: 5.000   3rd Qu.: 8.125      3rd Qu.:3.25             
+ Max.   :37.000   Max.   :10.000      Max.   :5.00             
+ data_contractacio    te_carnet_conduir 
+ Min.   :2015-01-14   Length:56         
+ 1st Qu.:2017-10-19   Class :character  
+ Median :2021-01-26   Mode  :character  
+ Mean   :2020-08-08                     
+ 3rd Qu.:2023-03-20                     
+ Max.   :2024-11-17                     </code></pre>
 </div>
 </div>
-<p>Podem obtenir un estadístic d’una variable concreta (els noms de les variables s’indiquen amb el símbol «$»), com ara la mitjana del pes:</p>
+<p>Podem obtenir un estadístic d’una variable concreta (els noms de les variables s’indiquen amb el símbol «$»), com ara la mitjana de l’edat:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(dades<span class="sc">$</span>Pes)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in mean.default(dades$Pes): l'argument no és «numeric» ni «logical»: es
-retorna NA</code></pre>
-</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(dades<span class="sc">$</span>edat)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] NA</code></pre>
+<pre><code>[1] 38.53571</code></pre>
 </div>
 </div>
 <p>Com ja hem vist, aquesta mitjana pot guardar-se en un altre objecte per a continuar treballant amb ella:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>mitjana_pes <span class="ot">&lt;-</span> <span class="fu">mean</span>(dades<span class="sc">$</span>Pes)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in mean.default(dades$Pes): l'argument no és «numeric» ni «logical»: es
-retorna NA</code></pre>
-</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>mitjana_edat <span class="ot">&lt;-</span> <span class="fu">mean</span>(dades<span class="sc">$</span>edat)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Per fer un recompte de valors d’una variable:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>recompte_colors <span class="ot">&lt;-</span> <span class="fu">table</span>(dades<span class="sc">$</span>Color)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>recompte_colors</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>recompte_ciutats <span class="ot">&lt;-</span> <span class="fu">table</span>(dades<span class="sc">$</span>ciutat)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>recompte_ciutats</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-   Blau    Groc    Lila    Verd Vermell 
-     11      10       8      10      12 </code></pre>
+ Badalona Barcelona    Girona    Lleida   Manresa      Reus  Sabadell Tarragona 
+        3         4        10         5         2         2        12         9 
+ Terrassa       Vic 
+        4         5 </code></pre>
 </div>
 </div>
 </section>
-<section id="processament-de-dades" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Processament de dades</h1>
+<section id="processament-de-dades" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Processament de dades</h1>
 <p>Molt sovint haurem de transformar, netejar i estructurar les dades per facilitar la seva anàlisi. Un dels paquets més utilitzats per a aquestes tasques és <code>dplyr</code>, que forma part de l’ecosistema <code>tidyverse</code>. Aquest paquet proporciona diverses funcions per manipular dades en format dataframe o tibble (una estructura de dades similar al dataframe).</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
 <p>Per treballar amb <code>dplyr</code> és habitual fer servir <em>pipes</em>. Un <em>pipe</em> <code>%&gt;%</code> és un operador que permet encadenar funcions. El <em>pipe</em> passa el resultat d’una expressió com a argument de la següent funció, evitant l’ús de parèntesis. A continuació, veurem l’ús de diverses funcions de <code>dplyr</code> fent servir <em>pipes</em>.</p>
 <ul>
 <li><code>count()</code>: fa recomptes de casos</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>dades <span class="sc">%&gt;%</span> <span class="fu">count</span>(Genere)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>dades <span class="sc">%&gt;%</span> <span class="fu">count</span>(departament)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["Genere"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"Dona","2":"27"},{"1":"Home","2":"24"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["departament"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"Atenció al Client","2":"10"},{"1":"Finances","2":"8"},{"1":"Màrqueting","2":"11"},{"1":"Recursos Humans","2":"5"},{"1":"Tecnologia","2":"7"},{"1":"Vendes","2":"15"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -419,11 +506,21 @@ retorna NA</code></pre>
 <li><code>filter()</code>: filtra files segons una condició</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>dades <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Edat <span class="sc">&gt;</span> <span class="dv">80</span>)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>dades <span class="sc">%&gt;%</span> <span class="fu">filter</span>(departament <span class="sc">==</span> <span class="st">"Vendes"</span>)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["Id"],"name":[1],"type":["int"],"align":["right"]},{"label":["Nom"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Genere"],"name":[3],"type":["chr"],"align":["left"]},{"label":["Color"],"name":[4],"type":["chr"],"align":["left"]},{"label":["Edat"],"name":[5],"type":["int"],"align":["right"]},{"label":["Pes"],"name":[6],"type":["chr"],"align":["left"]}],"data":[{"1":"17","2":"Pau","3":"Home","4":"Vermell","5":"82","6":"57,7"},{"1":"24","2":"Carme","3":"Dona","4":"Lila","5":"81","6":"83,5"},{"1":"51","2":"Vicent","3":"Home","4":"Groc","5":"4098","6":"78.2"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["id_empleat"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["nom"],"name":[2],"type":["chr"],"align":["left"]},{"label":["ciutat"],"name":[3],"type":["chr"],"align":["left"]},{"label":["departament"],"name":[4],"type":["chr"],"align":["left"]},{"label":["nivell_estudis"],"name":[5],"type":["chr"],"align":["left"]},{"label":["edat"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["anys_experiencia"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["salari_brut_anual"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["vendes_mensuals"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["satisfaccio_laboral"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["hores_teletreball_setmana"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["data_contractacio"],"name":[12],"type":["date"],"align":["right"]},{"label":["te_carnet_conduir"],"name":[13],"type":["chr"],"align":["left"]}],"data":[{"1":"4","2":"Irene Prat","3":"Sabadell","4":"Vendes","5":"Doctorat","6":"60","7":"16.1","8":"54032.17","9":"24","10":"3.6","11":"1","12":"2024-04-20","13":"No"},{"1":"12","2":"Sergi Vila","3":"Reus","4":"Vendes","5":"Màster","6":"33","7":"10.1","8":"37275.86","9":"12","10":"4.1","11":"5","12":"2016-10-23","13":"Sí"},{"1":"13","2":"Berta Prat","3":"Barcelona","4":"Vendes","5":"Màster","6":"53","7":"26.4","8":"48939.96","9":"19","10":"4.7","11":"0","12":"2024-11-05","13":"Sí"},{"1":"18","2":"Carla Costa","3":"Girona","4":"Vendes","5":"Doctorat","6":"34","7":"4.6","8":"33799.68","9":"3","10":"7.7","11":"4","12":"2016-02-08","13":"Sí"},{"1":"20","2":"Ferran Vila","3":"Girona","4":"Vendes","5":"Batxillerat","6":"57","7":"29.1","8":"52349.21","9":"15","10":"4.2","11":"2","12":"2020-05-25","13":"Sí"},{"1":"22","2":"Pau Roca","3":"Lleida","4":"Vendes","5":"Batxillerat","6":"40","7":"14.2","8":"21057.95","9":"37","10":"6.3","11":"5","12":"2020-12-15","13":"Sí"},{"1":"23","2":"Laia Soler","3":"Tarragona","4":"Vendes","5":"Batxillerat","6":"27","7":"4.1","8":"27467.34","9":"7","10":"9.6","11":"3","12":"2017-10-05","13":"Sí"},{"1":"29","2":"Jordi Bosch","3":"Sabadell","4":"Vendes","5":"Batxillerat","6":"49","7":"9.3","8":"23709.51","9":"16","10":"4.1","11":"2","12":"2021-03-09","13":"No"},{"1":"33","2":"Albert Vidal","3":"Badalona","4":"Vendes","5":"Doctorat","6":"28","7":"1.6","8":"48397.12","9":"29","10":"5.4","11":"5","12":"2023-12-02","13":"Sí"},{"1":"36","2":"Bernat Ferrer","3":"Sabadell","4":"Vendes","5":"Doctorat","6":"34","7":"0.0","8":"52320.71","9":"34","10":"7.8","11":"4","12":"2023-04-07","13":"Sí"},{"1":"41","2":"Laia Roca","3":"Vic","4":"Vendes","5":"Doctorat","6":"52","7":"12.4","8":"41671.55","9":"12","10":"8.0","11":"2","12":"2020-07-17","13":"No"},{"1":"49","2":"Elena Vidal","3":"Tarragona","4":"Vendes","5":"Màster","6":"51","7":"11.4","8":"26619.77","9":"20","10":"5.4","11":"2","12":"2018-02-13","13":"No"},{"1":"50","2":"Albert Sala","3":"Manresa","4":"Vendes","5":"Batxillerat","6":"27","7":"6.0","8":"31598.57","9":"4","10":"8.5","11":"4","12":"2015-06-14","13":"Sí"},{"1":"53","2":"David Serra","3":"Lleida","4":"Vendes","5":"Màster","6":"59","7":"25.5","8":"40614.82","9":"7","10":"8.6","11":"3","12":"2023-10-11","13":"Sí"},{"1":"54","2":"Judit Soler","3":"Terrassa","4":"Vendes","5":"Màster","6":"49","7":"0.4","8":"34122.11","9":"31","10":"3.7","11":"1","12":"2022-02-16","13":"No"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>dades <span class="sc">%&gt;%</span> <span class="fu">filter</span>(edat <span class="sc">&gt;</span> <span class="dv">55</span>)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["id_empleat"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["nom"],"name":[2],"type":["chr"],"align":["left"]},{"label":["ciutat"],"name":[3],"type":["chr"],"align":["left"]},{"label":["departament"],"name":[4],"type":["chr"],"align":["left"]},{"label":["nivell_estudis"],"name":[5],"type":["chr"],"align":["left"]},{"label":["edat"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["anys_experiencia"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["salari_brut_anual"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["vendes_mensuals"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["satisfaccio_laboral"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["hores_teletreball_setmana"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["data_contractacio"],"name":[12],"type":["date"],"align":["right"]},{"label":["te_carnet_conduir"],"name":[13],"type":["chr"],"align":["left"]}],"data":[{"1":"4","2":"Irene Prat","3":"Sabadell","4":"Vendes","5":"Doctorat","6":"60","7":"16.1","8":"54032.17","9":"24","10":"3.6","11":"1","12":"2024-04-20","13":"No"},{"1":"9","2":"Sara Soler","3":"Sabadell","4":"Atenció al Client","5":"Doctorat","6":"56","7":"26.9","8":"33378.42","9":"1","10":"10.0","11":"0","12":"2020-09-18","13":"No"},{"1":"20","2":"Ferran Vila","3":"Girona","4":"Vendes","5":"Batxillerat","6":"57","7":"29.1","8":"52349.21","9":"15","10":"4.2","11":"2","12":"2020-05-25","13":"Sí"},{"1":"27","2":"Alba Sala","3":"Sabadell","4":"Atenció al Client","5":"Batxillerat","6":"57","7":"28.2","8":"23834.48","9":"0","10":"9.2","11":"4","12":"2021-03-16","13":"Sí"},{"1":"28","2":"Albert Font","3":"Lleida","4":"Atenció al Client","5":"Màster","6":"60","7":"6.1","8":"41832.57","9":"2","10":"6.5","11":"1","12":"2024-06-27","13":"Sí"},{"1":"38","2":"Adrià Font","3":"Tarragona","4":"Màrqueting","5":"Doctorat","6":"57","7":"19.9","8":"32649.23","9":"5","10":"9.3","11":"3","12":"2021-05-20","13":"No"},{"1":"53","2":"David Serra","3":"Lleida","4":"Vendes","5":"Màster","6":"59","7":"25.5","8":"40614.82","9":"7","10":"8.6","11":"3","12":"2023-10-11","13":"Sí"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -432,12 +529,12 @@ retorna NA</code></pre>
 <li><code>select()</code>: selecciona columnes específiques</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>noms <span class="ot">&lt;-</span> dades <span class="sc">%&gt;%</span> <span class="fu">select</span>(Nom)</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(noms)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>noms <span class="ot">&lt;-</span> dades <span class="sc">%&gt;%</span> <span class="fu">select</span>(nom)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(noms)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Nom"],"name":[1],"type":["chr"],"align":["left"]}],"data":[{"1":"Laia","_rn_":"1"},{"1":"Pau","_rn_":"2"},{"1":"Clara","_rn_":"3"},{"1":"Eloi","_rn_":"4"},{"1":"Anna","_rn_":"5"},{"1":"Oriol","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["nom"],"name":[1],"type":["chr"],"align":["left"]}],"data":[{"1":"Roger Serra"},{"1":"Laia Puig"},{"1":"Carla Sala"},{"1":"Irene Prat"},{"1":"Gerard Roca"},{"1":"Roger Sala"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -446,12 +543,15 @@ retorna NA</code></pre>
 <li><code>mutate()</code>: crea o modifica columnes</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>dades<span class="fl">.2</span> <span class="ot">&lt;-</span> dades <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">edat_doble =</span> Edat <span class="sc">*</span> <span class="dv">2</span>)</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dades<span class="fl">.2</span>)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>dades <span class="ot">&lt;-</span> <span class="fu">mutate</span>(dades, <span class="at">salari_mensual =</span> salari_brut_anual <span class="sc">/</span> <span class="dv">12</span>)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>dades<span class="fl">.2</span> <span class="ot">&lt;-</span> dades <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">edat_doble =</span> edat <span class="sc">*</span> <span class="dv">2</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dades<span class="fl">.2</span>)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Id"],"name":[1],"type":["int"],"align":["right"]},{"label":["Nom"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Genere"],"name":[3],"type":["chr"],"align":["left"]},{"label":["Color"],"name":[4],"type":["chr"],"align":["left"]},{"label":["Edat"],"name":[5],"type":["int"],"align":["right"]},{"label":["Pes"],"name":[6],"type":["chr"],"align":["left"]},{"label":["edat_doble"],"name":[7],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"Laia","3":"Dona","4":"Vermell","5":"73","6":"55,2","7":"146","_rn_":"1"},{"1":"2","2":"Pau","3":"Home","4":"Blau","5":"59","6":"86,8","7":"118","_rn_":"2"},{"1":"3","2":"Clara","3":"Dona","4":"Groc","5":"36","6":"59,3","7":"72","_rn_":"3"},{"1":"4","2":"Eloi","3":"Home","4":"Lila","5":"32","6":"88,0","7":"64","_rn_":"4"},{"1":"5","2":"Anna","3":"Dona","4":"Blau","5":"13","6":"83,8","7":"26","_rn_":"5"},{"1":"6","2":"Oriol","3":"Home","4":"Blau","5":"44","6":"75,9","7":"88","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["id_empleat"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["nom"],"name":[2],"type":["chr"],"align":["left"]},{"label":["ciutat"],"name":[3],"type":["chr"],"align":["left"]},{"label":["departament"],"name":[4],"type":["chr"],"align":["left"]},{"label":["nivell_estudis"],"name":[5],"type":["chr"],"align":["left"]},{"label":["edat"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["anys_experiencia"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["salari_brut_anual"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["vendes_mensuals"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["satisfaccio_laboral"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["hores_teletreball_setmana"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["data_contractacio"],"name":[12],"type":["date"],"align":["right"]},{"label":["te_carnet_conduir"],"name":[13],"type":["chr"],"align":["left"]},{"label":["salari_mensual"],"name":[14],"type":["dbl"],"align":["right"]},{"label":["edat_doble"],"name":[15],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"Roger Serra","3":"Sabadell","4":"Màrqueting","5":"Grau","6":"23","7":"0.3","8":"22689.83","9":"5","10":"9.2","11":"0","12":"2021-08-15","13":"No","14":"1890.819","15":"46"},{"1":"2","2":"Laia Puig","3":"Lleida","4":"Màrqueting","5":"Batxillerat","6":"27","7":"3.4","8":"44776.71","9":"5","10":"6.8","11":"0","12":"2020-01-14","13":"No","14":"3731.392","15":"54"},{"1":"3","2":"Carla Sala","3":"Tarragona","4":"Atenció al Client","5":"Doctorat","6":"22","7":"0.3","8":"24597.26","9":"2","10":"3.7","11":"2","12":"2016-02-01","13":"No","14":"2049.772","15":"44"},{"1":"4","2":"Irene Prat","3":"Sabadell","4":"Vendes","5":"Doctorat","6":"60","7":"16.1","8":"54032.17","9":"24","10":"3.6","11":"1","12":"2024-04-20","13":"No","14":"4502.681","15":"120"},{"1":"5","2":"Gerard Roca","3":"Barcelona","4":"Atenció al Client","5":"Grau","6":"26","7":"3.9","8":"54467.97","9":"1","10":"9.1","11":"2","12":"2018-02-12","13":"No","14":"4538.998","15":"52"},{"1":"6","2":"Roger Sala","3":"Tarragona","4":"Tecnologia","5":"Màster","6":"45","7":"5.0","8":"35401.52","9":"5","10":"3.5","11":"4","12":"2016-12-01","13":"Sí","14":"2950.127","15":"90"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -460,34 +560,56 @@ retorna NA</code></pre>
 <li><code>arrange()</code>: crea o modifica columnes</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>dades <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(Pes)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>dades <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(vendes_mensuals)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["Id"],"name":[1],"type":["int"],"align":["right"]},{"label":["Nom"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Genere"],"name":[3],"type":["chr"],"align":["left"]},{"label":["Color"],"name":[4],"type":["chr"],"align":["left"]},{"label":["Edat"],"name":[5],"type":["int"],"align":["right"]},{"label":["Pes"],"name":[6],"type":["chr"],"align":["left"]}],"data":[{"1":"25","2":"Anna","3":"Dona","4":"Lila","5":"67","6":"51,5"},{"1":"38","2":"Anna","3":"Dona","4":"Verd","5":"23","6":"52,0"},{"1":"45","2":"Marta","3":"Dona","4":"Blau","5":"65","6":"53,6"},{"1":"21","2":"Jordi","3":"Home","4":"Lila","5":"58","6":"53,9"},{"1":"35","2":"Marta","3":"Dona","4":"Verd","5":"56","6":"54,7"},{"1":"1","2":"Laia","3":"Dona","4":"Vermell","5":"73","6":"55,2"},{"1":"16","2":"Marta","3":"Dona","4":"Blau","5":"11","6":"55,2"},{"1":"23","2":"Roger","3":"Home","4":"Vermell","5":"67","6":"55,2"},{"1":"33","2":"Oriol","3":"Home","4":"Verd","5":"17","6":"55,3"},{"1":"11","2":"Oriol","3":"Home","4":"Lila","5":"16","6":"56,8"},{"1":"10","2":"Carme","3":"Dona","4":"Verd","5":"73","6":"57,1"},{"1":"22","2":"Marc","3":"Home","4":"Vermell","5":"27","6":"57,2"},{"1":"13","2":"Laia","3":"Dona","4":"Groc","5":"67","6":"57,7"},{"1":"17","2":"Pau","3":"Home","4":"Vermell","5":"82","6":"57,7"},{"1":"19","2":"Oriol","3":"Home","4":"Groc","5":"36","6":"58,1"},{"1":"3","2":"Clara","3":"Dona","4":"Groc","5":"36","6":"59,3"},{"1":"49","2":"Marc","3":"Home","4":"Verd","5":"66","6":"60,7"},{"1":"43","2":"Roger","3":"Home","4":"Blau","5":"47","6":"61,7"},{"1":"26","2":"Clara","3":"Dona","4":"Vermell","5":"75","6":"62,7"},{"1":"34","2":"Gemma","3":"Dona","4":"Vermell","5":"63","6":"63,0"},{"1":"32","2":"Clara","3":"Dona","4":"Lila","5":"38","6":"63,5"},{"1":"20","2":"Marc","3":"Home","4":"Verd","5":"64","6":"64,4"},{"1":"12","2":"Pol","3":"Home","4":"Groc","5":"42","6":"65,6"},{"1":"41","2":"Emma","3":"Dona","4":"Verd","5":"74","6":"66,3"},{"1":"36","2":"Oriol","3":"Home","4":"Groc","5":"55","6":"67,1"},{"1":"27","2":"Oriol","3":"Home","4":"Blau","5":"62","6":"68,0"},{"1":"18","2":"Clara","3":"Dona","4":"Vermell","5":"78","6":"69,2"},{"1":"39","2":"Irene","3":"Dona","4":"Blau","5":"32","6":"71,6"},{"1":"28","2":"Emma","3":"Home","4":"Verd","5":"67","6":"72,2"},{"1":"50","2":"Anna","3":"Dona","4":"Groc","5":"60","6":"73,2"},{"1":"31","2":"Marta","3":"Dona","4":"Vermell","5":"77","6":"74,6"},{"1":"6","2":"Oriol","3":"Home","4":"Blau","5":"44","6":"75,9"},{"1":"9","2":"Raquel","3":"Dona","4":"Vermell","5":"40","6":"75,9"},{"1":"46","2":"Laia","3":"Dona","4":"Lila","5":"31","6":"76,3"},{"1":"30","2":"Pol","3":"Home","4":"Groc","5":"58","6":"77,0"},{"1":"48","2":"Anna","3":"Dona","4":"Blau","5":"23","6":"77,3"},{"1":"7","2":"Clara","3":"Dona","4":"Groc","5":"78","6":"77,9"},{"1":"51","2":"Vicent","3":"Home","4":"Groc","5":"4098","6":"78.2"},{"1":"14","2":"Oriol","3":"Home","4":"Vermell","5":"77","6":"79,6"},{"1":"44","2":"Laia","3":"Dona","4":"Blau","5":"17","6":"81,6"},{"1":"29","2":"Marta","3":"Dona","4":"Verd","5":"10","6":"81,7"},{"1":"40","2":"Oriol","3":"Home","4":"Lila","5":"27","6":"83,2"},{"1":"24","2":"Carme","3":"Dona","4":"Lila","5":"81","6":"83,5"},{"1":"5","2":"Anna","3":"Dona","4":"Blau","5":"13","6":"83,8"},{"1":"8","2":"Marc","3":"Home","4":"Vermell","5":"61","6":"84,8"},{"1":"15","2":"Laia","3":"Dona","4":"Verd","5":"55","6":"85,1"},{"1":"42","2":"Eloi","3":"Home","4":"Groc","5":"42","6":"85,8"},{"1":"2","2":"Pau","3":"Home","4":"Blau","5":"59","6":"86,8"},{"1":"4","2":"Eloi","3":"Home","4":"Lila","5":"32","6":"88,0"},{"1":"47","2":"Pau","3":"Home","4":"Blau","5":"65","6":"89,2"},{"1":"37","2":"Olga","3":"Dona","4":"Vermell","5":"53","6":"89,7"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["id_empleat"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["nom"],"name":[2],"type":["chr"],"align":["left"]},{"label":["ciutat"],"name":[3],"type":["chr"],"align":["left"]},{"label":["departament"],"name":[4],"type":["chr"],"align":["left"]},{"label":["nivell_estudis"],"name":[5],"type":["chr"],"align":["left"]},{"label":["edat"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["anys_experiencia"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["salari_brut_anual"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["vendes_mensuals"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["satisfaccio_laboral"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["hores_teletreball_setmana"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["data_contractacio"],"name":[12],"type":["date"],"align":["right"]},{"label":["te_carnet_conduir"],"name":[13],"type":["chr"],"align":["left"]},{"label":["salari_mensual"],"name":[14],"type":["dbl"],"align":["right"]}],"data":[{"1":"7","2":"Marta Riera","3":"Sabadell","4":"Atenció al Client","5":"Grau","6":"46","7":"17.1","8":"49342.67","9":"0","10":"4.6","11":"0","12":"2024-01-11","13":"No","14":"4111.889"},{"1":"10","2":"Jordi Vila","3":"Girona","4":"Màrqueting","5":"Grau","6":"25","7":"3.2","8":"34197.76","9":"0","10":"5.7","11":"3","12":"2020-04-01","13":"No","14":"2849.813"},{"1":"15","2":"Meritxell Soler","3":"Sabadell","4":"Recursos Humans","5":"Màster","6":"34","7":"5.7","8":"37632.73","9":"0","10":"4.7","11":"0","12":"2018-10-16","13":"Sí","14":"3136.061"},{"1":"27","2":"Alba Sala","3":"Sabadell","4":"Atenció al Client","5":"Batxillerat","6":"57","7":"28.2","8":"23834.48","9":"0","10":"9.2","11":"4","12":"2021-03-16","13":"Sí","14":"1986.207"},{"1":"5","2":"Gerard Roca","3":"Barcelona","4":"Atenció al Client","5":"Grau","6":"26","7":"3.9","8":"54467.97","9":"1","10":"9.1","11":"2","12":"2018-02-12","13":"No","14":"4538.998"},{"1":"9","2":"Sara Soler","3":"Sabadell","4":"Atenció al Client","5":"Doctorat","6":"56","7":"26.9","8":"33378.42","9":"1","10":"10.0","11":"0","12":"2020-09-18","13":"No","14":"2781.535"},{"1":"16","2":"Gerard Soler","3":"Vic","4":"Màrqueting","5":"Batxillerat","6":"36","7":"1.1","8":"41719.71","9":"1","10":"3.5","11":"0","12":"2024-08-22","13":"No","14":"3476.642"},{"1":"24","2":"Berta Serra","3":"Vic","4":"Finances","5":"Màster","6":"48","7":"25.2","8":"31445.81","9":"1","10":"4.9","11":"0","12":"2022-07-14","13":"No","14":"2620.484"},{"1":"3","2":"Carla Sala","3":"Tarragona","4":"Atenció al Client","5":"Doctorat","6":"22","7":"0.3","8":"24597.26","9":"2","10":"3.7","11":"2","12":"2016-02-01","13":"No","14":"2049.772"},{"1":"11","2":"Cristina Sala","3":"Girona","4":"Atenció al Client","5":"Màster","6":"22","7":"0.8","8":"31246.32","9":"2","10":"6.0","11":"2","12":"2015-01-14","13":"No","14":"2603.860"},{"1":"14","2":"Jordi Camps","3":"Girona","4":"Finances","5":"Grau","6":"53","7":"3.9","8":"41886.37","9":"2","10":"6.7","11":"3","12":"2019-09-30","13":"Sí","14":"3490.531"},{"1":"25","2":"Ferran Prat","3":"Barcelona","4":"Recursos Humans","5":"Batxillerat","6":"26","7":"0.4","8":"26673.56","9":"2","10":"3.9","11":"1","12":"2024-11-17","13":"Sí","14":"2222.797"},{"1":"28","2":"Albert Font","3":"Lleida","4":"Atenció al Client","5":"Màster","6":"60","7":"6.1","8":"41832.57","9":"2","10":"6.5","11":"1","12":"2024-06-27","13":"Sí","14":"3486.048"},{"1":"32","2":"Meritxell Mas","3":"Tarragona","4":"Màrqueting","5":"Doctorat","6":"37","7":"0.4","8":"45516.32","9":"2","10":"8.5","11":"2","12":"2023-12-30","13":"Sí","14":"3793.027"},{"1":"35","2":"Marc Serra","3":"Tarragona","4":"Finances","5":"Màster","6":"38","7":"0.7","8":"45298.84","9":"2","10":"6.1","11":"3","12":"2016-04-18","13":"No","14":"3774.903"},{"1":"40","2":"Carla Mas","3":"Girona","4":"Tecnologia","5":"Màster","6":"32","7":"1.0","8":"58437.97","9":"2","10":"4.6","11":"0","12":"2016-08-26","13":"Sí","14":"4869.831"},{"1":"18","2":"Carla Costa","3":"Girona","4":"Vendes","5":"Doctorat","6":"34","7":"4.6","8":"33799.68","9":"3","10":"7.7","11":"4","12":"2016-02-08","13":"Sí","14":"2816.640"},{"1":"19","2":"Xavier Camps","3":"Girona","4":"Màrqueting","5":"Grau","6":"43","7":"4.2","8":"35150.09","9":"3","10":"4.3","11":"2","12":"2017-10-20","13":"Sí","14":"2929.174"},{"1":"21","2":"Irene Costa","3":"Tarragona","4":"Recursos Humans","5":"Batxillerat","6":"25","7":"3.9","8":"28547.31","9":"3","10":"5.0","11":"4","12":"2023-03-12","13":"No","14":"2378.943"},{"1":"39","2":"Xavier Soler","3":"Sabadell","4":"Tecnologia","5":"Grau","6":"22","7":"0.4","8":"47095.29","9":"3","10":"6.1","11":"4","12":"2017-05-25","13":"No","14":"3924.608"},{"1":"44","2":"Bernat Vidal","3":"Manresa","4":"Tecnologia","5":"Grau","6":"52","7":"25.2","8":"34940.27","9":"3","10":"7.4","11":"1","12":"2019-12-07","13":"Sí","14":"2911.689"},{"1":"55","2":"Adrià Vidal","3":"Tarragona","4":"Atenció al Client","5":"Màster","6":"49","7":"17.2","8":"52106.24","9":"3","10":"6.3","11":"5","12":"2023-03-14","13":"No","14":"4342.187"},{"1":"56","2":"Oriol Sala","3":"Girona","4":"Tecnologia","5":"Doctorat","6":"37","7":"3.9","8":"41877.35","9":"3","10":"5.4","11":"2","12":"2024-07-17","13":"No","14":"3489.779"},{"1":"17","2":"Jordi Soler","3":"Sabadell","4":"Atenció al Client","5":"Doctorat","6":"37","7":"3.4","8":"23763.23","9":"4","10":"7.0","11":"0","12":"2023-10-19","13":"No","14":"1980.269"},{"1":"26","2":"Bernat Roca","3":"Sabadell","4":"Màrqueting","5":"Doctorat","6":"45","7":"20.0","8":"44327.44","9":"4","10":"9.9","11":"5","12":"2022-05-02","13":"Sí","14":"3693.953"},{"1":"30","2":"Cristina Puig","3":"Girona","4":"Atenció al Client","5":"Grau","6":"29","7":"4.4","8":"49045.42","9":"4","10":"6.9","11":"2","12":"2016-06-06","13":"Sí","14":"4087.118"},{"1":"31","2":"Clara Prat","3":"Terrassa","4":"Màrqueting","5":"Grau","6":"24","7":"2.0","8":"31732.43","9":"4","10":"9.2","11":"2","12":"2021-12-17","13":"Sí","14":"2644.369"},{"1":"37","2":"Judit Costa","3":"Terrassa","4":"Finances","5":"Màster","6":"26","7":"3.3","8":"28888.63","9":"4","10":"5.2","11":"2","12":"2018-08-29","13":"No","14":"2407.386"},{"1":"42","2":"Núria Vidal","3":"Girona","4":"Recursos Humans","5":"Grau","6":"22","7":"0.2","8":"53486.78","9":"4","10":"6.3","11":"3","12":"2017-10-17","13":"Sí","14":"4457.232"},{"1":"47","2":"Montse Puig","3":"Sabadell","4":"Recursos Humans","5":"Doctorat","6":"44","7":"12.4","8":"45446.83","9":"4","10":"9.3","11":"2","12":"2017-06-17","13":"No","14":"3787.236"},{"1":"48","2":"Elena Riera","3":"Badalona","4":"Tecnologia","5":"Doctorat","6":"23","7":"1.4","8":"60780.11","9":"4","10":"6.7","11":"2","12":"2021-08-21","13":"Sí","14":"5065.009"},{"1":"50","2":"Albert Sala","3":"Manresa","4":"Vendes","5":"Batxillerat","6":"27","7":"6.0","8":"31598.57","9":"4","10":"8.5","11":"4","12":"2015-06-14","13":"Sí","14":"2633.214"},{"1":"51","2":"Núria Roca","3":"Vic","4":"Màrqueting","5":"Grau","6":"23","7":"0.3","8":"43100.52","9":"4","10":"9.6","11":"2","12":"2022-11-05","13":"No","14":"3591.710"},{"1":"52","2":"Pol Prat","3":"Vic","4":"Finances","5":"Batxillerat","6":"32","7":"8.6","8":"27689.05","9":"4","10":"3.2","11":"1","12":"2021-06-16","13":"No","14":"2307.421"},{"1":"1","2":"Roger Serra","3":"Sabadell","4":"Màrqueting","5":"Grau","6":"23","7":"0.3","8":"22689.83","9":"5","10":"9.2","11":"0","12":"2021-08-15","13":"No","14":"1890.819"},{"1":"2","2":"Laia Puig","3":"Lleida","4":"Màrqueting","5":"Batxillerat","6":"27","7":"3.4","8":"44776.71","9":"5","10":"6.8","11":"0","12":"2020-01-14","13":"No","14":"3731.392"},{"1":"6","2":"Roger Sala","3":"Tarragona","4":"Tecnologia","5":"Màster","6":"45","7":"5.0","8":"35401.52","9":"5","10":"3.5","11":"4","12":"2016-12-01","13":"Sí","14":"2950.127"},{"1":"8","2":"Xavier Font","3":"Lleida","4":"Finances","5":"Màster","6":"26","7":"1.1","8":"45362.70","9":"5","10":"6.2","11":"1","12":"2016-07-25","13":"Sí","14":"3780.225"},{"1":"34","2":"Núria Puig","3":"Badalona","4":"Tecnologia","5":"Màster","6":"34","7":"11.2","8":"59502.24","9":"5","10":"6.6","11":"4","12":"2024-06-17","13":"No","14":"4958.520"},{"1":"38","2":"Adrià Font","3":"Tarragona","4":"Màrqueting","5":"Doctorat","6":"57","7":"19.9","8":"32649.23","9":"5","10":"9.3","11":"3","12":"2021-05-20","13":"No","14":"2720.769"},{"1":"43","2":"Ferran Vidal","3":"Reus","4":"Finances","5":"Màster","6":"51","7":"28.5","8":"59906.14","9":"5","10":"9.2","11":"2","12":"2024-04-25","13":"No","14":"4992.178"},{"1":"45","2":"Núria Font","3":"Terrassa","4":"Finances","5":"Batxillerat","6":"43","7":"3.0","8":"32484.18","9":"5","10":"4.5","11":"2","12":"2019-07-28","13":"No","14":"2707.015"},{"1":"46","2":"Cristina Riera","3":"Barcelona","4":"Màrqueting","5":"Doctorat","6":"48","7":"10.5","8":"46712.65","9":"5","10":"3.1","11":"5","12":"2021-06-16","13":"No","14":"3892.721"},{"1":"23","2":"Laia Soler","3":"Tarragona","4":"Vendes","5":"Batxillerat","6":"27","7":"4.1","8":"27467.34","9":"7","10":"9.6","11":"3","12":"2017-10-05","13":"Sí","14":"2288.945"},{"1":"53","2":"David Serra","3":"Lleida","4":"Vendes","5":"Màster","6":"59","7":"25.5","8":"40614.82","9":"7","10":"8.6","11":"3","12":"2023-10-11","13":"Sí","14":"3384.568"},{"1":"12","2":"Sergi Vila","3":"Reus","4":"Vendes","5":"Màster","6":"33","7":"10.1","8":"37275.86","9":"12","10":"4.1","11":"5","12":"2016-10-23","13":"Sí","14":"3106.322"},{"1":"41","2":"Laia Roca","3":"Vic","4":"Vendes","5":"Doctorat","6":"52","7":"12.4","8":"41671.55","9":"12","10":"8.0","11":"2","12":"2020-07-17","13":"No","14":"3472.629"},{"1":"20","2":"Ferran Vila","3":"Girona","4":"Vendes","5":"Batxillerat","6":"57","7":"29.1","8":"52349.21","9":"15","10":"4.2","11":"2","12":"2020-05-25","13":"Sí","14":"4362.434"},{"1":"29","2":"Jordi Bosch","3":"Sabadell","4":"Vendes","5":"Batxillerat","6":"49","7":"9.3","8":"23709.51","9":"16","10":"4.1","11":"2","12":"2021-03-09","13":"No","14":"1975.792"},{"1":"13","2":"Berta Prat","3":"Barcelona","4":"Vendes","5":"Màster","6":"53","7":"26.4","8":"48939.96","9":"19","10":"4.7","11":"0","12":"2024-11-05","13":"Sí","14":"4078.330"},{"1":"49","2":"Elena Vidal","3":"Tarragona","4":"Vendes","5":"Màster","6":"51","7":"11.4","8":"26619.77","9":"20","10":"5.4","11":"2","12":"2018-02-13","13":"No","14":"2218.314"},{"1":"4","2":"Irene Prat","3":"Sabadell","4":"Vendes","5":"Doctorat","6":"60","7":"16.1","8":"54032.17","9":"24","10":"3.6","11":"1","12":"2024-04-20","13":"No","14":"4502.681"},{"1":"33","2":"Albert Vidal","3":"Badalona","4":"Vendes","5":"Doctorat","6":"28","7":"1.6","8":"48397.12","9":"29","10":"5.4","11":"5","12":"2023-12-02","13":"Sí","14":"4033.093"},{"1":"54","2":"Judit Soler","3":"Terrassa","4":"Vendes","5":"Màster","6":"49","7":"0.4","8":"34122.11","9":"31","10":"3.7","11":"1","12":"2022-02-16","13":"No","14":"2843.509"},{"1":"36","2":"Bernat Ferrer","3":"Sabadell","4":"Vendes","5":"Doctorat","6":"34","7":"0.0","8":"52320.71","9":"34","10":"7.8","11":"4","12":"2023-04-07","13":"Sí","14":"4360.059"},{"1":"22","2":"Pau Roca","3":"Lleida","4":"Vendes","5":"Batxillerat","6":"40","7":"14.2","8":"21057.95","9":"37","10":"6.3","11":"5","12":"2020-12-15","13":"Sí","14":"1754.829"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
 </div>
-<p>Les variables qualitatives les ordena alfabèticament i les quantitatives en ordre ascendent. Si volem una ordenació descendent podem fer-ho amb <code>arrange(desc(Pes))</code>.</p>
-<ul>
-<li><p><code>group_by()</code>: agrupa les dades segons els valors d’una o més variables</p></li>
-<li><p><code>summarise()</code>: calcula estadístiques resum sobre un conjunt de dades</p></li>
-</ul>
-<p>Aquestes dues últimes funcions són útils utilitzades conjuntament. Per exemple, agrupem els casos per gènere i calculem l’edat mitjana dins de cada grup.</p>
+<p>oLes variables qualitatives les ordena alfabèticament i les quantitatives en ordre ascendent. Si volem una ordenació descendent podem fer-ho amb <code>arrange(desc())</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>dades <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Genere) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="fu">mean</span>(Edat))</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>dades <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(satisfaccio_laboral))</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["Genere"],"name":[1],"type":["chr"],"align":["left"]},{"label":["mean(Edat)"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Dona","2":"50.7037"},{"1":"Home","2":"219.5417"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["id_empleat"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["nom"],"name":[2],"type":["chr"],"align":["left"]},{"label":["ciutat"],"name":[3],"type":["chr"],"align":["left"]},{"label":["departament"],"name":[4],"type":["chr"],"align":["left"]},{"label":["nivell_estudis"],"name":[5],"type":["chr"],"align":["left"]},{"label":["edat"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["anys_experiencia"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["salari_brut_anual"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["vendes_mensuals"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["satisfaccio_laboral"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["hores_teletreball_setmana"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["data_contractacio"],"name":[12],"type":["date"],"align":["right"]},{"label":["te_carnet_conduir"],"name":[13],"type":["chr"],"align":["left"]},{"label":["salari_mensual"],"name":[14],"type":["dbl"],"align":["right"]}],"data":[{"1":"9","2":"Sara Soler","3":"Sabadell","4":"Atenció al Client","5":"Doctorat","6":"56","7":"26.9","8":"33378.42","9":"1","10":"10.0","11":"0","12":"2020-09-18","13":"No","14":"2781.535"},{"1":"26","2":"Bernat Roca","3":"Sabadell","4":"Màrqueting","5":"Doctorat","6":"45","7":"20.0","8":"44327.44","9":"4","10":"9.9","11":"5","12":"2022-05-02","13":"Sí","14":"3693.953"},{"1":"23","2":"Laia Soler","3":"Tarragona","4":"Vendes","5":"Batxillerat","6":"27","7":"4.1","8":"27467.34","9":"7","10":"9.6","11":"3","12":"2017-10-05","13":"Sí","14":"2288.945"},{"1":"51","2":"Núria Roca","3":"Vic","4":"Màrqueting","5":"Grau","6":"23","7":"0.3","8":"43100.52","9":"4","10":"9.6","11":"2","12":"2022-11-05","13":"No","14":"3591.710"},{"1":"38","2":"Adrià Font","3":"Tarragona","4":"Màrqueting","5":"Doctorat","6":"57","7":"19.9","8":"32649.23","9":"5","10":"9.3","11":"3","12":"2021-05-20","13":"No","14":"2720.769"},{"1":"47","2":"Montse Puig","3":"Sabadell","4":"Recursos Humans","5":"Doctorat","6":"44","7":"12.4","8":"45446.83","9":"4","10":"9.3","11":"2","12":"2017-06-17","13":"No","14":"3787.236"},{"1":"1","2":"Roger Serra","3":"Sabadell","4":"Màrqueting","5":"Grau","6":"23","7":"0.3","8":"22689.83","9":"5","10":"9.2","11":"0","12":"2021-08-15","13":"No","14":"1890.819"},{"1":"27","2":"Alba Sala","3":"Sabadell","4":"Atenció al Client","5":"Batxillerat","6":"57","7":"28.2","8":"23834.48","9":"0","10":"9.2","11":"4","12":"2021-03-16","13":"Sí","14":"1986.207"},{"1":"31","2":"Clara Prat","3":"Terrassa","4":"Màrqueting","5":"Grau","6":"24","7":"2.0","8":"31732.43","9":"4","10":"9.2","11":"2","12":"2021-12-17","13":"Sí","14":"2644.369"},{"1":"43","2":"Ferran Vidal","3":"Reus","4":"Finances","5":"Màster","6":"51","7":"28.5","8":"59906.14","9":"5","10":"9.2","11":"2","12":"2024-04-25","13":"No","14":"4992.178"},{"1":"5","2":"Gerard Roca","3":"Barcelona","4":"Atenció al Client","5":"Grau","6":"26","7":"3.9","8":"54467.97","9":"1","10":"9.1","11":"2","12":"2018-02-12","13":"No","14":"4538.998"},{"1":"53","2":"David Serra","3":"Lleida","4":"Vendes","5":"Màster","6":"59","7":"25.5","8":"40614.82","9":"7","10":"8.6","11":"3","12":"2023-10-11","13":"Sí","14":"3384.568"},{"1":"32","2":"Meritxell Mas","3":"Tarragona","4":"Màrqueting","5":"Doctorat","6":"37","7":"0.4","8":"45516.32","9":"2","10":"8.5","11":"2","12":"2023-12-30","13":"Sí","14":"3793.027"},{"1":"50","2":"Albert Sala","3":"Manresa","4":"Vendes","5":"Batxillerat","6":"27","7":"6.0","8":"31598.57","9":"4","10":"8.5","11":"4","12":"2015-06-14","13":"Sí","14":"2633.214"},{"1":"41","2":"Laia Roca","3":"Vic","4":"Vendes","5":"Doctorat","6":"52","7":"12.4","8":"41671.55","9":"12","10":"8.0","11":"2","12":"2020-07-17","13":"No","14":"3472.629"},{"1":"36","2":"Bernat Ferrer","3":"Sabadell","4":"Vendes","5":"Doctorat","6":"34","7":"0.0","8":"52320.71","9":"34","10":"7.8","11":"4","12":"2023-04-07","13":"Sí","14":"4360.059"},{"1":"18","2":"Carla Costa","3":"Girona","4":"Vendes","5":"Doctorat","6":"34","7":"4.6","8":"33799.68","9":"3","10":"7.7","11":"4","12":"2016-02-08","13":"Sí","14":"2816.640"},{"1":"44","2":"Bernat Vidal","3":"Manresa","4":"Tecnologia","5":"Grau","6":"52","7":"25.2","8":"34940.27","9":"3","10":"7.4","11":"1","12":"2019-12-07","13":"Sí","14":"2911.689"},{"1":"17","2":"Jordi Soler","3":"Sabadell","4":"Atenció al Client","5":"Doctorat","6":"37","7":"3.4","8":"23763.23","9":"4","10":"7.0","11":"0","12":"2023-10-19","13":"No","14":"1980.269"},{"1":"30","2":"Cristina Puig","3":"Girona","4":"Atenció al Client","5":"Grau","6":"29","7":"4.4","8":"49045.42","9":"4","10":"6.9","11":"2","12":"2016-06-06","13":"Sí","14":"4087.118"},{"1":"2","2":"Laia Puig","3":"Lleida","4":"Màrqueting","5":"Batxillerat","6":"27","7":"3.4","8":"44776.71","9":"5","10":"6.8","11":"0","12":"2020-01-14","13":"No","14":"3731.392"},{"1":"14","2":"Jordi Camps","3":"Girona","4":"Finances","5":"Grau","6":"53","7":"3.9","8":"41886.37","9":"2","10":"6.7","11":"3","12":"2019-09-30","13":"Sí","14":"3490.531"},{"1":"48","2":"Elena Riera","3":"Badalona","4":"Tecnologia","5":"Doctorat","6":"23","7":"1.4","8":"60780.11","9":"4","10":"6.7","11":"2","12":"2021-08-21","13":"Sí","14":"5065.009"},{"1":"34","2":"Núria Puig","3":"Badalona","4":"Tecnologia","5":"Màster","6":"34","7":"11.2","8":"59502.24","9":"5","10":"6.6","11":"4","12":"2024-06-17","13":"No","14":"4958.520"},{"1":"28","2":"Albert Font","3":"Lleida","4":"Atenció al Client","5":"Màster","6":"60","7":"6.1","8":"41832.57","9":"2","10":"6.5","11":"1","12":"2024-06-27","13":"Sí","14":"3486.048"},{"1":"22","2":"Pau Roca","3":"Lleida","4":"Vendes","5":"Batxillerat","6":"40","7":"14.2","8":"21057.95","9":"37","10":"6.3","11":"5","12":"2020-12-15","13":"Sí","14":"1754.829"},{"1":"42","2":"Núria Vidal","3":"Girona","4":"Recursos Humans","5":"Grau","6":"22","7":"0.2","8":"53486.78","9":"4","10":"6.3","11":"3","12":"2017-10-17","13":"Sí","14":"4457.232"},{"1":"55","2":"Adrià Vidal","3":"Tarragona","4":"Atenció al Client","5":"Màster","6":"49","7":"17.2","8":"52106.24","9":"3","10":"6.3","11":"5","12":"2023-03-14","13":"No","14":"4342.187"},{"1":"8","2":"Xavier Font","3":"Lleida","4":"Finances","5":"Màster","6":"26","7":"1.1","8":"45362.70","9":"5","10":"6.2","11":"1","12":"2016-07-25","13":"Sí","14":"3780.225"},{"1":"35","2":"Marc Serra","3":"Tarragona","4":"Finances","5":"Màster","6":"38","7":"0.7","8":"45298.84","9":"2","10":"6.1","11":"3","12":"2016-04-18","13":"No","14":"3774.903"},{"1":"39","2":"Xavier Soler","3":"Sabadell","4":"Tecnologia","5":"Grau","6":"22","7":"0.4","8":"47095.29","9":"3","10":"6.1","11":"4","12":"2017-05-25","13":"No","14":"3924.608"},{"1":"11","2":"Cristina Sala","3":"Girona","4":"Atenció al Client","5":"Màster","6":"22","7":"0.8","8":"31246.32","9":"2","10":"6.0","11":"2","12":"2015-01-14","13":"No","14":"2603.860"},{"1":"10","2":"Jordi Vila","3":"Girona","4":"Màrqueting","5":"Grau","6":"25","7":"3.2","8":"34197.76","9":"0","10":"5.7","11":"3","12":"2020-04-01","13":"No","14":"2849.813"},{"1":"33","2":"Albert Vidal","3":"Badalona","4":"Vendes","5":"Doctorat","6":"28","7":"1.6","8":"48397.12","9":"29","10":"5.4","11":"5","12":"2023-12-02","13":"Sí","14":"4033.093"},{"1":"49","2":"Elena Vidal","3":"Tarragona","4":"Vendes","5":"Màster","6":"51","7":"11.4","8":"26619.77","9":"20","10":"5.4","11":"2","12":"2018-02-13","13":"No","14":"2218.314"},{"1":"56","2":"Oriol Sala","3":"Girona","4":"Tecnologia","5":"Doctorat","6":"37","7":"3.9","8":"41877.35","9":"3","10":"5.4","11":"2","12":"2024-07-17","13":"No","14":"3489.779"},{"1":"37","2":"Judit Costa","3":"Terrassa","4":"Finances","5":"Màster","6":"26","7":"3.3","8":"28888.63","9":"4","10":"5.2","11":"2","12":"2018-08-29","13":"No","14":"2407.386"},{"1":"21","2":"Irene Costa","3":"Tarragona","4":"Recursos Humans","5":"Batxillerat","6":"25","7":"3.9","8":"28547.31","9":"3","10":"5.0","11":"4","12":"2023-03-12","13":"No","14":"2378.943"},{"1":"24","2":"Berta Serra","3":"Vic","4":"Finances","5":"Màster","6":"48","7":"25.2","8":"31445.81","9":"1","10":"4.9","11":"0","12":"2022-07-14","13":"No","14":"2620.484"},{"1":"13","2":"Berta Prat","3":"Barcelona","4":"Vendes","5":"Màster","6":"53","7":"26.4","8":"48939.96","9":"19","10":"4.7","11":"0","12":"2024-11-05","13":"Sí","14":"4078.330"},{"1":"15","2":"Meritxell Soler","3":"Sabadell","4":"Recursos Humans","5":"Màster","6":"34","7":"5.7","8":"37632.73","9":"0","10":"4.7","11":"0","12":"2018-10-16","13":"Sí","14":"3136.061"},{"1":"7","2":"Marta Riera","3":"Sabadell","4":"Atenció al Client","5":"Grau","6":"46","7":"17.1","8":"49342.67","9":"0","10":"4.6","11":"0","12":"2024-01-11","13":"No","14":"4111.889"},{"1":"40","2":"Carla Mas","3":"Girona","4":"Tecnologia","5":"Màster","6":"32","7":"1.0","8":"58437.97","9":"2","10":"4.6","11":"0","12":"2016-08-26","13":"Sí","14":"4869.831"},{"1":"45","2":"Núria Font","3":"Terrassa","4":"Finances","5":"Batxillerat","6":"43","7":"3.0","8":"32484.18","9":"5","10":"4.5","11":"2","12":"2019-07-28","13":"No","14":"2707.015"},{"1":"19","2":"Xavier Camps","3":"Girona","4":"Màrqueting","5":"Grau","6":"43","7":"4.2","8":"35150.09","9":"3","10":"4.3","11":"2","12":"2017-10-20","13":"Sí","14":"2929.174"},{"1":"20","2":"Ferran Vila","3":"Girona","4":"Vendes","5":"Batxillerat","6":"57","7":"29.1","8":"52349.21","9":"15","10":"4.2","11":"2","12":"2020-05-25","13":"Sí","14":"4362.434"},{"1":"12","2":"Sergi Vila","3":"Reus","4":"Vendes","5":"Màster","6":"33","7":"10.1","8":"37275.86","9":"12","10":"4.1","11":"5","12":"2016-10-23","13":"Sí","14":"3106.322"},{"1":"29","2":"Jordi Bosch","3":"Sabadell","4":"Vendes","5":"Batxillerat","6":"49","7":"9.3","8":"23709.51","9":"16","10":"4.1","11":"2","12":"2021-03-09","13":"No","14":"1975.792"},{"1":"25","2":"Ferran Prat","3":"Barcelona","4":"Recursos Humans","5":"Batxillerat","6":"26","7":"0.4","8":"26673.56","9":"2","10":"3.9","11":"1","12":"2024-11-17","13":"Sí","14":"2222.797"},{"1":"3","2":"Carla Sala","3":"Tarragona","4":"Atenció al Client","5":"Doctorat","6":"22","7":"0.3","8":"24597.26","9":"2","10":"3.7","11":"2","12":"2016-02-01","13":"No","14":"2049.772"},{"1":"54","2":"Judit Soler","3":"Terrassa","4":"Vendes","5":"Màster","6":"49","7":"0.4","8":"34122.11","9":"31","10":"3.7","11":"1","12":"2022-02-16","13":"No","14":"2843.509"},{"1":"4","2":"Irene Prat","3":"Sabadell","4":"Vendes","5":"Doctorat","6":"60","7":"16.1","8":"54032.17","9":"24","10":"3.6","11":"1","12":"2024-04-20","13":"No","14":"4502.681"},{"1":"6","2":"Roger Sala","3":"Tarragona","4":"Tecnologia","5":"Màster","6":"45","7":"5.0","8":"35401.52","9":"5","10":"3.5","11":"4","12":"2016-12-01","13":"Sí","14":"2950.127"},{"1":"16","2":"Gerard Soler","3":"Vic","4":"Màrqueting","5":"Batxillerat","6":"36","7":"1.1","8":"41719.71","9":"1","10":"3.5","11":"0","12":"2024-08-22","13":"No","14":"3476.642"},{"1":"52","2":"Pol Prat","3":"Vic","4":"Finances","5":"Batxillerat","6":"32","7":"8.6","8":"27689.05","9":"4","10":"3.2","11":"1","12":"2021-06-16","13":"No","14":"2307.421"},{"1":"46","2":"Cristina Riera","3":"Barcelona","4":"Màrqueting","5":"Doctorat","6":"48","7":"10.5","8":"46712.65","9":"5","10":"3.1","11":"5","12":"2021-06-16","13":"No","14":"3892.721"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<ul>
+<li><code>group_by()</code>: agrupa les dades segons els valors d’una o més variables</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>dades <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(ciutat) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(salari_mitjà <span class="ot">=</span> <span class="fu">mean</span>(salari_brut_anual))</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["ciutat"],"name":[1],"type":["chr"],"align":["left"]},{"label":["salari_mitjà"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Badalona","2":"56226.49"},{"1":"Barcelona","2":"44198.54"},{"1":"Girona","2":"43147.69"},{"1":"Lleida","2":"38728.95"},{"1":"Manresa","2":"33269.42"},{"1":"Reus","2":"48591.00"},{"1":"Sabadell","2":"38131.11"},{"1":"Tarragona","2":"35355.98"},{"1":"Terrassa","2":"31806.84"},{"1":"Vic","2":"37125.33"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<ul>
+<li><code>summarise()</code>: calcula estadístiques resum sobre un conjunt de dades</li>
+</ul>
+<p>Aquestes dues últimes funcions són útils utilitzades conjuntament. Per exemple, agrupem els casos per gènere i calculem l’edat mitjana dins de cada grup.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>dades <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(departament) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="fu">mean</span>(edat))</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["departament"],"name":[1],"type":["chr"],"align":["left"]},{"label":["mean(edat)"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Atenció al Client","2":"40.40000"},{"1":"Finances","2":"39.62500"},{"1":"Màrqueting","2":"35.27273"},{"1":"Recursos Humans","2":"30.20000"},{"1":"Tecnologia","2":"35.00000"},{"1":"Vendes","2":"43.53333"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
 </div>
 </section>
-<section id="exercici-per-familiaritzar-se-amb-r-i-rstudio" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Exercici per familiaritzar-se amb R i RStudio</h1>
+<section id="exercici-per-familiaritzar-se-amb-r-i-rstudio" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Exercici per familiaritzar-se amb R i RStudio</h1>
 <p>A continuació, es proposa un exercici per començar a treballar amb R. No cal lliurar-lo.</p>
 <ol type="1">
 <li><p>Instal·la R i RStudio en el teu ordinador.</p></li>
