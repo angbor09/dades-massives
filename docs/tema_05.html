@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="">
-<meta name="dcterms.date" content="2026-04-07">
+<meta name="dcterms.date" content="2026-05-07">
 
-<title>5. Regressió lineal i logística – Dades massives</title>
+<title>Regressió – Dades massives</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -225,10 +225,19 @@ window.Quarto = {
     <h2 id="toc-title">En aquesta pàgina</h2>
    
   <ul class="collapse">
-  <li><a href="#introducció" id="toc-introducció" class="nav-link active" data-scroll-target="#introducció"><span class="header-section-number">1</span> Introducció</a></li>
-  <li><a href="#regressió-lineal-simple" id="toc-regressió-lineal-simple" class="nav-link" data-scroll-target="#regressió-lineal-simple"><span class="header-section-number">2</span> Regressió lineal simple</a></li>
-  <li><a href="#regressió-lineal-múltiple" id="toc-regressió-lineal-múltiple" class="nav-link" data-scroll-target="#regressió-lineal-múltiple"><span class="header-section-number">3</span> Regressió lineal múltiple</a></li>
-  <li><a href="#exercici" id="toc-exercici" class="nav-link" data-scroll-target="#exercici"><span class="header-section-number">4</span> Exercici</a></li>
+  <li><a href="#introducció-a-laprenentatge-automàtic" id="toc-introducció-a-laprenentatge-automàtic" class="nav-link active" data-scroll-target="#introducció-a-laprenentatge-automàtic"><span class="header-section-number">1</span> Introducció a l’aprenentatge automàtic</a>
+  <ul class="collapse">
+  <li><a href="#regressió-i-classificació" id="toc-regressió-i-classificació" class="nav-link" data-scroll-target="#regressió-i-classificació"><span class="header-section-number">1.1</span> Regressió i classificació</a></li>
+  <li><a href="#conjunt-dentrenament-i-conjunt-de-test" id="toc-conjunt-dentrenament-i-conjunt-de-test" class="nav-link" data-scroll-target="#conjunt-dentrenament-i-conjunt-de-test"><span class="header-section-number">1.2</span> Conjunt d’entrenament i conjunt de test</a></li>
+  <li><a href="#sobreajust-overfitting" id="toc-sobreajust-overfitting" class="nav-link" data-scroll-target="#sobreajust-overfitting"><span class="header-section-number">1.3</span> Sobreajust (<em>overfitting</em>)</a></li>
+  </ul></li>
+  <li><a href="#regressió" id="toc-regressió" class="nav-link" data-scroll-target="#regressió"><span class="header-section-number">2</span> Regressió</a></li>
+  <li><a href="#regressió-lineal-simple" id="toc-regressió-lineal-simple" class="nav-link" data-scroll-target="#regressió-lineal-simple"><span class="header-section-number">3</span> Regressió lineal simple</a>
+  <ul class="collapse">
+  <li><a href="#supòsits-de-la-regressió-lineal" id="toc-supòsits-de-la-regressió-lineal" class="nav-link" data-scroll-target="#supòsits-de-la-regressió-lineal"><span class="header-section-number">3.1</span> Supòsits de la regressió lineal</a></li>
+  </ul></li>
+  <li><a href="#regressió-lineal-múltiple" id="toc-regressió-lineal-múltiple" class="nav-link" data-scroll-target="#regressió-lineal-múltiple"><span class="header-section-number">4</span> Regressió lineal múltiple</a></li>
+  <li><a href="#exercici" id="toc-exercici" class="nav-link" data-scroll-target="#exercici"><span class="header-section-number">5</span> Exercici</a></li>
   </ul>
 </nav>
     </div>
@@ -237,7 +246,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">5. Regressió lineal i logística</h1>
+<h1 class="title">Regressió</h1>
 </div>
 
 
@@ -248,7 +257,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Publicat</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">04/07/2026</p>
+      <p class="date">05/07/2026</p>
     </div>
   </div>
   
@@ -260,8 +269,38 @@ window.Quarto = {
 </header>
 
 
-<section id="introducció" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Introducció</h1>
+<section id="introducció-a-laprenentatge-automàtic" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introducció a l’aprenentatge automàtic</h1>
+<p>Fins ara ens hem centrat a explorar i visualitzar dades: entendre com es distribueixen les variables, detectar relacions i representar-les gràficament. A partir d’ara, farem un pas més enllà i entrarem en el camp de l’aprenentatge automàtic (<em>machine learning</em>), que té com a objectiu construir models capaços de predir o classificar automàticament a partir de dades.</p>
+<p>Dins de l’aprenentatge automàtic, es distingeix habitualment entre dos grans enfocaments:</p>
+<ul>
+<li>aprenentatge no supervisat: les dades no inclouen una variable «resposta» coneguda; l’objectiu és descobrir patrons o estructures ocultes en les dades (per exemple, agrupar clients amb comportaments similars sense saber prèviament a quin grup pertanyen).</li>
+</ul>
+<p>-aprenentatge supervisat: disposem d’una variable «resposta» coneguda per a cada observació, i l’objectiu és construir un model que aprengui la relació entre les variables predictores i aquesta resposta, de manera que puguem predir-la per a noves observacions on encara no la coneixem. És en aquest segon enfocament en el que centrarem els propers temes.</p>
+<section id="regressió-i-classificació" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="regressió-i-classificació"><span class="header-section-number">1.1</span> Regressió i classificació</h2>
+<p>Dins de l’aprenentatge supervisat, la naturalesa de la variable resposta determina el tipus de problema al qual ens enfrontem:</p>
+<p>-quan la variable resposta és quantitativa (per exemple, un preu, una temperatura o un nivell d’assistència), parlem d’un problema de regressió. L’objectiu és predir un valor numèric el més aproximat possible al valor real.</p>
+<p>-quan la variable resposta és categòrica (per exemple, si un client serà morós o no, si un correu és spam o no, o si un bolet és comestible o verinós), parlem d’un problema de classificació. L’objectiu és predir a quina categoria pertany cada observació.</p>
+<p>Cal fer, però, una petita matisació: existeix un mètode anomenat regressió logística que, malgrat el seu nom, s’utilitza per resoldre problemes de classificació (habitualment amb dues categories, com «sí/no» o «morós/no morós»). S’anomena «regressió» perquè, internament, el model estima una equació de tipus lineal per calcular la probabilitat que una observació pertanyi a una categoria determinada. Aquesta probabilitat es converteix després en una predicció categòrica. És, per tant, un pont natural entre els dos mons: tècnicament és una regressió, però la seva finalitat pràctica és la classificació.</p>
+<p>Als propers temes veurem exemples de tots dos tipus de problemes: la regressió lineal (simple i múltiple) ens permetrà predir variables quantitatives, mentre que els arbres de decisió i els classificadors bayesians s’utilitzen habitualment per a problemes de classificació.</p>
+</section>
+<section id="conjunt-dentrenament-i-conjunt-de-test" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="conjunt-dentrenament-i-conjunt-de-test"><span class="header-section-number">1.2</span> Conjunt d’entrenament i conjunt de test</h2>
+<p>Un dels principis fonamentals de l’aprenentatge automàtic és que un model no s’ha d’avaluar amb les mateixes dades amb les que s’ha construït. Si ho féssim així, el model podria semblar molt precís simplement perquè ha «memoritzat» les particularitats d’aquelles dades concretes, sense que això garanteixi que funcionarà bé amb dades noves.</p>
+<p>Per evitar-ho, és habitual dividir el conjunt de dades disponible en dues parts:</p>
+<p>-conjunt d’entrenament (<em>training set</em>): la part de les dades que s’utilitza per construir o «entrenar» el model (normalment, entre un 70% i un 80% de les dades disponibles).</p>
+<p>-conjunt de test (<em>test set</em>): la part restant de les dades, que no s’utilitza durant la construcció del model, sinó únicament per avaluar-ne el rendiment amb observacions que el model no ha «vist» prèviament.</p>
+<p>Aquesta divisió ens permet obtenir una estimació més realista de com es comportarà el model quan s’apliqui a dades noves, que és, al cap i a la fi, el seu objectiu últim.</p>
+</section>
+<section id="sobreajust-overfitting" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="sobreajust-overfitting"><span class="header-section-number">1.3</span> Sobreajust (<em>overfitting</em>)</h2>
+<p>Un dels riscos més habituals a l’hora de construir un model és el que es coneix com a «sobreajust» (<em>overfitting</em>). Es produeix quan un model s’ajusta tan estretament a les particularitats del conjunt d’entrenament que perd capacitat de generalitzar a dades noves. Un model amb sobreajust sol mostrar un rendiment excel·lent sobre el conjunt d’entrenament, però un rendiment molt pitjor sobre el conjunt de test.</p>
+<p>El cas contrari és el de l’«infraajust» (<em>underfitting</em>), en el qual el model és massa simple per captar els patrons rellevants de les dades, i per tant obté un rendiment mediocre tant en el conjunt d’entrenament com en el de test.</p>
+</section>
+</section>
+<section id="regressió" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Regressió</h1>
 <p>La regressió és un conjunt de tècniques estadístiques que permeten modelitzar la relació entre una o més variables independents (o explicatives) i una variable dependent (o resposta).</p>
 <p>En funció de quantes variables explicatives tenim i quin tipus de variable volem predir, podem distingir tres grans tipus de regressió:</p>
 <ul>
@@ -271,8 +310,8 @@ window.Quarto = {
 </ul>
 <p>En els següents apartats desenvoluparem les dues primeres categories (regressió lineal simple i múltiple).</p>
 </section>
-<section id="regressió-lineal-simple" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Regressió lineal simple</h1>
+<section id="regressió-lineal-simple" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Regressió lineal simple</h1>
 <p>Suposem que volem analitzar si la disponibilitat d’equipaments culturals (biblioteques, centres cívics, teatres, museus, etc.) en un municipi està relacionada amb l’assistència a activitats culturals.</p>
 <ul>
 <li><p>Variable independent (X): Equipaments culturals per 10.000 habitants</p></li>
@@ -382,18 +421,73 @@ Assistència = 4.1032 + 33.2684 \cdot Equipaments
 </div>
 </div>
 <p>Mitjançant la funció <code>predict()</code>, el model estima un nivell d’assistència aproximat de 60,66 persones per cada 1.000 habitants.</p>
+<p>Aquesta predicció és una estimació puntual: un únic valor que representa la millor predicció del model per a aquell municipi concret. No obstant, com qualsevol estimació basada en una mostra, aquesta predicció està subjecta a incertesa i és recomanable acompanyar-la d’un interval que en reflecteixi el marge d’error, en lloc de presentar-la com si fos un valor exacte.</p>
+<p>La funció <code>predict()</code> permet calcular aquest interval afegint l’argument interval, que pot prendre dos valors:</p>
+<p>-<code>predict(model_cultura, newdata = nou_municipi, interval = "confidence")</code></p>
+<p>-<code>predict(model_cultura, newdata = nou_municipi, interval = "prediction")</code></p>
+<p>És important distingir entre els dos tipus d’interval, ja que responen a preguntes diferents:</p>
+<p>-interval de confiança (interval = “confidence”): informa sobre la incertesa al voltant del valor mitjà esperat d’assistència per a municipis amb aquest nivell d’equipaments culturals. És a dir, respon a la pregunta: «si tinguéssim molts municipis amb 1,7 equipaments per 10.000 habitants, en quin rang se situaria l’assistència mitjana d’aquest conjunt?»</p>
+<p>-interval de predicció (interval = “prediction”): informa sobre la incertesa al voltant del valor esperat per a un municipi individual concret. Respon a la pregunta: «quin rang d’assistència podem esperar per a aquest municipi en particular?»</p>
+<p>L’interval de predicció sempre serà més ampli que l’interval de confiança, ja que a la incertesa sobre la mitjana s’hi suma la variabilitat pròpia de cada observació individual. En la pràctica, quan volem predir un valor concret (com en el nostre exemple, un nou municipi), l’interval de predicció sol ser el més rellevant, mentre que l’interval de confiança és més adequat quan volem estimar el comportament mitjà d’un grup d’observacions amb característiques similars.</p>
+<p>Presentar les prediccions acompanyades del seu interval, en lloc d’un únic valor, és una bona pràctica que ajuda a comunicar honestament el grau de certesa (o incertesa) que té el nostre model, especialment tenint en compte la mida reduïda de la mostra amb què treballem en aquest exemple.</p>
+<section id="supòsits-de-la-regressió-lineal" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="supòsits-de-la-regressió-lineal"><span class="header-section-number">3.1</span> Supòsits de la regressió lineal</h2>
+<p>Perquè els resultats d’un model de regressió lineal (els coeficients, els p-valors, els intervals de confiança) siguin fiables, cal que es compleixin una sèrie de supòsits bàsics. Fins ara ens hem centrat a interpretar el model, però és igualment important validar-lo, és a dir, comprovar que aquests supòsits es compleixen raonablement bé. Els quatre supòsits principals són:</p>
+<p>-linealitat: la relació entre les variables predictores i la variable resposta ha de ser aproximadament lineal. Si la relació real fos, per exemple, corba, un model lineal no la captaria correctament.</p>
+<p>-normalitat dels residus: els residus del model (la diferència entre els valors observats i els valors predits) han de seguir, aproximadament, una distribució normal. Aquest supòsit és especialment rellevant per a la validesa dels contrastos d’hipòtesi (p-valors) del model.</p>
+<p>-homocedasticitat: la variabilitat dels residus ha de ser constant al llarg de tot el rang de valors predits. Quan això no es compleix (és a dir, quan els residus són més dispersos per a alguns valors que per a d’altres), es parla d’heterocedasticitat i pot indicar que el model no és adequat o que caldria transformar alguna variable.</p>
+<p>-independència dels residus: els residus no haurien d’estar correlacionats entre si. Aquest supòsit sol ser especialment rellevant en dades temporals o seqüencials, on una observació pot estar influenciada per l’anterior.</p>
+<p>En R, una manera ràpida i molt visual de comprovar aquests supòsits és representar gràficament el model amb la funció <code>plot()</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model_cultura)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="tema_05_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="tema_05_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="tema_05_files/figure-html/unnamed-chunk-6-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="tema_05_files/figure-html/unnamed-chunk-6-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Aquesta funció genera quatre gràfics de diagnòstic:</p>
+<p>-<em>Residuals vs Fitted</em>: permet detectar problemes de linealitat i d’homocedasticitat. Idealment, els punts s’haurien de distribuir de manera aleatòria al voltant de la línia horitzontal de zero, sense cap patró clar.</p>
+<p>-<em>Q-Q Residuals</em>: compara la distribució dels residus amb una distribució normal teòrica. Si els punts s’ajusten aproximadament a la línia diagonal, es pot considerar que el supòsit de normalitat es compleix raonablement.</p>
+<p>-<em>Scale-Location</em>: similar al primer gràfic, però útil específicament per detectar problemes d’homocedasticitat. Els punts s’haurien de distribuir de manera uniforme al llarg de l’eix horitzontal.</p>
+<p>-<em>Residuals vs Leverage</em>: permet identificar observacions atípiques o influents que podrien estar condicionant excessivament els resultats del model.</p>
+<p>Cal remarcar que, amb mostres petites (com la de només 10 municipis del nostre exemple), aquests gràfics de diagnòstic tenen un valor limitat, ja que és difícil valorar amb garanties si es compleix un supòsit amb tan poques observacions. No obstant això, és una bona pràctica revisar-los sempre, especialment quan es treballa amb mostres més grans, per assegurar-nos que les conclusions extretes del model són fiables i no estan condicionades per un incompliment greu d’algun d’aquests supòsits.</p>
 </section>
-<section id="regressió-lineal-múltiple" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Regressió lineal múltiple</h1>
-<p>A més dels equipaments culturals, afegirem una segona variable: la despesa pública cultural per habitant de cada municipi (euros anuals).</p>
+</section>
+<section id="regressió-lineal-múltiple" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Regressió lineal múltiple</h1>
+<p>A més dels equipaments culturals, afegirem una segona variable: la despesa pública cultural (euros anuals) per habitant de cada municipi.</p>
 <p>La taula mostra el dataset actualitzat.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>cultura.act <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">municipi =</span> <span class="fu">paste0</span>(<span class="st">"M"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>),</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">equipaments_per_10k =</span> <span class="fu">c</span>(<span class="fl">1.2</span>, <span class="fl">0.8</span>, <span class="fl">2.0</span>, <span class="fl">1.5</span>, <span class="fl">2.3</span>, <span class="fl">0.6</span>, <span class="fl">1.8</span>, <span class="fl">2.6</span>, <span class="fl">1.0</span>, <span class="fl">2.1</span>),</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">despesa_cultural =</span> <span class="fu">c</span>(<span class="dv">85</span>, <span class="dv">60</span>, <span class="dv">120</span>, <span class="dv">95</span>, <span class="dv">130</span>, <span class="dv">55</span>, <span class="dv">110</span>, <span class="dv">150</span>, <span class="dv">70</span>, <span class="dv">125</span>),</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                          <span class="at">assistencia_per_1000 =</span> <span class="fu">c</span>(<span class="dv">45</span>, <span class="dv">30</span>, <span class="dv">70</span>, <span class="dv">55</span>, <span class="dv">80</span>, <span class="dv">25</span>, <span class="dv">65</span>, <span class="dv">90</span>, <span class="dv">35</span>, <span class="dv">75</span>))</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>cultura.act</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>cultura.act <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">municipi =</span> <span class="fu">paste0</span>(<span class="st">"M"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>),</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">equipaments_per_10k =</span> <span class="fu">c</span>(<span class="fl">1.2</span>, <span class="fl">0.8</span>, <span class="fl">2.0</span>, <span class="fl">1.5</span>, <span class="fl">2.3</span>, <span class="fl">0.6</span>, <span class="fl">1.8</span>, <span class="fl">2.6</span>, <span class="fl">1.0</span>, <span class="fl">2.1</span>),</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">despesa_cultural =</span> <span class="fu">c</span>(<span class="dv">85</span>, <span class="dv">60</span>, <span class="dv">120</span>, <span class="dv">95</span>, <span class="dv">130</span>, <span class="dv">55</span>, <span class="dv">110</span>, <span class="dv">150</span>, <span class="dv">70</span>, <span class="dv">125</span>),</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                          <span class="at">assistencia_per_1000 =</span> <span class="fu">c</span>(<span class="dv">45</span>, <span class="dv">30</span>, <span class="dv">70</span>, <span class="dv">55</span>, <span class="dv">80</span>, <span class="dv">25</span>, <span class="dv">65</span>, <span class="dv">90</span>, <span class="dv">35</span>, <span class="dv">75</span>))</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>cultura.act</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
@@ -406,14 +500,14 @@ Assistència = 4.1032 + 33.2684 \cdot Equipaments
 <p><span class="math display">\[
 Assistència = a + \beta_1 \cdot Equipaments + \beta_2 \cdot Despesa
 \]</span></p>
-<p>Construim el model:</p>
+<p>Construïm el model:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>model_multiple <span class="ot">&lt;-</span> <span class="fu">lm</span>(assistencia_per_1000 <span class="sc">~</span> </span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                       equipaments_per_10k <span class="sc">+</span> </span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                       despesa_cultural,</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">data =</span> cultura.act)</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_multiple)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>model_multiple <span class="ot">&lt;-</span> <span class="fu">lm</span>(assistencia_per_1000 <span class="sc">~</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                       equipaments_per_10k <span class="sc">+</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                       despesa_cultural,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">data =</span> cultura.act)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_multiple)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -441,15 +535,21 @@ F-statistic:  1827 on 2 and 7 DF,  p-value: 3.055e-10</code></pre>
 <p>Pel que fa a la despesa cultural per habitant, el coeficient estimat és positiu (β = 0.276), cosa que indica que, mantenint constant el nombre d’equipaments, cada euro addicional de despesa cultural s’associa amb un increment aproximat de 0,28 persones per 1.000 habitants en l’assistència. No obstant, aquest coeficient no és estadísticament significatiu al nivell convencional del 5% (p = 0.138), fet que implica que, amb aquesta mostra, no podem afirmar que la despesa tingui un efecte independent clar sobre l’assistència.</p>
 <p>L’intercept (a = −2.66) tampoc no és estadísticament significatiu (p = 0.542) i no té una interpretació substantiva rellevant, ja que correspondria al nivell d’assistència quan ambdues variables explicatives prenen el valor zero, una situació que no és real.</p>
 <p>El model presenta un coeficient de determinació molt elevat (R² = 0.99), fet que indica que el 99% de la variabilitat observada en l’assistència és explicada conjuntament per les dues variables incloses.</p>
+<p>Fins ara hem fet servir el coeficient de determinació (R²) per valorar la qualitat de l’ajust dels nostres models. No obstant, en passar a la regressió múltiple, cal tenir en compte una particularitat important d’aquest indicador: el R² sempre augmenta (o, com a mínim, no disminueix) a mesura que afegim més variables predictores al model, encara que aquestes variables noves no tinguin cap relació real amb la variable resposta. Això succeeix perquè el model sempre pot aprofitar una mica més de variabilitat “per atzar” en afegir una dimensió addicional, encara que aquesta variable no aporti informació rellevant.</p>
+<p>Aquesta propietat converteix el R² en un indicador poc fiable per decidir si val la pena afegir una variable a un model, ja que sempre “premiarà” el model més complex. Per solucionar-ho, R calcula també el R² ajustat (<em>Adjusted R-squared</em>), que es mostra just a sota del R² a la sortida de <code>summary()</code>. A diferència del R² normal, el R² ajustat penalitza l’increment del nombre de variables, de manera que només augmenta si la variable nova aporta més capacitat explicativa de la que s’esperaria per atzar. Si afegim una variable poc útil, el R² ajustat pot fins i tot disminuir, malgrat que el R² normal hagi augmentat.</p>
+<p>Per aquest motiu, quan es comparen models amb un nombre diferent de variables (com és el nostre cas: el model simple amb una variable i el model múltiple amb dues), és més adequat fixar-nos en el R² ajustat que no pas en el R² normal. Si comparem els dos models del nostre exemple, podem observar que el R² ajustat del model múltiple manté un valor molt similar (o lleugerament superior) al del model simple, cosa que confirma que la variable despesa_cultural aporta una millora real i no merament aparent en la capacitat explicativa del model.</p>
+<p>En la pràctica, el R² ajustat és especialment útil quan es té diverses variables candidates i cal decidir quines val la pena incloure en el model final: una bona regla general és desconfiar de les variables que, en afegir-les, incrementen el R² però no el R² ajustat, ja que probablement no estan aportant informació rellevant.</p>
 <p>En conjunt, els resultats indiquen que la quantitat d’equipaments culturals manté un efecte positiu sobre la participació cultural fins i tot quan es controla la despesa pública. En canvi, la despesa cultural mostra una associació positiva però no significativa en presència de la variable d’equipaments. Això podria suggerir que la infraestructura cultural té un paper més estructural en l’explicació de l’assistència, o bé que existeix una certa correlació entre ambdues variables que dificulta la separació neta dels seus efectes en una mostra tan reduïda.</p>
+<p>El dubte que acabem de plantejar (si l’efecte no significatiu de la despesa cultural es deu a una manca real d’influència o, més aviat, a una correlació entre les dues variables predictores) fa referència a un problema molt habitual en regressió múltiple conegut com a multicolinealitat. Es produeix quan dues o més variables explicatives estan fortament correlacionades entre si, cosa que dificulta que el model pugui distingir l’efecte independent de cadascuna sobre la variable resposta. En el nostre exemple, és raonable pensar que els municipis amb més equipaments culturals també tendeixen a destinar-hi més pressupost, de manera que ambdues variables es mouen sovint juntes.</p>
+<p>La multicolinealitat no afecta la capacitat predictiva global del model (el R² es manté igual d’elevat), però sí que pot fer que els coeficients individuals siguin inestables, difícils d’interpretar o, com hem vist, no estadísticament significatius encara que la variable sigui rellevant en realitat.</p>
 <p>Acabarem amb un exemple de predicció corresponent a un nou municipi amb 1.7 equipaments per 10.000 habitants i 100 € de despesa cultural per habitant</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>nou_municipi <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">equipaments_per_10k =</span> <span class="fl">1.7</span>,</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">despesa_cultural =</span> <span class="dv">100</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model_multiple, <span class="at">newdata =</span> nou_municipi)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>nou_municipi <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">equipaments_per_10k =</span> <span class="fl">1.7</span>,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">despesa_cultural =</span> <span class="dv">100</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model_multiple, <span class="at">newdata =</span> nou_municipi)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       1 
 59.22099 </code></pre>
@@ -457,8 +557,8 @@ F-statistic:  1827 on 2 and 7 DF,  p-value: 3.055e-10</code></pre>
 </div>
 <p>Això significa que el model prediu una assistència aproximada de 59,2 persones per cada 1.000 habitants en activitats culturals per a un municipi amb aquestes característiques. A diferència de la regressió simple, aquesta estimació té en compte simultàniament l’efecte de la infraestructura cultural i el nivell de despesa pública. Per tant, la predicció reflecteix l’efecte combinat d’ambdues variables, mantenint constant l’impacte de cadascuna mentre s’estima l’altra.</p>
 </section>
-<section id="exercici" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Exercici</h1>
+<section id="exercici" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Exercici</h1>
 <p>Una web de ressenyes de restaurants publica un conjunt de dades que inclou, per a 15 restaurants, la valoració de tres dimensions específiques (menjar, ambient i servei) així com la puntuació global atorgada pels clients. El dataset està disponible al Campus Virtual.</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">

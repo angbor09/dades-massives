@@ -35,7 +35,9 @@ ggplot() + borders("world", c("spain",
 
 ```
 
-# Situar punts en un mapa
+# Mapes de punts
+Els mapes que representen dades mitjançant punts es coneixen com mapes de punts. En aquest tipus de mapes, cada punt se situa en la seva ubicació geogràfica exacta (per exemple, mitjançant coordenades de latitud i longitud) i pot representar un únic esdeveniment o observació (com la ubicació d'una ciutat, un arbre o una botiga).
+
 He creat un petit *dataset* amb les coordenades geogràfiques d'una desena de ciutats. Si les necessiteu, podeu obtenir fàcilment les coordenades geogràfiques de qualsevol indret a través de Google Maps.
 
 ```{r}
@@ -69,7 +71,9 @@ ggplot() + borders("world", fill = "white") +
 ```
 
 
-# Mapa de comunitats autònomes
+# Mapes de coropletes
+Un mapa de coropletes és un tipus de mapa temàtic en el qual les diferents àrees geogràfiques (països, comunitats autònomes, municipis, etc.) es pinten amb colors o intensitats de color diferents en funció del valor d'una variable. Com més fosc o intens és el color d'una regió, més elevat sol ser el valor de la variable representada en aquella zona. Aquest tipus de mapa és molt útil per identificar patrons espacials, com concentracions regionals o gradients geogràfics, d'un cop d'ull. Un exemple habitual és un mapa que representi la renda mitjana per comunitat autònoma o la taxa d'atur per província, on cada regió es tenyeix segons el seu valor respecte a la resta.
+
 Farem ara un mapa de comunitats autònomes espanyoles. El paquet `mapSpain` proporciona els mapes d'Espanya amb divisions administratives, mentre que `sf` permet treballar amb dades espacials. El nom d'aquest paquet ve de *simple features*, un estàndard internacional per representar geometries (punts, línies, polígons). El paquet `scales` ens permetrà posteriorment millorar la presentació de les xifres.
 
 ```{r, message=FALSE, warning=FALSE}
@@ -86,7 +90,7 @@ ccaa_map <- mapSpain::esp_get_ccaa()
 
 ```
 
-A continuació, creem el mapa.
+A continuació, creem el mapa. Fixeu-vos que, a diferència dels `geom_point()` anteriors, `geom_sf()` no requereix especificar `x` i `y` perquè la geometria ja està continguda a la columna espacial del dataframe (`geometry`).
 
 ```{r}
 ggplot(ccaa_map) +
@@ -94,7 +98,7 @@ ggplot(ccaa_map) +
 
 ```
 
-Un mapa coroplètic o de coropletes és un mapa temàtic que utilitza un color per representar una variable quantitativa, que en aquest cas serà la població de cada comunitat autònoma.
+Com hem explicat, un mapa de coropletes és un mapa temàtic que utilitza un color per representar una variable quantitativa, que en aquest cas serà la població de cada comunitat autònoma.
 
 El primer pas consisteix, doncs, a obtenir les dades de població de cada comunitat autònoma. En aquest cas, el fitxer amb les dades l'hem obtingut de l'INE: https://www.ine.es/jaxiT3/Datos.htm?t=2915.
 
@@ -118,7 +122,7 @@ ccaa_map_pob <- ccaa_map %>%
 
 ```
 
-Ara ja podem crear el mapa.
+Ara ja podem crear el mapa. En el següent codi, la funció `scale_fill_gradient()` defineix una escala de color contínua entre dos extrems: el color per als valors més baixos (argument `low`) i el color per als valors més alts (argument `high`). R interpola automàticament tots els tons intermedis entre aquests dos colors en funció del valor de cada observació, de manera que les diferències de color reflecteixen les diferències numèriques de la variable. A més d'aquests dos arguments, també es pot personalitzar el format dels números que s'hi mostren (`labels`), com s'ha fet en l'exemple amb `label_comma()` per mostrar la població amb el punt com a separador de milers.
 
 ```{r, warning=FALSE}
 ggplot(ccaa_map_pob) +
@@ -133,7 +137,7 @@ ggplot(ccaa_map_pob) +
 
 ```
 
-# Mapa dels Estats Units
+# Mapa de punts dels Estats Units
 El curs passat una companya vostra va voler fer un mapa dels Estats Units indicant algunes ciutats que havia visitat. Reprodueixo a continuació el procés que vam seguir.
 
 En primer lloc, vam obtenir les dades geogràfiques. La funció `map_data` de `ggplot2` inclou alguns mapes preconfigurats, entre ells un dels estats d'Estats Units. El *dataframe* conté un llistat de punts que, units, configuren les fronteres dels estats.
@@ -162,7 +166,7 @@ head(centre)
 
 ```
 
-Si posem el nom sencer de cada estat al mapa, ocuparan massa espai, de manera que anomenarem cada estat amb les seves inicials (les dues primeres lletres) que obtindrem dels noms que figuren al *dataset*. Amb el següent codi, extreiem les incials del camp "region" i les afegim a una nova columna. La funció `toupper` serveix per posar-les en majúscules.
+Si posem el nom sencer de cada estat al mapa, ocuparà massa espai, de manera que anomenarem cada estat amb les seves inicials (les dues primeres lletres) que obtindrem dels noms que figuren al *dataset*. Amb el següent codi, extreiem les incials del camp "region" i les afegim a una nova columna. La funció `toupper` serveix per posar-les en majúscules.
 
 ```{r}
 centre$inicials <- toupper(substr(centre$region, 1, 2))
@@ -200,7 +204,7 @@ Ara afegirem les ciutats. Podríem crear el dataset amb Excel o amb el bloc de n
 US_cities <- data.frame(
   ciutat = c("Houston","Minneapolis", "Nova York", "San Francisco", "Seattle"),
   latitud = c(29.7558, 44.9424, 40.7128, 37.7631, 47.6062),
-  longitud = c(-95.3802, -94.9147, -74.0060, -119.6559, -122.3321))
+  longitud = c(-95.3802, -94.9147, -74.0060, -122.4194, -122.3321))
 
 head(US_cities)
 
@@ -227,7 +231,7 @@ mapa.USA.int
 ```
 
 
-# Mapes con OpenStreetMap
+# Mapes amb OpenStreetMap
 Farem un mapa amb OpenStreetMap, una eina similar a Google Maps però amb llicència oberta. Necessitarem el paquet `leaflet`.
 
 ```{r}

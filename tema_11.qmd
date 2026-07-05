@@ -16,7 +16,7 @@ format:
 # Introducció
 En aquesta sessió ens centrarem en la comunicació dels resultats d'una anàlisi de dades de manera clara, estructurada i reproduïble. Fins ara, hem treballat principalment amb *scripts*, però en un context real, el valor de l’anàlisi depèn tant de la qualitat tècnica de l'anàlisi com de la manera en què es presenta. Per això, introduirem l’ús de R Markdown, una eina que permet integrar **text, codi i resultats** en un únic document dinàmic.
 
-L’objectiu és entendre com elaborar un informe complet que combini explicació narrativa, codi i visualitzacions. L'objectiu és fer informes reproduibles, és a dir, que puguin regenerar-se automàticament a partir de les dades i el codi, evitant errors derivats de copiar i enganxar resultats manualment o de tenir diferents versions d'un mateix document.
+L’objectiu és entendre com elaborar un informe complet que combini explicació narrativa, codi i visualitzacions. L'objectiu és fer informes reproduïbles, és a dir, que puguin regenerar-se automàticament a partir de les dades i el codi, evitant errors derivats de copiar i enganxar resultats manualment o de tenir diferents versions d'un mateix document.
 
 Crearem un informe en format HTML i veurem com publicar-lo en línia mitjançant plataformes com RPubs, de manera que es pugui compartir amb altres persones.
 
@@ -37,25 +37,59 @@ Un document R Markdown conté tres elements principals:
 ```
 ---
 title: "Títol de l'informe"
-author: "Nom de l'autor"
+author: "Nom de l'autor/a"
 date: "2026-04-24" (pot ser automàtica amb "r Sys.Date()")
 output: html_document
 ---
 ```
 
+En l'exemple anterior, hem fixat `output: html_document`, que genera un document en format HTML, l'opció més habitual i la que farem servir al llarg d'aquest tema. No obstant, R Markdown permet generar el mateix informe en altres formats simplement canviant aquest paràmetre a la capçalera YAML, sense necessitat de modificar la resta del document. Els formats més habituals són:
+
+-`html_document`: genera un document HTML, ideal per visualitzar-lo en un navegador o publicar-lo en línia (per exemple, a RPubs).
+
+-`pdf_document`: genera un document PDF, útil quan es necessita un format més formal o imprimible. Cal tenir en compte que aquest format requereix tenir instal·lada una distribució de LaTeX al nostre ordinador (com `TinyTeX`, que es pot instal·lar directament des de R amb `tinytex::install_tinytex()`).
+
+-`word_document`: genera un document de Microsoft Word («.docx»), molt útil quan el resultat final s'ha de compartir amb persones que necessiten editar-lo o inserir-lo en un document més ampli.
+
+Un dels grans avantatges d'R Markdown és que el mateix contingut (text, codi i resultats) es pot adaptar a diferents formats de sortida simplement canviant aquesta línia de la capçalera, sense haver de refer l'informe des de zero per a cada format.
+
+A més de definir el format de sortida, la capçalera YAML també permet afegir altres opcions que personalitzen l'aspecte i l'estructura del document final. Algunes de les més habituals són:
+
+-`toc: true`: afegeix automàticament una taula de continguts al principi del document, generada a partir dels títols i subtítols que hàgim creat amb Markdown.
+
+`toc-float: true`: fa que la taula de continguts es mantingui visible mentre es navega pel document (només disponible per a sortida HTML).
+
+`number-sections: true`: numera automàticament els títols i subtítols del document (Secció 1, 1.1, 1.2, etc.).
+
+`df-print: paged`: millora la visualització dels *dataframes*, mostrant-los amb un format de taula paginada i navegable, en lloc del format de text pla per defecte.
+
+```
+---
+title: "El meu informe"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+    df_print: paged
+---
+```
+
+Aquestes opcions no modifiquen el contingut de l'informe, sinó únicament la seva presentació, però poden millorar molt la llegibilitat i la navegació del document, especialment quan aquest és llarg o conté moltes seccions.
+
 ## El text amb Markdown
 El cos del document s’escriu amb Markdown, un llenguatge lleuger per formatar text. Exemples habituals:
 
-- *cursiva* (text entre asterics)
+- *cursiva* (text entre astericos)
 
-- **negreta** (text entre dobles asterics asterics)
+- **negreta** (text entre dobles astericos asterics)
 
 - `codi` (text entre accents oberts). Exemple: Calcula la mitjana aritmètica amb la funció `mean`.
 
 ## Blocs de codi (*chunks*)
-Els *chunks* són la part dinàmica del document. Permeten executar codi R i inserir-ne els resultats automàticament. Estàn identificats amb ```{r}.
+Els *chunks* són la part dinàmica del document. Permeten executar codi R i inserir-ne els resultats automàticament. Estan identificats amb ```{r}.
 
-En el procés de creació del document R Markdown, es poden executar els *chunks* per comprovar el seu funcionament clicant sobre la fletxa verde de la dreta.
+En el procés de creació del document R Markdown, es poden executar els *chunks* per comprovar el seu funcionament clicant sobre la fletxa verda de la dreta.
 
 ```{r}
 a <- 5
@@ -97,7 +131,7 @@ head(mtcars, 10)
 
 ```
 
-Hi ha diversos paquets que permeten fer taules. Una opció és la funció `kabble` del paquet `knitr`. Per exemple:
+Hi ha diversos paquets que permeten fer taules. Una opció és la funció `kable` del paquet `knitr`. Per exemple:
 
 ```{r, echo=FALSE}
 library(knitr)
@@ -116,16 +150,14 @@ plot(cars)
 ## Un altre exemple
 El següent *chunk* carrega un dataset des de l’ordinador (el fitxer de “mostra” que vam fer servir a la primera sessió del curs), realitza una petita anàlisi i mostra el resultat per pantalla. La idea clau és que, si canviem el fitxer original (per exemple, perquè ens adonem que ens faltaven alguns casos que havíem oblidat afegir), R importarà el nou dataset i recalcularà automàticament tots els resultats. 
 
-```{r}
-dades <- read.table(file = "data/mostra.txt",
-                   header = TRUE,
-                   sep = "\t",
-                   dec = ",")
-mean(dades$Edat)
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+empleats <- read_csv2("data/empleats.csv", locale = locale(encoding = "UTF-8"))
+mean(empleats$edat)
 
 ```
 
-A més, podeu inserir càlculs directament dins de la narrativa: "L'edat mitjana dels subjectes és `r mean(dades$Edat)` anys".
+A més, podeu inserir càlculs directament dins de la narrativa: "L'edat mitjana dels empleats és `r mean(empleats$edat)` anys".
 
 Recordeu que també podeu carregar les dades directament des d'Internet. Per exemple, per generar aquest gràfic que mostra l'evolució del preu del bitcoin entre 2013 i 2018.
 

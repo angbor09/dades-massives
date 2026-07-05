@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="">
-<meta name="dcterms.date" content="2026-04-07">
+<meta name="dcterms.date" content="2026-05-07">
 
 <title>11. Informes R Markdown – Dades massives</title>
 <style>
@@ -231,7 +231,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Publicat</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">04/07/2026</p>
+      <p class="date">05/07/2026</p>
     </div>
   </div>
   
@@ -246,7 +246,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="introducció" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Introducció</h1>
 <p>En aquesta sessió ens centrarem en la comunicació dels resultats d’una anàlisi de dades de manera clara, estructurada i reproduïble. Fins ara, hem treballat principalment amb <em>scripts</em>, però en un context real, el valor de l’anàlisi depèn tant de la qualitat tècnica de l’anàlisi com de la manera en què es presenta. Per això, introduirem l’ús de R Markdown, una eina que permet integrar <strong>text, codi i resultats</strong> en un únic document dinàmic.</p>
-<p>L’objectiu és entendre com elaborar un informe complet que combini explicació narrativa, codi i visualitzacions. L’objectiu és fer informes reproduibles, és a dir, que puguin regenerar-se automàticament a partir de les dades i el codi, evitant errors derivats de copiar i enganxar resultats manualment o de tenir diferents versions d’un mateix document.</p>
+<p>L’objectiu és entendre com elaborar un informe complet que combini explicació narrativa, codi i visualitzacions. L’objectiu és fer informes reproduïbles, és a dir, que puguin regenerar-se automàticament a partir de les dades i el codi, evitant errors derivats de copiar i enganxar resultats manualment o de tenir diferents versions d’un mateix document.</p>
 <p>Crearem un informe en format HTML i veurem com publicar-lo en línia mitjançant plataformes com RPubs, de manera que es pugui compartir amb altres persones.</p>
 </section>
 <section id="estructura-dun-document-en-r-markdown" class="level1" data-number="2">
@@ -263,37 +263,57 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>És la primera secció del document i defineix les metadades i el format de sortida. Està delimitada per tres guions (<code>---</code>) abans i tres guions (<code>---</code>) després. Exemple de capçalera bàsic:</p>
 <pre><code>---
 title: "Títol de l'informe"
-author: "Nom de l'autor"
+author: "Nom de l'autor/a"
 date: "2026-04-24" (pot ser automàtica amb "r Sys.Date()")
 output: html_document
 ---</code></pre>
+<p>En l’exemple anterior, hem fixat <code>output: html_document</code>, que genera un document en format HTML, l’opció més habitual i la que farem servir al llarg d’aquest tema. No obstant, R Markdown permet generar el mateix informe en altres formats simplement canviant aquest paràmetre a la capçalera YAML, sense necessitat de modificar la resta del document. Els formats més habituals són:</p>
+<p>-<code>html_document</code>: genera un document HTML, ideal per visualitzar-lo en un navegador o publicar-lo en línia (per exemple, a RPubs).</p>
+<p>-<code>pdf_document</code>: genera un document PDF, útil quan es necessita un format més formal o imprimible. Cal tenir en compte que aquest format requereix tenir instal·lada una distribució de LaTeX al nostre ordinador (com <code>TinyTeX</code>, que es pot instal·lar directament des de R amb <code>tinytex::install_tinytex()</code>).</p>
+<p>-<code>word_document</code>: genera un document de Microsoft Word («.docx»), molt útil quan el resultat final s’ha de compartir amb persones que necessiten editar-lo o inserir-lo en un document més ampli.</p>
+<p>Un dels grans avantatges d’R Markdown és que el mateix contingut (text, codi i resultats) es pot adaptar a diferents formats de sortida simplement canviant aquesta línia de la capçalera, sense haver de refer l’informe des de zero per a cada format.</p>
+<p>A més de definir el format de sortida, la capçalera YAML també permet afegir altres opcions que personalitzen l’aspecte i l’estructura del document final. Algunes de les més habituals són:</p>
+<p>-<code>toc: true</code>: afegeix automàticament una taula de continguts al principi del document, generada a partir dels títols i subtítols que hàgim creat amb Markdown.</p>
+<p><code>toc-float: true</code>: fa que la taula de continguts es mantingui visible mentre es navega pel document (només disponible per a sortida HTML).</p>
+<p><code>number-sections: true</code>: numera automàticament els títols i subtítols del document (Secció 1, 1.1, 1.2, etc.).</p>
+<p><code>df-print: paged</code>: millora la visualització dels <em>dataframes</em>, mostrant-los amb un format de taula paginada i navegable, en lloc del format de text pla per defecte.</p>
+<pre><code>---
+title: "El meu informe"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+    df_print: paged
+---</code></pre>
+<p>Aquestes opcions no modifiquen el contingut de l’informe, sinó únicament la seva presentació, però poden millorar molt la llegibilitat i la navegació del document, especialment quan aquest és llarg o conté moltes seccions.</p>
 </section>
 <section id="el-text-amb-markdown" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="el-text-amb-markdown"><span class="header-section-number">2.2</span> El text amb Markdown</h2>
 <p>El cos del document s’escriu amb Markdown, un llenguatge lleuger per formatar text. Exemples habituals:</p>
 <ul>
-<li><p><em>cursiva</em> (text entre asterics)</p></li>
-<li><p><strong>negreta</strong> (text entre dobles asterics asterics)</p></li>
+<li><p><em>cursiva</em> (text entre astericos)</p></li>
+<li><p><strong>negreta</strong> (text entre dobles astericos asterics)</p></li>
 <li><p><code>codi</code> (text entre accents oberts). Exemple: Calcula la mitjana aritmètica amb la funció <code>mean</code>.</p></li>
 </ul>
 </section>
 <section id="blocs-de-codi-chunks" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="blocs-de-codi-chunks"><span class="header-section-number">2.3</span> Blocs de codi (<em>chunks</em>)</h2>
-<p>Els <em>chunks</em> són la part dinàmica del document. Permeten executar codi R i inserir-ne els resultats automàticament. Estàn identificats amb ```{r}.</p>
-<p>En el procés de creació del document R Markdown, es poden executar els <em>chunks</em> per comprovar el seu funcionament clicant sobre la fletxa verde de la dreta.</p>
+<p>Els <em>chunks</em> són la part dinàmica del document. Permeten executar codi R i inserir-ne els resultats automàticament. Estan identificats amb ```{r}.</p>
+<p>En el procés de creació del document R Markdown, es poden executar els <em>chunks</em> per comprovar el seu funcionament clicant sobre la fletxa verda de la dreta.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">5</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> a<span class="sc">+</span>b</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>c</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> a<span class="sc">+</span>b</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>c</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 8</code></pre>
 </div>
 </div>
 <p>Un altre exemple de <em>chunk</em>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(cars)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cars)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(cars)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cars)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     speed           dist       
  Min.   : 4.0   Min.   :  2.00  
@@ -324,7 +344,7 @@ output: html_document
 <h2 data-number="3.2" class="anchored" data-anchor-id="mostrar-un-dataframe"><span class="header-section-number">3.2</span> Mostrar un dataframe</h2>
 <p>Per defecte, un dataframe es veu igual que a RStudio.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mtcars, <span class="dv">10</span>)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mtcars, <span class="dv">10</span>)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
@@ -333,7 +353,7 @@ output: html_document
 </div>
 </div>
 </div>
-<p>Hi ha diversos paquets que permeten fer taules. Una opció és la funció <code>kabble</code> del paquet <code>knitr</code>. Per exemple:</p>
+<p>Hi ha diversos paquets que permeten fer taules. Una opció és la funció <code>kable</code> del paquet <code>knitr</code>. Per exemple:</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
@@ -380,7 +400,7 @@ output: html_document
 <h2 data-number="3.3" class="anchored" data-anchor-id="inclusió-de-gràfics"><span class="header-section-number">3.3</span> Inclusió de gràfics</h2>
 <p>És possible incorporar gràfics al document. Per exemple:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cars)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cars)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -394,37 +414,23 @@ output: html_document
 <h2 data-number="3.4" class="anchored" data-anchor-id="un-altre-exemple"><span class="header-section-number">3.4</span> Un altre exemple</h2>
 <p>El següent <em>chunk</em> carrega un dataset des de l’ordinador (el fitxer de “mostra” que vam fer servir a la primera sessió del curs), realitza una petita anàlisi i mostra el resultat per pantalla. La idea clau és que, si canviem el fitxer original (per exemple, perquè ens adonem que ens faltaven alguns casos que havíem oblidat afegir), R importarà el nou dataset i recalcularà automàticament tots els resultats.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>dades <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file =</span> <span class="st">"data/mostra.txt"</span>,</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">header =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>,</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">dec =</span> <span class="st">","</span>)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(dades<span class="sc">$</span>Edat)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>empleats <span class="ot">&lt;-</span> <span class="fu">read_csv2</span>(<span class="st">"data/empleats.csv"</span>, <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">"UTF-8"</span>))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(empleats<span class="sc">$</span>edat)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 130.1569</code></pre>
+<pre><code>[1] 38.53571</code></pre>
 </div>
 </div>
-<p>A més, podeu inserir càlculs directament dins de la narrativa: “L’edat mitjana dels subjectes és 130.1568627 anys”.</p>
+<p>A més, podeu inserir càlculs directament dins de la narrativa: “L’edat mitjana dels empleats és 38.5357143 anys”.</p>
 <p>Recordeu que també podeu carregar les dades directament des d’Internet. Per exemple, per generar aquest gràfic que mostra l’evolució del preu del bitcoin entre 2013 i 2018.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.2     ✔ tibble    3.2.1
-✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-✔ purrr     1.0.4     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>bitcoin <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"https://bit.ly/3dyZXbz"</span>, <span class="at">header =</span> T)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>bitcoin<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(bitcoin<span class="sc">$</span>date)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(bitcoin, <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> value)) <span class="sc">+</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">xlab</span>(<span class="st">"Evolució del preu del bitcoin"</span>) <span class="sc">+</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">ylab</span>(<span class="st">"Dòlars"</span>)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>bitcoin <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"https://bit.ly/3dyZXbz"</span>, <span class="at">header =</span> T)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>bitcoin<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(bitcoin<span class="sc">$</span>date)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(bitcoin, <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> value)) <span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">xlab</span>(<span class="st">"Evolució del preu del bitcoin"</span>) <span class="sc">+</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">ylab</span>(<span class="st">"Dòlars"</span>)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
