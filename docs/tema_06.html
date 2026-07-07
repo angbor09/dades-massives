@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="">
-<meta name="dcterms.date" content="2026-05-07">
+<meta name="dcterms.date" content="2026-07-07">
 
-<title>6. Arbres de decisió – Dades massives</title>
+<title>Arbres de decisió – Dades massives</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -212,7 +212,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">6. Arbres de decisió</h1>
+<h1 class="title">Arbres de decisió</h1>
 </div>
 
 
@@ -223,7 +223,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Publicat</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">05/07/2026</p>
+      <p class="date">07/07/2026</p>
     </div>
   </div>
   
@@ -238,7 +238,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="arbres-de-decisió" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Arbres de decisió</h1>
 <p>Un arbre de decisió és un tipus d’algoritme que consisteix en una sèrie de preguntes de resposta «sí» o «no» que porten a preguntes successives fins a prendre una decisió. Es basen en una estructura jeràrquica en forma d’arbre, on cada node representa una condició sobre una variable, cada branca correspon a un resultat possible d’aquesta condició i cada fulla indica una predicció o classe final. Aquests algoritmes són populars per la seva simplicitat i facilitat d’interpretació. Funcionen dividint el conjunt de dades en subconjunts més petits mitjançant regles basades en les variables d’entrada, buscant maximitzar la separació entre classes.</p>
-<p>La següent figura mostra un exemple d’arbre. Partint de la part superior, l’arbre segmenta les dades de manera que cada costat correspon a un únic camí. Tornant a l’exemple de la morositat que vam fer servir al Tema 2, imaginem que volem classificar un subjecte de 40 anys, sense ocupació i amb uns estalvis de 115.000 €. Començant en la part superior, com que no té «ocupació», prenem el camí de la dreta. El següent node és el dels «estalvis». Com són superiors a 50 000 €, prenem de nou el camí de la dreta fins al node «edat». El valor és 40, de manera que anem a l’esquerra que ens indica que la predicció és que aquest subjecte no serà morós. Habitualment, més que saber la categoria en la queda classificat un subjecte, el que retornarà l’algoritme serà la probabilitat que acabi dins d’aquesta categoria. En aquest cas, les branques de l’arbre inclouran les probabilitats en comptes d’un valor simple.</p>
+<p>La següent figura mostra un exemple d’arbre. Partint de la part superior, l’arbre segmenta les dades de manera que cada costat correspon a un únic camí. Tornant a l’exemple de la morositat que vam fer servir al Tema 2, imaginem que volem classificar un subjecte de 40 anys, sense ocupació i amb uns estalvis de 115.000 €. Començant en la part superior, com que no té «ocupació», prenem el camí de la dreta. El següent node és el dels «estalvis». Com són superiors a 50 000 €, prenem de nou el camí de la dreta fins al node «edat». El valor és 40, de manera que anem a l’esquerra que ens indica que la predicció és que aquest subjecte no serà morós. Habitualment, més que saber la categoria en què queda classificat un subjecte, el que retornarà l’algoritme serà la probabilitat que acabi dins d’aquesta categoria. En aquest cas, les branques de l’arbre inclouran les probabilitats en comptes d’un valor simple.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -265,6 +265,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>A partir d’aquesta formulació tan simple podem explorar si es produeixen millores com a resultat d’introduir regles més sofisticades (per exemple, una nova regla que determini que els homes que viatjaven en primera classe es van salvar mentre que la resta van morir).</p>
+<p><strong>Font de les dades del Titanic: es dona un enllaç a Kaggle però no s’aprofita per fer un exemple de R amb aquestes dades (a diferència de morositat, iris i natius, que sí que tenen codi). Si la intenció és deixar el Titanic només per a reflexió teòrica, estaria bé dir-ho explícitament; si no, es podria afegir un quart exemple pràctic amb R, ja que el dataset ja s’ha presentat amb detall.</strong></p>
 </section>
 <section id="creació-dun-arbre-de-decisió-amb-r" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Creació d’un arbre de decisió amb R</h1>
@@ -308,7 +309,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart.plot)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Hi ha diferències en els tests estadístics que utilitzen <code>party</code> i <code>rpart</code> per crear els arbres i l’un o l’altre poden ser més o menys adient segons les variables estiguin més o menys equilibrades o amb diferents escales.</p>
-<p>Per aquest exemple, farem servir el paquet <code>iris</code> que conté mesures de tres espècies diferents de flors Iris: “setosa”, “versicolor” i “virginica”.</p>
+<p>Encara que tots dos paquets serveixen per construir arbres de decisió, el criteri estadístic que fan servir internament per decidir com dividir cada node és diferent, cosa que pot donar lloc a arbres lleugerament diferents fins i tot partint de les mateixes dades.</p>
+<p>-<code>rpart</code> construeix l’arbre buscant, a cada node, la divisió que redueix més la impuresa dels subgrups resultants. Per defecte, en problemes de classificació utilitza l’índex de Gini com a mesura d’impuresa (similar en esperit a l’entropia que ja vam veure al Tema 2, encara que amb una fórmula lleugerament diferent), i continua dividint els nodes fins que arriba a un criteri d’aturada (per exemple, un nombre mínim d’observacions per node). És per això que sovint cal “podar” l’arbre resultant a posteriori per evitar que sigui excessivament complex.</p>
+<p>-<code>party</code> (amb la funció <code>ctree</code>) es basa, en canvi, en tests d’independència estadística (concretament, tests de permutació) per decidir si una variable té una relació prou significativa amb la variable resposta com per justificar una nova divisió. Si cap variable supera un llindar de significació estadística en un node determinat, l’arbre deixa de créixer en aquell punt. Aquesta característica fa que ctree tendeixi a generar arbres una mica més “conservadors” i, sovint, no calgui podar-los posteriorment de la mateixa manera que amb <code>rpart</code>.</p>
+<p>En la pràctica, aquesta diferència de criteri fa que cadascun dels dos paquets tingui punts forts en situacions diferents: <code>party</code>/<code>ctree</code> sol comportar-se millor quan les variables predictores tenen escales molt diferents entre si o quan hi ha un nombre desigual de categories entre variables (ja que els tests estadístics que utilitza corregeixen aquest biaix), mentre que <code>rpart</code> és més ràpid computacionalment i està més estès, amb més eines complementàries disponibles (com <code>rpart.plot</code> per a la visualització o <code>printcp()</code> per analitzar la complexitat de l’arbre). A la pràctica, per a molts problemes senzills com els que veurem en aquest tema, ambdós paquets solen oferir resultats similars, i la tria de l’un o l’altre és sovint una qüestió de preferència personal o de la disponibilitat d’eines de visualització.</p>
+<p>Per al següent exemple, farem servir el paquet <code>iris</code> que conté mesures de tres espècies diferents de flors Iris: “setosa”, “versicolor” i “virginica”.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(iris)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(iris)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
@@ -403,7 +408,7 @@ Levels: no si</code></pre>
 [1] 0.06451613 0.93548387</code></pre>
 </div>
 </div>
-<p>Acabarem amb la classificació d’un nou cas, corresponent a un nen de 10 anys amb un resultat de 43 tant a la prova de lectura com a la d’escriptura.</p>
+<p>Acabarem amb la classificació d’un nou cas, corresponent a un nen de 10 anys amb un resultat de 45 tant a la prova de lectura com a la d’escriptura.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>cas<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Edat =</span> <span class="fu">as.integer</span>(<span class="dv">10</span>),</span>
@@ -421,14 +426,37 @@ Levels: no si</code></pre>
 [1] 0.94117647 0.05882353</code></pre>
 </div>
 </div>
+<p>Els dos valors corresponen, per ordre, a la probabilitat de cada nivell de la variable resposta tal com apareixen alfabèticament als seus levels («no», «si»); per tant, en aquest cas, el model estima una probabilitat del 6,45% que el nen no sigui parlant natiu i del 93,55% que sí que ho sigui.</p>
+<p>Fins ara hem fet servir l’arbre per predir casos nous, però també és interessant preguntar-nos: com d’encertades són, en general, les prediccions del model? Una manera senzilla de respondre-ho és comparar les prediccions de l’arbre amb els valors reals mitjançant una matriu de confusió, que classifica cada cas segons si la predicció ha estat correcta o no.</p>
+<p>Calculem les prediccions de l’arbre <code>arbre_natiu2</code> per a tots els nens del dataset original i les comparem amb els valors reals de la variable «Natiu»:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>prediccions <span class="ot">&lt;-</span> <span class="fu">predict</span>(arbre_natiu2, <span class="at">newdata =</span> natius, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>matriu_confusio <span class="ot">&lt;-</span> <span class="fu">table</span>(<span class="at">Real =</span> natius<span class="sc">$</span>Natiu, Predicció <span class="ot">=</span> prediccions)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>matriu_confusio</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    Predicció
+Real no si
+  no 92  8
+  si  1 99</code></pre>
+</div>
+</div>
+<p>La matriu resultant mostra, a cada fila, els casos reals («no» o «si») i, a cada columna, les prediccions del model. Els valors de la diagonal (real = «no» i predicció = «no»; real = «si» i predicció = «si») corresponen als encerts del model, mentre que els valors fora de la diagonal corresponen als errors de classificació. A partir d’aquesta matriu, podem calcular fàcilment el percentatge global d’encert (<em>accuracy</em>) del model, dividint la suma de la diagonal entre el nombre total de casos:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">diag</span>(matriu_confusio)) <span class="sc">/</span> <span class="fu">sum</span>(matriu_confusio)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.955</code></pre>
+</div>
+</div>
+<p>Cal tenir en compte, però, que aquesta xifra s’ha calculat sobre les mateixes dades amb les quals s’ha entrenat l’arbre, de manera que probablement sobreestima el rendiment real del model amb dades noves (recordeu el concepte de sobreajust que vam introduir al començament d’aquest bloc). Per obtenir una estimació més realista, caldria dividir prèviament les dades en un conjunt d’entrenament i un conjunt de test, entrenar l’arbre només amb el primer, i calcular la matriu de confusió únicament sobre el segon, que el model no ha «vist» durant la seva construcció.</p>
+<p><strong>Divisió entrenament/test: cap dels tres exemples divideix les dades en conjunt d’entrenament i de test (tot el model es crea i s’avalua implícitament sobre les mateixes dades). Atès que en la introducció del bloc d’aprenentatge automàtic (el text que vam redactar abans) s’explica aquest concepte, seria un bon moment per aplicar-lo per primera vegada en un exemple pràctic, ni que sigui en un dels tres casos.</strong></p>
 </section>
 </section>
 <section id="exercici-portar-ulleres-o-lentilles" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Exercici: portar ulleres o lentilles?</h1>
-<p>Una òptica ha recopilat la següent informació sobre una mostra de clients: edat, patologia, astigmatisme i lacrimosidad. A partir d’aquestes dades, s’indica si la persona ha de portar lents de contacte (toves o rígides) o si és convenient que usi lents de contacte. L’objectiu de l’activitat és elaborar un arbre de decisió per determinar la prescripció adequada per a un jove amb miopia i astigmatisme i lacrimosidad reduïda.</p>
+<p>Una òptica ha recopilat la següent informació sobre una mostra de clients: edat, patologia, astigmatisme i lacrimositat. A partir d’aquestes dades, s’indica si la persona ha de portar lents de contacte (toves o rígides) o si és convenient que usi ulleres i no lents de contacte. L’objectiu de l’activitat és elaborar un arbre de decisió per determinar la prescripció adequada per a un jove amb miopia i astigmatisme i lacrimositat reduïda.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>lents <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"data/lents.txt"</span>, <span class="at">header =</span> T, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>lents</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>lents <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"data/lents.txt"</span>, <span class="at">header =</span> T, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>lents</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">

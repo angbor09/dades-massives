@@ -1,5 +1,5 @@
 ---
-title: "8. Tècniques de clustering"
+title: "Tècniques de clustering"
 author: ""
 date: today
 date-format: "DD/MM/YYYY"

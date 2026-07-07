@@ -1,5 +1,5 @@
 ---
-title: "10. Consulta d'APIs bibliogràfiques: OpenAlex"
+title: "Consulta d'APIs bibliogràfiques: OpenAlex"
 author: ""
 date: today
 date-format: "DD/MM/YYYY"

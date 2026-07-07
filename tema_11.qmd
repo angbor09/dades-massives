@@ -1,5 +1,5 @@
 ---
-title: "11. Informes R Markdown"
+title: "Informes R Markdown"
 author: ""
 date: today
 date-format: "DD/MM/YYYY"

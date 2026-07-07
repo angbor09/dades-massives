@@ -1,5 +1,5 @@
 ---
-title: "9. Anàlisi textual"
+title: "Anàlisi textual"
 author: ""
 date: today
 date-format: "DD/MM/YYYY"

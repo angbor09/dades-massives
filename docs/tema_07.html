@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="">
-<meta name="dcterms.date" content="2026-05-07">
+<meta name="dcterms.date" content="2026-07-07">
 
-<title>7. Classificadors bayesians – Dades massives</title>
+<title>Classificadors bayesians – Dades massives</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -232,10 +232,11 @@ window.Quarto = {
   <li><a href="#exemple-3-filtres-de-spam" id="toc-exemple-3-filtres-de-spam" class="nav-link" data-scroll-target="#exemple-3-filtres-de-spam"><span class="header-section-number">1.3</span> Exemple 3: filtres de <em>spam</em></a></li>
   </ul></li>
   <li><a href="#implementació-dun-classificador-bayesià-en-r" id="toc-implementació-dun-classificador-bayesià-en-r" class="nav-link" data-scroll-target="#implementació-dun-classificador-bayesià-en-r"><span class="header-section-number">2</span> Implementació d’un classificador bayesià en R</a></li>
-  <li><a href="#exercicis" id="toc-exercicis" class="nav-link" data-scroll-target="#exercicis"><span class="header-section-number">3</span> Exercicis</a>
+  <li><a href="#comparació-dels-mètodes-daprenentatge-supervisat" id="toc-comparació-dels-mètodes-daprenentatge-supervisat" class="nav-link" data-scroll-target="#comparació-dels-mètodes-daprenentatge-supervisat"><span class="header-section-number">3</span> Comparació dels mètodes d’aprenentatge supervisat</a></li>
+  <li><a href="#exercicis" id="toc-exercicis" class="nav-link" data-scroll-target="#exercicis"><span class="header-section-number">4</span> Exercicis</a>
   <ul class="collapse">
-  <li><a href="#exercici-1-prediccions-de-compra" id="toc-exercici-1-prediccions-de-compra" class="nav-link" data-scroll-target="#exercici-1-prediccions-de-compra"><span class="header-section-number">3.1</span> Exercici 1: prediccions de compra</a></li>
-  <li><a href="#exercici-2-detecció-de-correu-brossa" id="toc-exercici-2-detecció-de-correu-brossa" class="nav-link" data-scroll-target="#exercici-2-detecció-de-correu-brossa"><span class="header-section-number">3.2</span> Exercici 2: detecció de correu brossa</a></li>
+  <li><a href="#exercici-1-prediccions-de-compra" id="toc-exercici-1-prediccions-de-compra" class="nav-link" data-scroll-target="#exercici-1-prediccions-de-compra"><span class="header-section-number">4.1</span> Exercici 1: prediccions de compra</a></li>
+  <li><a href="#exercici-2-detecció-de-correu-brossa" id="toc-exercici-2-detecció-de-correu-brossa" class="nav-link" data-scroll-target="#exercici-2-detecció-de-correu-brossa"><span class="header-section-number">4.2</span> Exercici 2: detecció de correu brossa</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -245,7 +246,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">7. Classificadors bayesians</h1>
+<h1 class="title">Classificadors bayesians</h1>
 </div>
 
 
@@ -256,7 +257,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Publicat</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">05/07/2026</p>
+      <p class="date">07/07/2026</p>
     </div>
   </div>
   
@@ -323,7 +324,7 @@ window.Quarto = {
 <p>Ens centrarem ara en l’aparició de paraules, per exemple, els termes «barat» i «comprar». En una mostra de 100 missatges, observem que 25 són <em>spam</em> i 75 no ho són. Dels 25 missatges que sí que són <em>spam</em>, la paraula «barat» apareix en 20 d’ells. Entre els 75 que no són <em>spam</em>, la paraula «barat» apareix en 5 d’ells:</p>
 <p><span class="math display">\[p (\text{barat | spam}) = 20/25 = 0,80\]</span></p>
 <p><span class="math display">\[p (\text{barat | no spam}) = 5/75 = 0,066\]</span></p>
-<p>En el cas de la palabra «comprar», la seva probabilitat d’aparició en un missatge d’<em>spam</em> és 15/25 i en un missatge que no sigui <em>spam</em> de 10/75.</p>
+<p>En el cas de la paraula «comprar», la seva probabilitat d’aparició en un missatge d’<em>spam</em> és 15/25 i en un missatge que no sigui <em>spam</em> de 10/75.</p>
 <p><span class="math display">\[p (\text{comprar | spam}) = 15/25 = 0,60\]</span></p>
 <p><span class="math display">\[p (\text{comprar | no spam}) = 10/75 = 0,133\]</span></p>
 <p>Si suposem que l’aparició de les dues paraules són successos independents, la probabilitat que apareguin conjuntament serà el producte de les probabilitats individuals. Així, en el cas dels missatges de <em>spam</em>, la probabilitat que apareguin juntes totes dues paraules és la següent:</p>
@@ -334,7 +335,7 @@ window.Quarto = {
 <p>Aplicant el teorema de Bayes ja podem calcular la probabilitat que un missatge sigui <em>spam</em> —o no ho sigui— segons l’aparició de la paraula «barat», «comprar» o ambdues.</p>
 <p><span class="math display">\[p (\text{spam | barat}) = \frac{p (\text{barat │ spam}) × p(\text{spam})} {p (\text{barat})} =  \frac{0,8 × 0,25} {0,25} = 0,80\]</span></p>
 <p><span class="math display">\[p(\text{spam | comprar}) = \frac{p (\text{comprar │ spam}) × p(\text{spam})} {p (\text{comprar})} = \frac{0,6 × 0,25} {0,25}  = 0,60\]</span></p>
-<p>Finalment, podem calcular la probabilitat de què apareguin les dues paraules conjuntament:</p>
+<p>Finalment, podem calcular la probabilitat que apareguin les dues paraules conjuntament:</p>
 <p><span class="math display">\[p(\text{spam│barat i comprar})\]</span></p>
 <p><span class="math display">\[= \frac{p (\text{barat | spam)} × p (comprar | spam) × p (spam)} {p(barat│spam) × p(comprar|spam) × p(spam) + p(barat|no spam) × p(comprar|no spam) × p(no spam)}\]</span></p>
 <p><span class="math display">\[= \frac{(0,8 × 0,6 × 0,25)} {(0,8 × 0,6 × 0,25)+(0,066 ×0,133 ×0,75)} = 0,94\]</span></p>
@@ -346,11 +347,13 @@ window.Quarto = {
 <p><span class="math display">\[p (\text{spam │ barat i comprar i treball}) = \]</span></p>
 <p><span class="math display">\[= \frac{0,8 × 0,6 × 0,2 × 0,25} {(0,8 × 0,6 × 0,2 × 0,25) + (0,066 × 0,133 × 0,4 × 0,75)} = 0,90\]</span></p>
 <p>En aquest cas, segons el nostre algorisme, si un missatge conté simultàniament les paraules «barat», «comprar» i «treball» hi ha un 90% de possibilitats que sigui <em>spam</em> —i un 10% de probabilitats que no ho sigui—. La raó de la reducció del percentatge respecte al cas anterior és que «treball» és una paraula associada a missatges que no són d’<em>spam</em>.</p>
+<p>La assumpció d’independència és, precisament, la raó per la qual aquest mètode es coneix com a Naive Bayes («Bayes ingenu»). En realitat, és poc probable que dues paraules com «barat» i «comprar» apareguin de manera totalment independent en un missatge: si un correu ja conté una paraula típica de publicitat, és més probable que en contingui d’altres de semblants, ja que probablement formen part d’un mateix tipus de missatge o d’un mateix estil d’escriptura. El mateix passa amb les variables meteorològiques de l’exemple de vols: la temperatura i la humitat, per exemple, no solen ser del tot independents entre si.</p>
+<p>Malgrat aquesta simplificació —que rarament es compleix de manera estricta en dades reals—, el mètode sol funcionar sorprenentment bé a la pràctica. Això es deu, en part, al fet que, encara que les probabilitats individuals estimades no siguin del tot exactes a causa d’aquesta assumpció, sovint n’hi ha prou que el model ordeni correctament les categories per probabilitat relativa (per exemple, que estimi que un missatge és més probable que sigui <em>spam</em> que <em>no spam</em>) perquè la classificació final sigui correcta, encara que els valors exactes de probabilitat no ho siguin. Aquesta combinació de simplicitat, rapidesa de càlcul i bon rendiment pràctic explica per què el Naive Bayes continua sent un dels algorismes de classificació més populars, malgrat la seva assumpció «ingènua» de partida.</p>
 </section>
 </section>
 <section id="implementació-dun-classificador-bayesià-en-r" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Implementació d’un classificador bayesià en R</h1>
-<p>En primer lloc, cal instal·lar i cridar el paquet <code>e1071</code> que utilizarem per aquesta activitat.</p>
+<p>En primer lloc, cal instal·lar i cridar el paquet <code>e1071</code> que utilitzarem per aquesta activitat.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(e1071)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -427,7 +430,7 @@ Y         fort      suau
 <p><span class="math display">\[\frac{p (sol | sí) × p (fred | sí) × p (alta | sí) × p (fort | sí) × p (volar)} {[p (sol | sí) × p (fred | sí) × p (alta | sí) × p (fort | sí) × p (volar)] + [p (sol | no) × p (fred | no) × p (alta | no) × p (fort | no) × p (no.volar)]}=\]</span></p>
 <p><span class="math display">\[\frac{0,22 × 0,33 × 0,33 × 0,33 × 0,64} {[0,22 × 0,33 × 0,33 × 0,33 × 0,64] + [0,60 × 0,20 × 0,80 × 0,60 × 0,36]}=\]</span></p>
 <p><span class="math display">\[\frac{0,005} {0,005 + 0,020}=0,20\]</span></p>
-<p>Concloem que els més probable és que no es podrà volar.</p>
+<p>Concloem que el més probable és que no es podrà volar.</p>
 <p>Per a veure el resultat en R, creem un objecte amb les dades de la previsió.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>nou_cas <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Cel =</span> <span class="st">"sol"</span>,</span>
@@ -435,7 +438,7 @@ Y         fort      suau
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">Humitat =</span> <span class="st">"alta"</span>,</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">Vent =</span> <span class="st">"fort"</span>)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Y pedim al model que faci una predicció:</p>
+<p>I pedim al model que faci una predicció:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(VolarModel, nou_cas)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -451,23 +454,143 @@ Levels: no si</code></pre>
 [1,] 0.7954173 0.2045827</code></pre>
 </div>
 </div>
-<p>Como veiem, la previsió és que no es podrà volar.</p>
+<p>Com veiem, la previsió és que no es podrà volar.</p>
+<p>Fins ara hem utilitzat el model per predir un únic cas nou, però també és interessant valorar com d’encertades són, en general, les prediccions del model. Una manera senzilla de fer-ho és calcular les prediccions del model per a totes les observacions del dataset d’entrenament i comparar-les amb els valors reals mitjançant una matriu de confusió, tal com hem vist en el tema anterior amb els arbres de decisió.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>prediccions <span class="ot">&lt;-</span> <span class="fu">predict</span>(VolarModel, vols)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>matriu_confusio <span class="ot">&lt;-</span> <span class="fu">table</span>(<span class="at">Real =</span> vols<span class="sc">$</span>Volar, Predicció <span class="ot">=</span> prediccions)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>matriu_confusio</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    Predicció
+Real no si
+  no  4  1
+  si  0  9</code></pre>
+</div>
+</div>
+<p>A partir d’aquesta matriu, podem calcular el percentatge global d’encert del model (accuracy), dividint la suma de la diagonal (els casos correctament classificats) entre el nombre total d’observacions:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">diag</span>(matriu_confusio)) <span class="sc">/</span> <span class="fu">sum</span>(matriu_confusio)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9285714</code></pre>
+</div>
+</div>
+<p>Igual que en el cas dels arbres de decisió, cal tenir present que aquesta xifra s’ha calculat sobre les mateixes dades amb les quals s’ha entrenat el model, de manera que probablement sobreestima el seu rendiment real amb dades noves. Amb un dataset de només 14 observacions com el nostre, dividir-lo en un conjunt d’entrenament i un de test no seria gaire representatiu, però amb mostres més grans és imprescindible seguir aquesta pràctica per obtenir una estimació fiable de com es comportarà el model davant de casos que no ha vist mai.</p>
+<p>El Naive Bayes calcula totes les probabilitats a partir de les freqüències observades a les dades d’entrenament. Això planteja un problema quan una determinada combinació de valors no apareix mai en alguna de les categories: la probabilitat associada seria zero, i com que totes les probabilitats es multipliquen entre si, n’hi hauria prou que un sol valor tingués probabilitat zero perquè tot el numerador del teorema de Bayes s’anul·lés, independentment de com d’informatives fossin la resta de variables.</p>
+<p>Per exemple, si en el nostre <em>dataset</em> de vols no hi hagués cap dia amb vent fort en què s’hagués pogut volar, la probabilitat p( | ) seria 0, i el model concluiria automàticament que, davant de vent fort, mai es podrà volar, per bones que siguin la resta de condicions. Aquesta conclusió sol ser massa dràstica, especialment quan es treballa amb mostres petites, on és fàcil que alguna combinació de valors simplement no s’hagi observat per atzar, sense que això signifiqui que sigui impossible.</p>
+<p>Per evitar aquest problema, s’aplica habitualment la correcció de Laplace (també coneguda com a <em>suavitzat de Laplace</em> o <em>add-one smoothing</em>), que consisteix a sumar una petita quantitat (típicament 1) tant al numerador com al denominador de cada probabilitat calculada. D’aquesta manera, cap probabilitat resultant és mai exactament zero, però l’efecte d’aquesta correcció és molt petit quan la mostra és gran i les freqüències observades ja són fiables.</p>
+<p>A R, la funció <code>naiveBayes()</code> del paquet <code>e1071</code> permet aplicar aquesta correcció mitjançant l’argument <code>laplace</code>, indicant la magnitud del suavitzat (per defecte, <code>laplace = 0</code>, és a dir, sense correcció):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>VolarModel_laplace <span class="ot">&lt;-</span> e1071<span class="sc">::</span><span class="fu">naiveBayes</span>(Volar <span class="sc">~</span> ., vols, <span class="at">laplace =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>En general, és una bona pràctica aplicar sempre una correcció de Laplace (encara que sigui petita) quan es treballa amb mostres reduïdes o amb moltes variables predictores, ja que augmenta la probabilitat de trobar-se combinacions no observades a les dades d’entrenament.</p>
+<p>Tots els exemples que hem vist fins ara —tant l’exemple teòric del spam com el model de vols implementat en R— fan servir únicament variables categòriques (sol/núvol/pluja, fred/calent, sí/no). En aquests casos, el càlcul de les probabilitats és molt senzill: n’hi ha prou de comptar freqüències relatives per a cada categoria.</p>
+<p>No obstant, el Naive Bayes també es pot aplicar quan alguna de les variables predictores és numèrica (per exemple, la temperatura exacta en graus, en lloc de la categoria “fred” o “calent”). En aquest cas, ja no és possible calcular una simple freqüència relativa, ja que cada valor numèric podria ser gairebé únic a les dades. La solució habitual consisteix a assumir que la variable numèrica segueix una determinada distribució de probabilitat dins de cada categoria —normalment una distribució normal— i estimar-ne la mitjana i la desviació estàndard per a cada classe (per exemple, la temperatura mitjana i la seva variabilitat en els dies que sí es va poder volar, i separadament en els dies que no). A partir d’aquests paràmetres, el model pot calcular la probabilitat (més precisament, la densitat de probabilitat) que un nou valor numèric concret pertanyi a cadascuna de les categories.</p>
+<p>A R, la funció <code>naiveBayes()</code> del paquet <code>e1071</code> gestiona automàticament aquesta situació: si alguna de les variables predictores del dataframe és numèrica (<code>numeric</code> o <code>integer</code>) en lloc de categòrica (<code>factor</code> o <code>character</code>), el model calcularà automàticament la mitjana i la desviació estàndard corresponents, sense necessitat de canviar la sintaxi de la funció. És per això que, si teniu un dataset amb variables numèriques que voleu incloure en un model Naive Bayes, no cal convertir-les prèviament a categories (per exemple, agrupant la temperatura en trams “fred”/“calent”), tot i que fer-ho de vegades pot ajudar a interpretar millor el model, especialment si es preveu que la relació entre la variable numèrica i la classe no sigui simètrica al voltant d’una mitjana.</p>
 </section>
-<section id="exercicis" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Exercicis</h1>
-<section id="exercici-1-prediccions-de-compra" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="exercici-1-prediccions-de-compra"><span class="header-section-number">3.1</span> Exercici 1: prediccions de compra</h2>
+<section id="comparació-dels-mètodes-daprenentatge-supervisat" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Comparació dels mètodes d’aprenentatge supervisat</h1>
+<p>Al llarg d’aquest bloc hem treballat amb tres mètodes diferents d’aprenentatge supervisat: la regressió (lineal simple i múltiple), els arbres de decisió i els classificadors bayesians (Naive Bayes). Cadascun d’ells parteix d’una lògica pròpia i és més adequat per a unes situacions que per a unes altres. En aquest document tancarem el bloc fent una comparació general dels tres mètodes i aplicant-los conjuntament a un mateix problema, per poder observar de primera mà les seves diferències.</p>
+<p>Quan fer servir cada mètode?</p>
+<p>-Regressió: és el mètode natural quan la variable que volem predir és quantitativa (un preu, una quantitat, un nivell d’assistència). La regressió logística n’és l’excepció que permet predir variables categòriques, però continua basant-se en una equació lineal subjacent. Els seus principals avantatges són la interpretabilitat directa dels coeficients (quant varia la resposta per cada unitat de canvi en una variable predictora) i la seva base estadística sòlida, que permet quantificar la incertesa de les estimacions (errors estàndard, intervals de confiança). Com a contrapartida, assumeix relacions lineals entre variables i és sensible a problemes com la multicolinealitat.</p>
+<p>-Arbres de decisió: són especialment útils quan volem un model fàcilment interpretable i visualitzable, capaç de capturar relacions no lineals i interaccions entre variables sense haver-les d’especificar prèviament (a diferència de la regressió, on cal decidir explícitament si incloure termes d’interacció). Funcionen bé tant amb variables numèriques com categòriques, i no requereixen que les dades compleixin supòsits estadístics estrictes. El seu principal risc és el sobreajust, ja que un arbre massa profund pot acabar memoritzant les particularitats del conjunt d’entrenament.</p>
+<p>-Naive Bayes: destaca per la seva simplicitat i rapidesa de càlcul, cosa que el fa molt adequat quan es treballa amb un gran nombre de variables predictores (per exemple, la presència o absència de moltes paraules en un text, com en els filtres de spam). Funciona especialment bé en problemes de classificació amb variables categòriques. La seva limitació principal és l’assumpció d’independència entre les variables predictores, que rarament es compleix de manera estricta a la realitat, encara que això no acostuma a impedir que el mètode obtingui bons resultats pràctics.</p>
+<p>Per il·lustrar les diferències entre els tres mètodes, els aplicarem al mateix problema que ja hem fet servir en temes anteriors: predir la morositat d’un client a partir dels seus «estalvis» i la disponibilitat del seu «habitatge».</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.2     ✔ tibble    3.2.1
+✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+✔ purrr     1.0.4     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(party)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>S'està carregant el paquet requerit: grid
+S'està carregant el paquet requerit: mvtnorm
+S'està carregant el paquet requerit: modeltools
+S'està carregant el paquet requerit: stats4
+S'està carregant el paquet requerit: strucchange
+S'està carregant el paquet requerit: zoo
+
+S'està adjuntant el paquet: 'zoo'
+
+Els següents objectes estan emmascarats des de 'package:base':
+
+    as.Date, as.Date.numeric
+
+S'està carregant el paquet requerit: sandwich
+
+S'està adjuntant el paquet: 'strucchange'
+
+L'objecte següent està emmascarat per 'package:stringr':
+
+    boundary
+
+
+S'està adjuntant el paquet: 'party'
+
+L'objecte següent està emmascarat per 'package:dplyr':
+
+    where</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(e1071)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>morositat <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"data/morositat.txt"</span>, <span class="at">header =</span> T, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is.character, as.factor)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Com que la variable resposta (Morositat) és categòrica, no podem aplicar-hi directament una regressió lineal; en el seu lloc, faríem servir una regressió logística, que no hem desenvolupat amb detall en aquest curs però que es construiria de manera molt similar amb la funció <code>glm()</code> en lloc de <code>lm()</code>, indicant l’argument <code>family = "binomial"</code>. Per aquest motiu, nosaltres compararem aquí únicament l’arbre de decisió i el classificador bayesià, dos mètodes que sí que hem après a aplicar directament a variables categòriques.</p>
+<p>Arbre de decisió:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>arbre_morositat <span class="ot">&lt;-</span> <span class="fu">ctree</span>(<span class="at">formula =</span> Morositat <span class="sc">~</span> Estalvis <span class="sc">+</span> Habitatge, <span class="at">data =</span> morositat)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>prediccions_arbre <span class="ot">&lt;-</span> <span class="fu">predict</span>(arbre_morositat, morositat)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="at">Real =</span> morositat<span class="sc">$</span>Morositat, Predicció <span class="ot">=</span> prediccions_arbre)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    Predicció
+Real No Si
+  No 13  1
+  Si  4 12</code></pre>
+</div>
+</div>
+<p>Naive BAyes</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>model_bayes <span class="ot">&lt;-</span> <span class="fu">naiveBayes</span>(Morositat <span class="sc">~</span> Estalvis <span class="sc">+</span> Habitatge, <span class="at">data =</span> morositat)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>prediccions_bayes <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_bayes, morositat)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="at">Real =</span> morositat<span class="sc">$</span>Morositat, Predicció <span class="ot">=</span> prediccions_bayes)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    Predicció
+Real No Si
+  No 13  1
+  Si  4 12</code></pre>
+</div>
+</div>
+<p>Comparant les dues matrius de confusió, podem valorar si els dos mètodes classifiquen els clients de manera similar o si hi ha diferències notables en els seus encerts i errors. En un cas real, aquesta comparació s’hauria de fer sempre sobre un conjunt de test independent (i no sobre les mateixes dades d’entrenament, com fem aquí per simplicitat), tal com hem comentat en temes anteriors.</p>
+<p>Els tres mètodes que hem treballat en aquest bloc són només una petita part de l’ampli ventall de tècniques d’aprenentatge supervisat que existeixen. Entre les línies naturals per continuar aprofundint hi ha:</p>
+<p>-La validació creuada (<em>cross-validation</em>), que permet obtenir una estimació més robusta del rendiment d’un model dividint les dades en múltiples subconjunts d’entrenament i test, en lloc d’una única divisió.</p>
+<p>-Mètodes més sofisticats basats en arbres, com els boscos aleatoris (<em>random forests</em>) o el gradient boosting, que combinen molts arbres de decisió per millorar la capacitat predictiva.</p>
+<p>-Altres mètodes de classificació com les màquines de vector suport (<em>support vector machines</em>) o les xarxes neuronals, que permeten capturar relacions encara més complexes entre variables, a costa d’una interpretabilitat menor.</p>
+<p>En qualsevol cas, els principis fonamentals que hem après en aquest bloc —la distinció entre entrenament i test, el risc de sobreajust, la importància d’avaluar els models de manera rigorosa— es mantenen vàlids independentment de la complexitat del mètode que s’utilitzi.</p>
+</section>
+<section id="exercicis" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Exercicis</h1>
+<section id="exercici-1-prediccions-de-compra" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="exercici-1-prediccions-de-compra"><span class="header-section-number">4.1</span> Exercici 1: prediccions de compra</h2>
 <p>Una empresa vol analitzar si els clients compren un producte o no en funció de dues variables: si han rebut una promoció (sí o no) i el tipus de client que són (nou, habitual o premium). Fes servir el següent <em>dataset</em> per crear un model bayesià en R. Recorda que pots copiar i enganxar les dades fent servir l’opció <code>Copy Code</code> a la part superior dreta del requadre.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>dades <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Promocio =</span> <span class="fu">c</span>(<span class="st">"Si"</span>, <span class="st">"No"</span>, <span class="st">"Si"</span>, <span class="st">"Si"</span>, <span class="st">"No"</span>, <span class="st">"No"</span>, <span class="st">"Si"</span>, <span class="st">"No"</span>, <span class="st">"Si"</span>, <span class="st">"No"</span>),</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Tipus_client =</span> <span class="fu">c</span>(<span class="st">"Nou"</span>, <span class="st">"Habitual"</span>, <span class="st">"Premium"</span>, <span class="st">"Habitual"</span>, <span class="st">"Nou"</span>, <span class="st">"Premium"</span>, <span class="st">"Nou"</span>, <span class="st">"Nou"</span>, <span class="st">"Premium"</span>, <span class="st">"Habitual"</span>),</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Compra =</span> <span class="fu">c</span>(<span class="st">"Si"</span>, <span class="st">"No"</span>, <span class="st">"Si"</span>, <span class="st">"Si"</span>, <span class="st">"No"</span>, <span class="st">"No"</span>, <span class="st">"Si"</span>, <span class="st">"No"</span>, <span class="st">"Si"</span>, <span class="st">"No"</span>))</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>dades <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Promocio =</span> <span class="fu">c</span>(<span class="st">"Si"</span>, <span class="st">"No"</span>, <span class="st">"Si"</span>, <span class="st">"Si"</span>, <span class="st">"No"</span>, <span class="st">"No"</span>, <span class="st">"Si"</span>, <span class="st">"No"</span>, <span class="st">"Si"</span>, <span class="st">"No"</span>),</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Tipus_client =</span> <span class="fu">c</span>(<span class="st">"Nou"</span>, <span class="st">"Habitual"</span>, <span class="st">"Premium"</span>, <span class="st">"Habitual"</span>, <span class="st">"Nou"</span>, <span class="st">"Premium"</span>, <span class="st">"Nou"</span>, <span class="st">"Nou"</span>, <span class="st">"Premium"</span>, <span class="st">"Habitual"</span>),</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Compra =</span> <span class="fu">c</span>(<span class="st">"Si"</span>, <span class="st">"No"</span>, <span class="st">"Si"</span>, <span class="st">"Si"</span>, <span class="st">"No"</span>, <span class="st">"No"</span>, <span class="st">"Si"</span>, <span class="st">"No"</span>, <span class="st">"Si"</span>, <span class="st">"No"</span>))</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Comenta les característiques del model: Quins clients tenen més probabilitats de comprar? Com afecta rebre una promoció al comportament de compra?</p>
 </section>
-<section id="exercici-2-detecció-de-correu-brossa" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="exercici-2-detecció-de-correu-brossa"><span class="header-section-number">3.2</span> Exercici 2: detecció de correu brossa</h2>
+<section id="exercici-2-detecció-de-correu-brossa" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="exercici-2-detecció-de-correu-brossa"><span class="header-section-number">4.2</span> Exercici 2: detecció de correu brossa</h2>
 <p>Fes servir les següents dades per entrenar un model Naive Bayes per classificar missatges com a “spam” o “no spam” a partir de la presència o absència de quatre paraules clau: “amic”, “gratis”, “oferta” i “urgent”.</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -486,15 +609,15 @@ Levels: no si</code></pre>
 </div>
 <p>Pots replicar el dataset amb el següent codi:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>missatges <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">amic    =</span> <span class="fu">c</span>(<span class="st">"no"</span>,<span class="st">"si"</span>,<span class="st">"no"</span>,<span class="st">"si"</span>,<span class="st">"no"</span>,<span class="st">"si"</span>,<span class="st">"si"</span>,<span class="st">"si"</span>,<span class="st">"si"</span>,<span class="st">"no"</span>),</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">gratis  =</span> <span class="fu">c</span>(<span class="st">"si"</span>,<span class="st">"no"</span>,<span class="st">"si"</span>,<span class="st">"no"</span>,<span class="st">"si"</span>,<span class="st">"no"</span>,<span class="st">"si"</span>,<span class="st">"no"</span>,<span class="st">"si"</span>,<span class="st">"no"</span>),</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">oferta  =</span> <span class="fu">c</span>(<span class="st">"si"</span>,<span class="st">"no"</span>,<span class="st">"si"</span>,<span class="st">"no"</span>,<span class="st">"no"</span>,<span class="st">"si"</span>,<span class="st">"si"</span>,<span class="st">"no"</span>,<span class="st">"si"</span>,<span class="st">"no"</span>),</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">urgent  =</span> <span class="fu">c</span>(<span class="st">"si"</span>,<span class="st">"no"</span>,<span class="st">"no"</span>,<span class="st">"si"</span>,<span class="st">"si"</span>,<span class="st">"no"</span>,<span class="st">"si"</span>,<span class="st">"no"</span>,<span class="st">"no"</span>,<span class="st">"si"</span>),</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">classe  =</span> <span class="fu">c</span>(<span class="st">"spam"</span>, <span class="st">"no_spam"</span>, <span class="st">"spam"</span>, <span class="st">"no_spam"</span>, <span class="st">"spam"</span>, </span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>              <span class="st">"no_spam"</span>, <span class="st">"spam"</span>, <span class="st">"no_spam"</span>, <span class="st">"spam"</span>, <span class="st">"no_spam"</span>))</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>missatges <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">amic    =</span> <span class="fu">c</span>(<span class="st">"no"</span>,<span class="st">"si"</span>,<span class="st">"no"</span>,<span class="st">"si"</span>,<span class="st">"no"</span>,<span class="st">"si"</span>,<span class="st">"si"</span>,<span class="st">"si"</span>,<span class="st">"si"</span>,<span class="st">"no"</span>),</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">gratis  =</span> <span class="fu">c</span>(<span class="st">"si"</span>,<span class="st">"no"</span>,<span class="st">"si"</span>,<span class="st">"no"</span>,<span class="st">"si"</span>,<span class="st">"no"</span>,<span class="st">"si"</span>,<span class="st">"no"</span>,<span class="st">"si"</span>,<span class="st">"no"</span>),</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">oferta  =</span> <span class="fu">c</span>(<span class="st">"si"</span>,<span class="st">"no"</span>,<span class="st">"si"</span>,<span class="st">"no"</span>,<span class="st">"no"</span>,<span class="st">"si"</span>,<span class="st">"si"</span>,<span class="st">"no"</span>,<span class="st">"si"</span>,<span class="st">"no"</span>),</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">urgent  =</span> <span class="fu">c</span>(<span class="st">"si"</span>,<span class="st">"no"</span>,<span class="st">"no"</span>,<span class="st">"si"</span>,<span class="st">"si"</span>,<span class="st">"no"</span>,<span class="st">"si"</span>,<span class="st">"no"</span>,<span class="st">"no"</span>,<span class="st">"si"</span>),</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">classe  =</span> <span class="fu">c</span>(<span class="st">"spam"</span>, <span class="st">"no_spam"</span>, <span class="st">"spam"</span>, <span class="st">"no_spam"</span>, <span class="st">"spam"</span>, </span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>              <span class="st">"no_spam"</span>, <span class="st">"spam"</span>, <span class="st">"no_spam"</span>, <span class="st">"spam"</span>, <span class="st">"no_spam"</span>))</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Quines paraules semblen més associades a missatges d’<em>spam</em> segons el model? Quina és la probabilitat de què un nou missatge amb les paraules “gratis” i “oferta”, però sense “amic” ni “urgent”, sigui <em>spam</em>? Què passa si el nou correu només conté la paraula “amic”? Inventa dos missatges més i classifica-los amb el model.</p>
+<p>Quines paraules semblen més associades a missatges d’<em>spam</em> segons el model? Quina és la probabilitat que un nou missatge amb les paraules “gratis” i “oferta”, però sense “amic” ni “urgent”, sigui <em>spam</em>? Què passa si el nou correu només conté la paraula “amic”? Inventa dos missatges més i classifica-los amb el model.</p>
 
 
 </section>

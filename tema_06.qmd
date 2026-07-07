@@ -1,5 +1,5 @@
 ---
-title: "6. Arbres de decisió"
+title: "Arbres de decisió"
 author: ""
 date: today
 date-format: "DD/MM/YYYY"
@@ -17,7 +17,7 @@ format:
 # Arbres de decisió
 Un arbre de decisió és un tipus d'algoritme que consisteix en una sèrie de preguntes de resposta «sí» o «no» que porten a preguntes successives fins a prendre una decisió. Es basen en una estructura jeràrquica en forma d’arbre, on cada node representa una condició sobre una variable, cada branca correspon a un resultat possible d’aquesta condició i cada fulla indica una predicció o classe final. Aquests algoritmes són populars per la seva simplicitat i facilitat d’interpretació. Funcionen dividint el conjunt de dades en subconjunts més petits mitjançant regles basades en les variables d’entrada, buscant maximitzar la separació entre classes.
 
-La següent figura mostra un exemple d'arbre. Partint de la part superior, l'arbre segmenta les dades de manera que cada costat correspon a un únic camí. Tornant a l'exemple de la morositat que vam fer servir al Tema 2, imaginem que volem classificar un subjecte de 40 anys, sense ocupació i amb uns estalvis de 115.000 €. Començant en la part superior, com que no té «ocupació», prenem el camí de la dreta. El següent node és el dels «estalvis». Com són superiors a 50 000 €, prenem de nou el camí de la dreta fins al node «edat». El valor és 40, de manera que anem a l'esquerra que ens indica que la predicció és que aquest subjecte no serà morós. Habitualment, més que saber la categoria en la queda classificat un subjecte, el que retornarà l'algoritme serà la probabilitat que acabi dins d'aquesta categoria. En aquest cas, les branques de l'arbre inclouran les probabilitats en comptes d'un valor simple.
+La següent figura mostra un exemple d'arbre. Partint de la part superior, l'arbre segmenta les dades de manera que cada costat correspon a un únic camí. Tornant a l'exemple de la morositat que vam fer servir al Tema 2, imaginem que volem classificar un subjecte de 40 anys, sense ocupació i amb uns estalvis de 115.000 €. Començant en la part superior, com que no té «ocupació», prenem el camí de la dreta. El següent node és el dels «estalvis». Com són superiors a 50 000 €, prenem de nou el camí de la dreta fins al node «edat». El valor és 40, de manera que anem a l'esquerra que ens indica que la predicció és que aquest subjecte no serà morós. Habitualment, més que saber la categoria en què queda classificat un subjecte, el que retornarà l'algoritme serà la probabilitat que acabi dins d'aquesta categoria. En aquest cas, les branques de l'arbre inclouran les probabilitats en comptes d'un valor simple.
 
 ```{r echo=FALSE, out.width='40%', fig.align='center', fig.cap = "Exemple d'arbre de decisió"}
 knitr::include_graphics("figures/arbol.png")
@@ -38,6 +38,9 @@ knitr::include_graphics("figures/titanic.png")
 ```
 
 A partir d'aquesta formulació tan simple podem explorar si es produeixen millores com a resultat d'introduir regles més sofisticades (per exemple, una nova regla que determini que els homes que viatjaven en primera classe es van salvar mentre que la resta van morir).
+
+**Font de les dades del Titanic: es dona un enllaç a Kaggle però no s'aprofita per fer un exemple de R amb aquestes dades (a diferència de morositat, iris i natius, que sí que tenen codi). Si la intenció és deixar el Titanic només per a reflexió teòrica, estaria bé dir-ho explícitament; si no, es podria afegir un quart exemple pràctic amb R, ja que el dataset ja s'ha presentat amb detall.**
+
 
 # Creació d'un arbre de decisió amb R
 
@@ -87,7 +90,15 @@ library(rpart.plot)
 
 Hi ha diferències en els tests estadístics que utilitzen `party` i `rpart` per crear els arbres i l'un o l'altre poden ser més o menys adient segons les variables estiguin més o menys equilibrades o amb diferents escales.
 
-Per aquest exemple, farem servir el paquet `iris` que conté mesures de tres espècies diferents de flors Iris: "setosa", "versicolor" i "virginica".
+Encara que tots dos paquets serveixen per construir arbres de decisió, el criteri estadístic que fan servir internament per decidir com dividir cada node és diferent, cosa que pot donar lloc a arbres lleugerament diferents fins i tot partint de les mateixes dades.
+
+-`rpart` construeix l'arbre buscant, a cada node, la divisió que redueix més la impuresa dels subgrups resultants. Per defecte, en problemes de classificació utilitza l'índex de Gini com a mesura d'impuresa (similar en esperit a l'entropia que ja vam veure al Tema 2, encara que amb una fórmula lleugerament diferent), i continua dividint els nodes fins que arriba a un criteri d'aturada (per exemple, un nombre mínim d'observacions per node). És per això que sovint cal "podar" l'arbre resultant a posteriori per evitar que sigui excessivament complex.
+
+-`party` (amb la funció `ctree`) es basa, en canvi, en tests d'independència estadística (concretament, tests de permutació) per decidir si una variable té una relació prou significativa amb la variable resposta com per justificar una nova divisió. Si cap variable supera un llindar de significació estadística en un node determinat, l'arbre deixa de créixer en aquell punt. Aquesta característica fa que ctree tendeixi a generar arbres una mica més "conservadors" i, sovint, no calgui podar-los posteriorment de la mateixa manera que amb `rpart`.
+
+En la pràctica, aquesta diferència de criteri fa que cadascun dels dos paquets tingui punts forts en situacions diferents: `party`/`ctree` sol comportar-se millor quan les variables predictores tenen escales molt diferents entre si o quan hi ha un nombre desigual de categories entre variables (ja que els tests estadístics que utilitza corregeixen aquest biaix), mentre que `rpart` és més ràpid computacionalment i està més estès, amb més eines complementàries disponibles (com `rpart.plot` per a la visualització o `printcp()` per analitzar la complexitat de l'arbre). A la pràctica, per a molts problemes senzills com els que veurem en aquest tema, ambdós paquets solen oferir resultats similars, i la tria de l'un o l'altre és sovint una qüestió de preferència personal o de la disponibilitat d'eines de visualització.
+
+Per al següent exemple, farem servir el paquet `iris` que conté mesures de tres espècies diferents de flors Iris: "setosa", "versicolor" i "virginica".
 
 ```{r}
 data(iris)
@@ -166,7 +177,7 @@ predict(arbre_natiu2, newdata = cas.1, type = "prob")
 
 ```
 
-Acabarem amb la classificació d'un nou cas, corresponent a un nen de 10 anys amb un resultat de 43 tant a la prova de lectura com a la d'escriptura. 
+Acabarem amb la classificació d'un nou cas, corresponent a un nen de 10 anys amb un resultat de 45 tant a la prova de lectura com a la d'escriptura. 
 
 ```{r}
 
@@ -180,8 +191,34 @@ predict(arbre_natiu2, newdata = cas.2, type = "prob")
 
 ```
 
+Els dos valors corresponen, per ordre, a la probabilitat de cada nivell de la variable resposta tal com apareixen alfabèticament als seus levels («no», «si»); per tant, en aquest cas, el model estima una probabilitat del 6,45% que el nen no sigui parlant natiu i del 93,55% que sí que ho sigui.
+
+Fins ara hem fet servir l'arbre per predir casos nous, però també és interessant preguntar-nos: com d'encertades són, en general, les prediccions del model? Una manera senzilla de respondre-ho és comparar les prediccions de l'arbre amb els valors reals mitjançant una matriu de confusió, que classifica cada cas segons si la predicció ha estat correcta o no.
+
+Calculem les prediccions de l'arbre `arbre_natiu2` per a tots els nens del dataset original i les comparem amb els valors reals de la variable «Natiu»:
+
+```{r}
+prediccions <- predict(arbre_natiu2, newdata = natius, type = "response")
+matriu_confusio <- table(Real = natius$Natiu, Predicció = prediccions)
+matriu_confusio
+
+```
+
+La matriu resultant mostra, a cada fila, els casos reals («no» o «si») i, a cada columna, les prediccions del model. Els valors de la diagonal (real = «no» i predicció = «no»; real = «si» i predicció = «si») corresponen als encerts del model, mentre que els valors fora de la diagonal corresponen als errors de classificació.
+A partir d'aquesta matriu, podem calcular fàcilment el percentatge global d'encert (*accuracy*) del model, dividint la suma de la diagonal entre el nombre total de casos:
+
+```{r}
+sum(diag(matriu_confusio)) / sum(matriu_confusio)
+```
+
+Cal tenir en compte, però, que aquesta xifra s'ha calculat sobre les mateixes dades amb les quals s'ha entrenat l'arbre, de manera que probablement sobreestima el rendiment real del model amb dades noves (recordeu el concepte de sobreajust que vam introduir al començament d'aquest bloc). Per obtenir una estimació més realista, caldria dividir prèviament les dades en un conjunt d'entrenament i un conjunt de test, entrenar l'arbre només amb el primer, i calcular la matriu de confusió únicament sobre el segon, que el model no ha «vist» durant la seva construcció.
+
+
+**Divisió entrenament/test: cap dels tres exemples divideix les dades en conjunt d'entrenament i de test (tot el model es crea i s'avalua implícitament sobre les mateixes dades). Atès que en la introducció del bloc d'aprenentatge automàtic (el text que vam redactar abans) s'explica aquest concepte, seria un bon moment per aplicar-lo per primera vegada en un exemple pràctic, ni que sigui en un dels tres casos.**
+
+
 # Exercici: portar ulleres o lentilles?
-Una òptica ha recopilat la següent informació sobre una mostra de clients: edat, patologia, astigmatisme i lacrimosidad. A partir d'aquestes dades, s'indica si la persona ha de portar lents de contacte (toves o rígides) o si és convenient que usi lents de contacte. L'objectiu de l'activitat és elaborar un arbre de decisió per determinar la prescripció adequada per a un jove amb miopia i astigmatisme i lacrimosidad reduïda.
+Una òptica ha recopilat la següent informació sobre una mostra de clients: edat, patologia, astigmatisme i lacrimositat. A partir d'aquestes dades, s'indica si la persona ha de portar lents de contacte (toves o rígides) o si és convenient que usi ulleres i no lents de contacte. L'objectiu de l'activitat és elaborar un arbre de decisió per determinar la prescripció adequada per a un jove amb miopia i astigmatisme i lacrimositat reduïda.
 
 ```{r}
 lents <- read.table("data/lents.txt", header = T, sep = "\t")
