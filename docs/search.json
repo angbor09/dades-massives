@@ -242,35 +242,21 @@
     "href": "index.html",
     "title": "Introducció a la Ciència de Dades amb R",
     "section": "",
-    "text": "La ciència de dades és avui una de les disciplines més transversals i demandades del món professional. Combina estadística, programació i pensament crític per extreure coneixement útil de dades en brut, i s’aplica en àmbits tan diversos com la salut, les ciències socials, el màrqueting, la investigació científica o la gestió pública.\nAquesta assignatura és una introducció pràctica a la ciència de dades utilitzant R, un dels llenguatges de referència en l’àmbit estadístic i científic. No es requereix experiència prèvia en programació: aprendrem des dels fonaments, amb un enfocament orientat a la resolució de problemes reals."
+    "text": "La ciència de dades és avui una de les disciplines més transversals i demandades del món professional. Combina estadística, programació i pensament crític per extreure coneixement útil de dades en brut. S’aplica en àmbits diversos com la salut, el màrqueting, la investigació científica o la gestió pública.\nAquesta assignatura és una introducció pràctica a la ciència de dades utilitzant R, un dels llenguatges de referència en l’àmbit estadístic i científic."
   },
   {
     "objectID": "index.html#benvinguts-a-lassignatura",
     "href": "index.html#benvinguts-a-lassignatura",
     "title": "Introducció a la Ciència de Dades amb R",
     "section": "",
-    "text": "La ciència de dades és avui una de les disciplines més transversals i demandades del món professional. Combina estadística, programació i pensament crític per extreure coneixement útil de dades en brut, i s’aplica en àmbits tan diversos com la salut, les ciències socials, el màrqueting, la investigació científica o la gestió pública.\nAquesta assignatura és una introducció pràctica a la ciència de dades utilitzant R, un dels llenguatges de referència en l’àmbit estadístic i científic. No es requereix experiència prèvia en programació: aprendrem des dels fonaments, amb un enfocament orientat a la resolució de problemes reals."
-  },
-  {
-    "objectID": "index.html#què-aprendràs",
-    "href": "index.html#què-aprendràs",
-    "title": "Introducció a la Ciència de Dades amb R",
-    "section": "Què aprendràs",
-    "text": "Què aprendràs\nAl llarg de les 17 sessions del curs, recorrerem tot el cicle de vida d’un projecte de dades:\n\nPreparar i netejar dades del món real, sovint imperfectes i desordenades.\nExplorar i visualitzar per descobrir patrons, tendències i anomalies.\nModelar amb tècniques d’aprenentatge supervisat i no supervisat.\nTreballar amb dades especials: text, mapes, APIs i dades obertes.\nComunicar resultats de manera clara, reproduïble i professional.\nReflexionar sobre l’ètica i els biaixos en el tractament de dades."
+    "text": "La ciència de dades és avui una de les disciplines més transversals i demandades del món professional. Combina estadística, programació i pensament crític per extreure coneixement útil de dades en brut. S’aplica en àmbits diversos com la salut, el màrqueting, la investigació científica o la gestió pública.\nAquesta assignatura és una introducció pràctica a la ciència de dades utilitzant R, un dels llenguatges de referència en l’àmbit estadístic i científic."
   },
   {
     "objectID": "index.html#estructura-del-curs",
     "href": "index.html#estructura-del-curs",
     "title": "Introducció a la Ciència de Dades amb R",
     "section": "Estructura del curs",
-    "text": "Estructura del curs\nEl curs s’organitza en 6 blocs temàtics:\n\n\n\nBloc\nContingut\nSessions\n\n\n\n\n1\nFonaments i preparació de dades\nS1–S4\n\n\n2\nVisualització de dades\nS5–S7\n\n\n3\nAprenentatge supervisat\nS8–S11\n\n\n4\nAprenentatge no supervisat\nS12–S13\n\n\n5\nTipologies de dades especials\nS14–S15\n\n\n6\nComunicació, ètica i perspectiva professional\nS16–S17"
-  },
-  {
-    "objectID": "index.html#eines-i-tecnologia",
-    "href": "index.html#eines-i-tecnologia",
-    "title": "Introducció a la Ciència de Dades amb R",
-    "section": "Eines i tecnologia",
-    "text": "Eines i tecnologia\nTreballarem principalment amb:\n\nR com a llenguatge de programació.\nRStudio com a entorn de desenvolupament.\nL’ecosistema tidyverse (dplyr, ggplot2, tidyr…) per a manipulació i visualització de dades.\nQuarto per a la comunicació de resultats en format reproduïble.\n\nAl final del curs farem un primer contacte amb Python per obrir la perspectiva cap a un ecosistema complementari molt present al món professional."
+    "text": "Estructura del curs\nEl curs s’organitza en 11 temes als que pots accedir des del menú superior:\n\n\n\nTema\nContingut\n\n\n\n\n1\nIntroducció a R\n\n\n2\nValor informatiu de les variables\n\n\n3\nGràfics i animacions\n\n\n4\nMapes i visualització espacial\n\n\n5\nRegressió\n\n\n6\nArbres de decisió\n\n\n7\nClassificadors bayesians\n\n\n8\nTècniques de clustering\n\n\n9\nAnàlisi textual\n\n\n10\nConsulta d’APIs bibliogràfiques: OpenAlex\n\n\n11\nInformes R Markdown"
   },
   {
     "objectID": "index.html#materials-i-dinàmica-de-classe",
@@ -284,7 +270,7 @@
     "href": "index.html#una-nota-final",
     "title": "Introducció a la Ciència de Dades amb R",
     "section": "Una nota final",
-    "text": "Una nota final\nAprendre ciència de dades és un procés acumulatiu: cada bloc construeix sobre l’anterior. La clau no és memoritzar funcions, sinó entendre la lògica de cada pas i saber on buscar quan cal. R té una comunitat enorme i documentació excel·lent — aprendrem també a fer-la servir.\nBenvinguts al curs."
+    "text": "Una nota final\nAprendre ciència de dades és un procés acumulatiu: cada bloc construeix sobre l’anterior. La clau no és memoritzar funcions, sinó entendre la lògica de cada pas i saber on buscar quan cal. R té una comunitat enorme i documentació excel·lent.\nBenvinguts al curs!"
   },
   {
     "objectID": "tema_02.html",

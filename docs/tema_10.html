@@ -7,7 +7,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="">
-<meta name="dcterms.date" content="2026-07-07">
 
 <title>Consulta d’APIs bibliogràfiques: OpenAlex – Dades massives</title>
 <style>
@@ -233,7 +232,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Publicat</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">07/07/2026</p>
+      <p class="date">22/07/2026</p>
     </div>
   </div>
   
@@ -531,7 +530,7 @@ df_oa &lt;- oa_fetch(
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["type"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"article","2":"1004"},{"1":"preprint","2":"62"},{"1":"review","2":"62"},{"1":"book-chapter","2":"56"},{"1":"dataset","2":"50"},{"1":"other","2":"17"},{"1":"peer-review","2":"13"},{"1":"erratum","2":"4"},{"1":"book","2":"3"},{"1":"editorial","2":"3"},{"1":"dissertation","2":"2"},{"1":"letter","2":"2"},{"1":"paratext","2":"2"},{"1":"report","2":"2"},{"1":"conference-paper","2":"1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["type"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"article","2":"966"},{"1":"dataset","2":"50"},{"1":"other","2":"50"},{"1":"preprint","2":"46"},{"1":"book-chapter","2":"40"},{"1":"conference-paper","2":"36"},{"1":"conference-abstract","2":"32"},{"1":"review","2":"21"},{"1":"peer-review","2":"13"},{"1":"book-review","2":"9"},{"1":"erratum","2":"8"},{"1":"editorial","2":"6"},{"1":"book","2":"3"},{"1":"data-paper","2":"3"},{"1":"paratext","2":"3"},{"1":"dissertation","2":"2"},{"1":"reference-entry","2":"2"},{"1":"report","2":"2"},{"1":"letter","2":"1"},{"1":"software-paper","2":"1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -543,7 +542,7 @@ df_oa &lt;- oa_fetch(
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["oa_status"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"bronze","2":"20"},{"1":"closed","2":"253"},{"1":"diamond","2":"175"},{"1":"gold","2":"350"},{"1":"green","2":"221"},{"1":"hybrid","2":"264"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["oa_status"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"bronze","2":"20"},{"1":"closed","2":"253"},{"1":"diamond","2":"169"},{"1":"gold","2":"356"},{"1":"green","2":"233"},{"1":"hybrid","2":"263"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -556,7 +555,7 @@ df_oa &lt;- oa_fetch(
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["source_display_name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"NA","2":"85"},{"1":"Zenodo (CERN European Organization for Nuclear Research)","2":"58"},{"1":"Repositori ObertUDL (University of Lleida)","2":"26"},{"1":"Journal of Clinical Oncology","2":"20"},{"1":"RACO (Revistes Catalanes amb Accés Obert) (Consorci de Serveis Universitaris de Catalunya)","2":"17"},{"1":"SSRN Electronic Journal","2":"15"},{"1":"Figshare","2":"13"},{"1":"bioRxiv (Cold Spring Harbor Laboratory)","2":"13"},{"1":"Lecture notes in computer science","2":"10"},{"1":"Research Square","2":"9"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["source_display_name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"NA","2":"85"},{"1":"Zenodo (CERN European Organization for Nuclear Research)","2":"68"},{"1":"Repositori ObertUDL (University of Lleida)","2":"26"},{"1":"Journal of Clinical Oncology","2":"20"},{"1":"RACO (Revistes Catalanes amb Accés Obert) (Consorci de Serveis Universitaris de Catalunya)","2":"17"},{"1":"SSRN Electronic Journal","2":"15"},{"1":"Figshare","2":"13"},{"1":"bioRxiv (Cold Spring Harbor Laboratory)","2":"12"},{"1":"Lecture notes in computer science","2":"10"},{"1":"Research Square","2":"9"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -566,7 +565,7 @@ df_oa &lt;- oa_fetch(
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df_oa<span class="sc">$</span>cited_by_count)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  0.000   0.000   0.000   1.825   2.000  51.000 </code></pre>
+  0.000   0.000   0.000   1.935   2.000  54.000 </code></pre>
 </div>
 </div>
 <p>Aquestes anàlisis són immediates perquè les dades ja estan en format tabular (són camps simples). Resulta més complicat fer l’anàlisi de la informació continguda en camps anidats.</p>
@@ -576,7 +575,7 @@ df_oa &lt;- oa_fetch(
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(num_autors)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  1.000   3.000   5.000   6.546   7.500 100.000 </code></pre>
+  1.000   3.000   5.000   6.478   7.000 100.000 </code></pre>
 </div>
 </div>
 <p>Qui són els autors més productius?</p>
@@ -589,15 +588,15 @@ df_oa &lt;- oa_fetch(
 <div class="cell-output cell-output-stdout">
 <pre><code>tots_autors
          Luisa F. Cabeza          Moazzam Shahzad    Sarmad Zaman Warraich 
-                      30                       29                       29 
-          Michael Jaglal   Muhammad Umair Mushtaq         Sergio de‐Miguel 
-                      25                       22                       22 
-              Iqra Anwar     Víctor Resco de Dios      Olga Martín‐Belloso 
-                      20                       20                       19 
-Erica Briones‐Vozmediano         Joan Tahull Fort   Joaquín Reverter Masià 
+                      31                       29                       29 
+          Michael Jaglal      Olga Martín‐Belloso   Muhammad Umair Mushtaq 
+                      25                       24                       22 
+        Sergio de‐Miguel               Iqra Anwar     Víctor Resco de Dios 
+                      21                       20                       20 
+Erica Briones‐Vozmediano           Emiliano Borri         Joan Tahull Fort 
                       18                       16                       16 
-    Muhammad Kashif Amin           Emiliano Borri    Robert Soliva‐Fortuny 
-                      16                       15                       15 
+  Joaquín Reverter Masià     Muhammad Kashif Amin    Robert Soliva‐Fortuny 
+                      16                       16                       15 
             Rosa M. Poch             Carles Mateu Giuseppe Gaetano Luciano 
                       15                       14                       13 
         Reinald Pamplona   Muhammad Fareed Khalid 
@@ -624,25 +623,25 @@ Erica Briones‐Vozmediano         Joan Tahull Fort   Joaquín Reverter Masià
 <div class="cell-output cell-output-stdout">
 <pre><code>totes_inst
                             Universitat de Lleida 
-                                             2651 
+                                             2665 
    Instituto de Investigación Biomédica de Lleida 
-                                              568 
+                                              584 
                     Instituto de Salud Carlos III 
                                               202 
           Hospital Universitari Arnau de Vilanova 
                                               188 
                 Universitat Autònoma de Barcelona 
-                                              177 
+                                              174 
                          Universitat de Barcelona 
-                                              158 
+                                              160 
 Forest Science and Technology Centre of Catalonia 
-                                              116 
+                                              113 
                           Universidad de Zaragoza 
                                               103 
-     Centre National de la Recherche Scientifique 
-                                               81 
                       Institut Català de la Salut 
-                                               81 </code></pre>
+                                               81 
+     Centre National de la Recherche Scientifique 
+                                               80 </code></pre>
 </div>
 </div>
 <p>Els resultat anterior mostra la Universitat de Lleida com responsable d’un nombre de documents superior al que hi ha al dataset. Cal suposar que la raó és que hi ha articles amb més d’un autor de la Universitat de Lleida en els quals se suma aquesta afiliació de forma repetida.</p>
@@ -668,25 +667,25 @@ Forest Science and Technology Centre of Catalonia
 <div class="cell-output cell-output-stdout">
 <pre><code>totes_inst
                             Universitat de Lleida 
-                                             1282 
+                                             1293 
    Instituto de Investigación Biomédica de Lleida 
-                                              165 
+                                              168 
                          Universitat de Barcelona 
-                                               85 
+                                               86 
                 Universitat Autònoma de Barcelona 
-                                               80 
+                                               81 
           Hospital Universitari Arnau de Vilanova 
                                                58 
 Forest Science and Technology Centre of Catalonia 
-                                               55 
+                                               54 
                           Universidad de Zaragoza 
                                                50 
                     Instituto de Salud Carlos III 
                                                41 
-                     Universitat Rovira i Virgili 
-                                               34 
                             Universitat de Girona 
-                                               33 </code></pre>
+                                               34 
+                     Universitat Rovira i Virgili 
+                                               34 </code></pre>
 </div>
 </div>
 </section>

@@ -12,44 +12,28 @@ lang: ca
 
 ## Benvinguts a l'assignatura
 
-La ciència de dades és avui una de les disciplines més transversals i demandades del món professional. Combina estadística, programació i pensament crític per extreure coneixement útil de dades en brut, i s'aplica en àmbits tan diversos com la salut, les ciències socials, el màrqueting, la investigació científica o la gestió pública.
+La ciència de dades és avui una de les disciplines més transversals i demandades del món professional. Combina estadística, programació i pensament crític per extreure coneixement útil de dades en brut. S'aplica en àmbits diversos com la salut, el màrqueting, la investigació científica o la gestió pública.
 
-Aquesta assignatura és una introducció pràctica a la ciència de dades utilitzant **R**, un dels llenguatges de referència en l'àmbit estadístic i científic. No es requereix experiència prèvia en programació: aprendrem des dels fonaments, amb un enfocament orientat a la resolució de problemes reals.
+Aquesta assignatura és una introducció pràctica a la ciència de dades utilitzant R, un dels llenguatges de referència en l'àmbit estadístic i científic.
 
-## Què aprendràs
-
-Al llarg de les **17 sessions** del curs, recorrerem tot el cicle de vida d'un projecte de dades:
-
-- **Preparar i netejar** dades del món real, sovint imperfectes i desordenades.
-- **Explorar i visualitzar** per descobrir patrons, tendències i anomalies.
-- **Modelar** amb tècniques d'aprenentatge supervisat i no supervisat.
-- **Treballar amb dades especials**: text, mapes, APIs i dades obertes.
-- **Comunicar** resultats de manera clara, reproduïble i professional.
-- **Reflexionar** sobre l'ètica i els biaixos en el tractament de dades.
 
 ## Estructura del curs
 
-El curs s'organitza en **6 blocs temàtics**:
+El curs s'organitza en 11 temes als que pots accedir des del menú superior:
 
-| Bloc | Contingut | Sessions |
-|------|-----------|----------|
-| 1 | Fonaments i preparació de dades | S1–S4 |
-| 2 | Visualització de dades | S5–S7 |
-| 3 | Aprenentatge supervisat | S8–S11 |
-| 4 | Aprenentatge no supervisat | S12–S13 |
-| 5 | Tipologies de dades especials | S14–S15 |
-| 6 | Comunicació, ètica i perspectiva professional | S16–S17 |
-
-## Eines i tecnologia
-
-Treballarem principalment amb:
-
-- [**R**](https://www.r-project.org/) com a llenguatge de programació.
-- [**RStudio**](https://posit.co/products/open-source/rstudio/) com a entorn de desenvolupament.
-- L'ecosistema [**tidyverse**](https://www.tidyverse.org/) (`dplyr`, `ggplot2`, `tidyr`…) per a manipulació i visualització de dades.
-- [**Quarto**](https://quarto.org/) per a la comunicació de resultats en format reproduïble.
-
-Al final del curs farem un primer contacte amb **Python** per obrir la perspectiva cap a un ecosistema complementari molt present al món professional.
+| Tema | Contingut |
+|------|-----------|
+| 1 | Introducció a R |
+| 2 | Valor informatiu de les variables |
+| 3 | Gràfics i animacions |
+| 4 | Mapes i visualització espacial |
+| 5 | Regressió |
+| 6 | Arbres de decisió |
+| 7 | Classificadors bayesians |
+| 8 | Tècniques de clustering |
+| 9 | Anàlisi textual |
+| 10 | Consulta d’APIs bibliogràfiques: OpenAlex |
+| 11 | Informes R Markdown |
 
 ## Materials i dinàmica de classe
 
@@ -59,6 +43,6 @@ La dinàmica de les classes combina explicació i pràctica. Podeu portar l'ordi
 
 ## Una nota final
 
-Aprendre ciència de dades és un procés acumulatiu: cada bloc construeix sobre l'anterior. La clau no és memoritzar funcions, sinó entendre la lògica de cada pas i saber on buscar quan cal. R té una comunitat enorme i documentació excel·lent — aprendrem també a fer-la servir.
+Aprendre ciència de dades és un procés acumulatiu: cada bloc construeix sobre l'anterior. La clau no és memoritzar funcions, sinó entendre la lògica de cada pas i saber on buscar quan cal. R té una comunitat enorme i documentació excel·lent.
 
-Benvinguts al curs.
+Benvinguts al curs!
