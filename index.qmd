@@ -19,7 +19,7 @@ Aquesta assignatura és una introducció pràctica a la ciència de dades utilit
 
 ## Estructura del curs
 
-El curs s'organitza en 11 temes als que pots accedir des del menú superior:
+El curs s'organitza en 11 temes als que podeu accedir des del menú superior:
 
 | Tema | Contingut |
 |------|-----------|

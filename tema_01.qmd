@@ -22,7 +22,7 @@ Començarem familiaritzant-nos amb l'entorn de treball R i l'*integrated develop
 
 R: <https://cran.r-project.org/bin/windows/base/>
 
-RStudio Desktop: <https://posit.co/download/rstudio-desktop/>
+RStudio Desktop: <https://docs.posit.co/ide/user/>
 
 RStudio està dividit en quatre panells:
 
@@ -287,8 +287,8 @@ A continuació, es proposa un exercici per començar a treballar amb R. No cal l
 
 7.  Assigna el valor "el meu segon text" a la variable «primer_text». Observa què ocorre en *Environment*. Per a mostrar el valor de les variables introdueix el seu nom en la consola.
 
-8.  Importa el *dataset* de mostra que hem fet servir a l'explicació (està disponible al Campus Virtual).
+8.  Importa el *dataset* de mostra («empleats.csv») que hem fet servir a l'explicació (està disponible al Campus Virtual).
 
-9.  Instal·la i executa el paquet `tidyverse`. Fes un recompte de quantes persones tenen com a favorit cadascun dels colors en el *dataset*. A continuació, calcula la mitjana de pes dels homes i dones del *dataset*.
+9.  Instal·la i executa el paquet `tidyverse`. Fes un recompte de quantes persones hi ha a cadascuna de les ciutats identificades en el *dataset*. A continuació, calcula la mitjana d'edat dels treballadors segons el nivell d'estudis.
 
 10. No oblidis guardar el teu *script*. Si vols, pots tancar el teu projecte seleccionant «File \> Close Project». No obstant això, no és obligatori que ho facis. Si no ho fas, la pròxima vegada que obris R Studio tornaràs a estar en aquest mateix projecte.
