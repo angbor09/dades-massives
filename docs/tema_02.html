@@ -252,7 +252,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Publicat</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">15/09/2026</p>
+      <p class="date">17/09/2026</p>
     </div>
   </div>
   
@@ -375,25 +375,11 @@ window.Quarto = {
 </div>
 </div>
 <p>Veiem que la variable més informativa són els «Estalvis» i, en menor mesura, l’«Habitatge». Les xifres que facilita <code>FSelectorRcpp</code> no coincideixen amb les que havíem obtingut anteriorment perquè, en lloc d’utilitzar el <span class="math inline">\(log_2\)</span>, aquesta llibreria utilitza el logaritme natural (base <em>e</em>). En qualsevol cas, no canvia l’ordre de les variables ni la utilitat pràctica del guany informatiu, només l’escala numèrica.</p>
-<p>La sortida de <code>information_gain()</code> és un <em>dataframe</em> amb dues columnes: <em>attributes</em>, que indica el nom de cada variable analitzada, i <em>importance</em>, que mostra el seu guany informatiu (com més alt el valor, més informativa és la variable per predir la classe d’interès). Quan es treballa amb molts atributs, resulta útil ordenar els resultats de major a menor importància per identificar ràpidament les variables més rellevants; això es pot fer amb la funció <code>arrange()</code> del paquet <code>dplyr</code>, indicant l’ordre descendent amb <code>desc()</code>:</p>
+<p>La sortida de <code>information_gain()</code> és un <em>dataframe</em> amb dues columnes: <em>attributes</em>, que indica el nom de cada variable analitzada, i <em>importance</em>, que mostra el seu guany informatiu (com més alt el valor, més informativa és la variable per predir la classe d’interès). Quan es treballa amb molts atributs, resulta útil ordenar els resultats de major a menor importància per identificar ràpidament les variables més rellevants; això es pot fer amb la funció <code>arrange()</code> del paquet <code>dplyr</code>, que forma part de <code>tidyverse</code>, indicant l’ordre descendent amb <code>desc()</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-S'està adjuntant el paquet: 'dplyr'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Els següents objectes estan emmascarats des de 'package:stats':
-
-    filter, lag</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Els següents objectes estan emmascarats des de 'package:base':
-
-    intersect, setdiff, setequal, union</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>FSelectorRcpp<span class="sc">::</span><span class="fu">information_gain</span>(Morositat <span class="sc">~</span> ., data) <span class="sc">%&gt;%</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(importance))</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>FSelectorRcpp<span class="sc">::</span><span class="fu">information_gain</span>(Morositat <span class="sc">~</span> ., data) <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(importance))</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
@@ -409,10 +395,10 @@ S'està adjuntant el paquet: 'dplyr'</code></pre>
 <h2 data-number="3.1" class="anchored" data-anchor-id="predir-la-classe-dun-objecte"><span class="header-section-number">3.1</span> Predir la classe d’un objecte</h2>
 <p>Crea el següent <em>dataset</em> en R. Recorda que pots copiar i enganxar les dades fent servir l’opció <code>Copy Code</code> a la part superior dreta del requadre.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Classe  =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"A"</span>),</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Color  =</span> <span class="fu">c</span>(<span class="st">"Vermell"</span>, <span class="st">"Vermell"</span>, <span class="st">"Blau"</span>, <span class="st">"Blau"</span>, <span class="st">"Vermell"</span>, <span class="st">"Vermell"</span>, <span class="st">"Blau"</span>, <span class="st">"Vermell"</span>, <span class="st">"Vermell"</span>, <span class="st">"Blau"</span>),</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Mida =</span> <span class="fu">c</span>(<span class="st">"Gran"</span>, <span class="st">"Petit"</span>, <span class="st">"Gran"</span>, <span class="st">"Petit"</span>, <span class="st">"Gran"</span>, <span class="st">"Gran"</span>, <span class="st">"Petit"</span>, <span class="st">"Gran"</span>, <span class="st">"Petit"</span>, <span class="st">"Gran"</span>))</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Classe  =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"A"</span>),</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Color  =</span> <span class="fu">c</span>(<span class="st">"Vermell"</span>, <span class="st">"Vermell"</span>, <span class="st">"Blau"</span>, <span class="st">"Blau"</span>, <span class="st">"Vermell"</span>, <span class="st">"Vermell"</span>, <span class="st">"Blau"</span>, <span class="st">"Vermell"</span>, <span class="st">"Vermell"</span>, <span class="st">"Blau"</span>),</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Mida =</span> <span class="fu">c</span>(<span class="st">"Gran"</span>, <span class="st">"Petit"</span>, <span class="st">"Gran"</span>, <span class="st">"Petit"</span>, <span class="st">"Gran"</span>, <span class="st">"Gran"</span>, <span class="st">"Petit"</span>, <span class="st">"Gran"</span>, <span class="st">"Petit"</span>, <span class="st">"Gran"</span>))</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Utilitza el paquet <code>FSelectorRcpp</code> per determinar quina variable és més informativa per predir la classe d’un objecte. Com interpretes el resultat? Justifica la teva resposta.</p>
 </section>

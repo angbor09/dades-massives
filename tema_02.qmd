@@ -123,10 +123,10 @@ FSelectorRcpp::information_gain(Morositat ~ ., data)
 
 Veiem que la variable més informativa són els «Estalvis» i, en menor mesura, l'«Habitatge». Les xifres que facilita `FSelectorRcpp` no coincideixen amb les que havíem obtingut anteriorment perquè, en lloc d'utilitzar el $log_2$, aquesta llibreria utilitza el logaritme natural (base *e*). En qualsevol cas, no canvia l'ordre de les variables ni la utilitat pràctica del guany informatiu, només l'escala numèrica.
 
-La sortida de `information_gain()` és un *dataframe* amb dues columnes: *attributes*, que indica el nom de cada variable analitzada, i *importance*, que mostra el seu guany informatiu (com més alt el valor, més informativa és la variable per predir la classe d'interès). Quan es treballa amb molts atributs, resulta útil ordenar els resultats de major a menor importància per identificar ràpidament les variables més rellevants; això es pot fer amb la funció `arrange()` del paquet `dplyr`, indicant l'ordre descendent amb `desc()`:
+La sortida de `information_gain()` és un *dataframe* amb dues columnes: *attributes*, que indica el nom de cada variable analitzada, i *importance*, que mostra el seu guany informatiu (com més alt el valor, més informativa és la variable per predir la classe d'interès). Quan es treballa amb molts atributs, resulta útil ordenar els resultats de major a menor importància per identificar ràpidament les variables més rellevants; això es pot fer amb la funció `arrange()` del paquet `dplyr`, que forma part de `tidyverse`, indicant l'ordre descendent amb `desc()`:
 
-```{r}
-library(dplyr)
+```{r, message = FALSE, warning=FALSE}
+library(tidyverse)
 FSelectorRcpp::information_gain(Morositat ~ ., data) %>%
   arrange(desc(importance))
 ```
