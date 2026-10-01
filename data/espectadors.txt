@@ -1,0 +1,20 @@
+id	Comunidad	Espectadores
+0	Andalucía	17,03
+1	Aragón	2,84
+2	Asturias, Principado de	1,62
+3	Balears, Illes	2,95
+4	Canarias	4,82
+5	Cantabria	1,10
+6	Castilla y León	4,61
+7	Castilla - La Mancha	3,12
+8	Cataluña	18,78
+9	Comunitat Valenciana	11,91
+10	Extremadura	1,31
+11	Galicia	4,24
+12	Madrid, Comunidad de	20,77
+13	Murcia, Región de	3,31
+14	Navarra, Comunidad Foral de	1,53
+15	País Vasco	4,74
+16	Rioja, La	0,739
+17	Ceuta	0,053
+18	Melilla	0,053

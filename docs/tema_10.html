@@ -7,6 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="">
+<meta name="dcterms.date" content="2026-01-10">
 
 <title>Consulta d’APIs bibliogràfiques: OpenAlex – Dades massives</title>
 <style>
@@ -232,7 +233,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Publicat</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">17/09/2026</p>
+      <p class="date">01/10/2026</p>
     </div>
   </div>
   
@@ -530,7 +531,7 @@ df_oa &lt;- oa_fetch(
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["type"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"article","2":"986"},{"1":"preprint","2":"57"},{"1":"dataset","2":"50"},{"1":"other","2":"50"},{"1":"book-chapter","2":"47"},{"1":"conference-paper","2":"38"},{"1":"conference-abstract","2":"34"},{"1":"review","2":"24"},{"1":"peer-review","2":"15"},{"1":"book-review","2":"9"},{"1":"erratum","2":"7"},{"1":"editorial","2":"6"},{"1":"dissertation","2":"4"},{"1":"report","2":"4"},{"1":"book","2":"3"},{"1":"data-paper","2":"3"},{"1":"paratext","2":"3"},{"1":"reference-entry","2":"2"},{"1":"letter","2":"1"},{"1":"software-paper","2":"1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["type"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"article","2":"1045"},{"1":"preprint","2":"59"},{"1":"dataset","2":"50"},{"1":"other","2":"50"},{"1":"book-chapter","2":"49"},{"1":"conference-paper","2":"40"},{"1":"conference-abstract","2":"29"},{"1":"review","2":"28"},{"1":"peer-review","2":"15"},{"1":"book-review","2":"9"},{"1":"editorial","2":"7"},{"1":"erratum","2":"7"},{"1":"dissertation","2":"5"},{"1":"book","2":"4"},{"1":"report","2":"4"},{"1":"data-paper","2":"3"},{"1":"paratext","2":"3"},{"1":"letter","2":"2"},{"1":"reference-entry","2":"2"},{"1":"software-paper","2":"1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -542,7 +543,7 @@ df_oa &lt;- oa_fetch(
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["oa_status"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"bronze","2":"30"},{"1":"closed","2":"231"},{"1":"diamond","2":"174"},{"1":"gold","2":"374"},{"1":"green","2":"256"},{"1":"hybrid","2":"279"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["oa_status"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"bronze","2":"30"},{"1":"closed","2":"223"},{"1":"diamond","2":"206"},{"1":"gold","2":"407"},{"1":"green","2":"259"},{"1":"hybrid","2":"287"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -555,7 +556,7 @@ df_oa &lt;- oa_fetch(
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["source_display_name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"NA","2":"99"},{"1":"Zenodo (CERN European Organization for Nuclear Research)","2":"67"},{"1":"Repositori ObertUDL (University of Lleida)","2":"33"},{"1":"Journal of Clinical Oncology","2":"20"},{"1":"SSRN Electronic Journal","2":"16"},{"1":"Figshare","2":"14"},{"1":"RACO (Revistes Catalanes amb Accés Obert) (Consorci de Serveis Universitaris de Catalunya)","2":"12"},{"1":"bioRxiv (Cold Spring Harbor Laboratory)","2":"12"},{"1":"Lecture notes in computer science","2":"10"},{"1":"Research Square","2":"9"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["source_display_name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"NA","2":"99"},{"1":"Zenodo (CERN European Organization for Nuclear Research)","2":"67"},{"1":"Repositori ObertUDL (University of Lleida)","2":"34"},{"1":"Journal of Clinical Oncology","2":"20"},{"1":"SSRN Electronic Journal","2":"16"},{"1":"Figshare","2":"14"},{"1":"bioRxiv (Cold Spring Harbor Laboratory)","2":"11"},{"1":"Lecture notes in computer science","2":"10"},{"1":"Preprints.org","2":"10"},{"1":"RACO (Revistes Catalanes amb Accés Obert) (Consorci de Serveis Universitaris de Catalunya)","2":"10"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -565,7 +566,7 @@ df_oa &lt;- oa_fetch(
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df_oa<span class="sc">$</span>cited_by_count)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-   0.00    0.00    1.00    2.26    3.00   68.00 </code></pre>
+  0.000   0.000   1.000   2.468   3.000  73.000 </code></pre>
 </div>
 </div>
 <p>Aquestes anàlisis són immediates perquè les dades ja estan en format tabular (són camps simples). Resulta més complicat fer l’anàlisi de la informació continguda en camps anidats.</p>
@@ -575,7 +576,7 @@ df_oa &lt;- oa_fetch(
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(num_autors)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    1.0     3.0     5.0     6.4     7.0   100.0 </code></pre>
+  0.000   2.000   4.000   5.307   6.000  96.000 </code></pre>
 </div>
 </div>
 <p>Qui són els autors més productius?</p>
@@ -587,20 +588,20 @@ df_oa &lt;- oa_fetch(
 <span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">table</span>(tots_autors), <span class="at">decreasing =</span> <span class="cn">TRUE</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>]</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>tots_autors
-         Luisa F. Cabeza          Moazzam Shahzad    Sarmad Zaman Warraich 
-                      30                       29                       29 
-          Michael Jaglal   Muhammad Umair Mushtaq      Olga Martín‐Belloso 
-                      25                       22                       22 
-        Sergio de‐Miguel               Iqra Anwar     Víctor Resco de Dios 
-                      22                       20                       20 
-Erica Briones‐Vozmediano           Emiliano Borri         Joan Tahull Fort 
-                      18                       16                       16 
-  Joaquín Reverter Masià     Muhammad Kashif Amin             Rosa M. Poch 
-                      16                       16                       15 
-            Carles Mateu Giuseppe Gaetano Luciano         Reinald Pamplona 
-                      14                       13                       13 
-   Robert Soliva‐Fortuny   Muhammad Fareed Khalid 
-                      13                       12 </code></pre>
+         Luisa F. Cabeza          Moazzam Shahzad    Michael Vishal Jaglal 
+                      28                       27                       25 
+     Olga Martín‐Belloso         Sergio de‐Miguel     Víctor Resco de Dios 
+                      24                       22                       21 
+  Muhammad Umair Mushtaq Erica Briones‐Vozmediano       Ivan David Benitez 
+                      20                       19                       17 
+         Rosa Maria Poch           Emiliano Borri         Joan Tahull Fort 
+                      17                       16                       16 
+  Joaquín Reverter Masià     Muhammad Kashif Amin            Pere Gelabert 
+                      16                       16                       16 
+      Xavier Matías‐Guiu    Robert Soliva‐Fortuny             Carles Mateu 
+                      16                       15                       14 
+            Ferrán Barbé         Reinald Pamplona 
+                      14                       14 </code></pre>
 </div>
 </div>
 <p>Quines institucions són les responsables d’aquesta producció?</p>
@@ -622,26 +623,26 @@ Erica Briones‐Vozmediano           Emiliano Borri         Joan Tahull Fort
 <span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">table</span>(totes_inst), <span class="at">decreasing =</span> <span class="cn">TRUE</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>totes_inst
-                            Universitat de Lleida 
-                                             2766 
-   Instituto de Investigación Biomédica de Lleida 
-                                              609 
-                    Instituto de Salud Carlos III 
-                                              202 
-          Hospital Universitari Arnau de Vilanova 
-                                              190 
-                Universitat Autònoma de Barcelona 
-                                              174 
-                         Universitat de Barcelona 
-                                              160 
-Forest Science and Technology Centre of Catalonia 
-                                              115 
-                          Universidad de Zaragoza 
-                                              112 
-                      Institut Català de la Salut 
-                                               86 
-      Swedish University of Agricultural Sciences 
-                                               81 </code></pre>
+                                Universitat de Lleida 
+                                                 2544 
+       Instituto de Investigación Biomédica de Lleida 
+                                                  607 
+Agrotecnio - Centre for Food and Agriculture Research 
+                                                  426 
+                        Instituto de Salud Carlos III 
+                                                  283 
+              Hospital Universitari Arnau de Vilanova 
+                                                  233 
+                             Universitat de Barcelona 
+                                                  180 
+                    Universitat Autònoma de Barcelona 
+                                                  143 
+      Consejo Superior de Investigaciones Científicas 
+                                                  132 
+    Forest Science and Technology Centre of Catalonia 
+                                                  129 
+                              Universidad de Zaragoza 
+                                                  102 </code></pre>
 </div>
 </div>
 <p>Els resultat anterior mostra la Universitat de Lleida com responsable d’un nombre de documents superior al que hi ha al dataset. Cal suposar que la raó és que hi ha articles amb més d’un autor de la Universitat de Lleida en els quals se suma aquesta afiliació de forma repetida.</p>
@@ -666,26 +667,26 @@ Forest Science and Technology Centre of Catalonia
 <span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">table</span>(totes_inst), <span class="at">decreasing =</span> <span class="cn">TRUE</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>totes_inst
-                            Universitat de Lleida 
-                                             1343 
-   Instituto de Investigación Biomédica de Lleida 
-                                              175 
-                         Universitat de Barcelona 
-                                               86 
-                Universitat Autònoma de Barcelona 
-                                               81 
-          Hospital Universitari Arnau de Vilanova 
-                                               59 
-Forest Science and Technology Centre of Catalonia 
-                                               55 
-                          Universidad de Zaragoza 
-                                               52 
-                    Instituto de Salud Carlos III 
-                                               41 
-                     Universitat Rovira i Virgili 
-                                               37 
-    Institute of Agrifood Research and Technology 
-                                               34 </code></pre>
+                                Universitat de Lleida 
+                                                 1279 
+       Instituto de Investigación Biomédica de Lleida 
+                                                  192 
+Agrotecnio - Centre for Food and Agriculture Research 
+                                                  170 
+                             Universitat de Barcelona 
+                                                  105 
+              Hospital Universitari Arnau de Vilanova 
+                                                   82 
+                    Universitat Autònoma de Barcelona 
+                                                   81 
+      Consejo Superior de Investigaciones Científicas 
+                                                   65 
+    Forest Science and Technology Centre of Catalonia 
+                                                   65 
+                        Instituto de Salud Carlos III 
+                                                   65 
+     Institut Nacional d'Educació Física de Catalunya 
+                                                   50 </code></pre>
 </div>
 </div>
 </section>

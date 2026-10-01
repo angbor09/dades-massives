@@ -100,7 +100,7 @@ ggplot(ccaa_map) +
 
 Com hem explicat, un mapa de coropletes és un mapa temàtic que utilitza un color per representar una variable quantitativa, que en aquest cas serà la població de cada comunitat autònoma.
 
-El primer pas consisteix, doncs, a obtenir les dades de població de cada comunitat autònoma. En aquest cas, el fitxer amb les dades l'hem obtingut de l'INE: https://www.ine.es/jaxiT3/Datos.htm?t=2915.
+El primer pas consisteix, doncs, a obtenir les dades de població de cada comunitat autònoma. En aquest cas, el fitxer amb les dades l'hem obtingut de l'INE: <https://www.ine.es/jaxiT3/Datos.htm?t=2915>.
 
 Podríem carregar directament el fitxer i treballar-lo amb R, però segurament és més fàcil netejar el fitxer en Excel abans de carregar-lo. Observeu que forcem que el camp "Codigo" s'importi en format *character* i no com un número.
 
