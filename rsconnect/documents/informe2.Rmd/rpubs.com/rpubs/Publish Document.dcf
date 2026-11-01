@@ -1,0 +1,10 @@
+name: Publish Document
+title:
+username:
+account: rpubs
+server: rpubs.com
+hostUrl: rpubs.com
+appId: https://api.rpubs.com/api/v1/document/1469127/b450bf21868f481d90feac90aa9d9c7d
+bundleId: https://api.rpubs.com/api/v1/document/1469127/b450bf21868f481d90feac90aa9d9c7d
+url: http://rpubs.com/angelborrego/1469127
+version: 1

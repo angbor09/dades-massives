@@ -11,6 +11,8 @@ format:
     number-sections: true
     toc-float: true
     df-print: paged
+execute:
+  eval: false
 ---
 
 # Introducció: què és una API?

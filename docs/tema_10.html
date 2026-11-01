@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="">
-<meta name="dcterms.date" content="2026-01-10">
+<meta name="dcterms.date" content="2026-01-11">
 
 <title>Consulta d’APIs bibliogràfiques: OpenAlex – Dades massives</title>
 <style>
@@ -233,7 +233,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Publicat</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">01/10/2026</p>
+      <p class="date">01/11/2026</p>
     </div>
   </div>
   
@@ -528,166 +528,74 @@ df_oa &lt;- oa_fetch(
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>df_oa <span class="sc">|&gt;</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(type, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div data-pagedtable="false">
-  <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["type"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"article","2":"1045"},{"1":"preprint","2":"59"},{"1":"dataset","2":"50"},{"1":"other","2":"50"},{"1":"book-chapter","2":"49"},{"1":"conference-paper","2":"40"},{"1":"conference-abstract","2":"29"},{"1":"review","2":"28"},{"1":"peer-review","2":"15"},{"1":"book-review","2":"9"},{"1":"editorial","2":"7"},{"1":"erratum","2":"7"},{"1":"dissertation","2":"5"},{"1":"book","2":"4"},{"1":"report","2":"4"},{"1":"data-paper","2":"3"},{"1":"paratext","2":"3"},{"1":"letter","2":"2"},{"1":"reference-entry","2":"2"},{"1":"software-paper","2":"1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
-</div>
 </div>
 <p>Quina part d’aquesta producció està en accés obert?</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>df_oa <span class="sc">|&gt;</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(oa_status)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div data-pagedtable="false">
-  <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["oa_status"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"bronze","2":"30"},{"1":"closed","2":"223"},{"1":"diamond","2":"206"},{"1":"gold","2":"407"},{"1":"green","2":"259"},{"1":"hybrid","2":"287"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
-</div>
 </div>
 <p>En quines revistes (fonts) s’ha publicat aquesta producció?</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>df_oa <span class="sc">|&gt;</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(source_display_name, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div data-pagedtable="false">
-  <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["source_display_name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"NA","2":"99"},{"1":"Zenodo (CERN European Organization for Nuclear Research)","2":"67"},{"1":"Repositori ObertUDL (University of Lleida)","2":"34"},{"1":"Journal of Clinical Oncology","2":"20"},{"1":"SSRN Electronic Journal","2":"16"},{"1":"Figshare","2":"14"},{"1":"bioRxiv (Cold Spring Harbor Laboratory)","2":"11"},{"1":"Lecture notes in computer science","2":"10"},{"1":"Preprints.org","2":"10"},{"1":"RACO (Revistes Catalanes amb Accés Obert) (Consorci de Serveis Universitaris de Catalunya)","2":"10"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
-</div>
 </div>
 <p>Quantes citacions han rebut aquests documents?</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df_oa<span class="sc">$</span>cited_by_count)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  0.000   0.000   1.000   2.468   3.000  73.000 </code></pre>
-</div>
 </div>
 <p>Aquestes anàlisis són immediates perquè les dades ja estan en format tabular (són camps simples). Resulta més complicat fer l’anàlisi de la informació continguda en camps anidats.</p>
 <p>Analitzem, per exemple, el nombre d’autors per article:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>num_autors <span class="ot">&lt;-</span> <span class="fu">sapply</span>(df_oa<span class="sc">$</span>authorships, nrow)</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(num_autors)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  0.000   2.000   4.000   5.307   6.000  96.000 </code></pre>
-</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>num_autors <span class="ot">&lt;-</span> <span class="fu">sapply</span>(df_oa<span class="sc">$</span>authorships, nrow)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(num_autors)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Qui són els autors més productius?</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>tots_autors <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">lapply</span>(df_oa<span class="sc">$</span>authorships, <span class="cf">function</span>(a) {</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  a<span class="sc">$</span>display_name</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>}))</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">table</span>(tots_autors), <span class="at">decreasing =</span> <span class="cn">TRUE</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>]</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>tots_autors
-         Luisa F. Cabeza          Moazzam Shahzad    Michael Vishal Jaglal 
-                      28                       27                       25 
-     Olga Martín‐Belloso         Sergio de‐Miguel     Víctor Resco de Dios 
-                      24                       22                       21 
-  Muhammad Umair Mushtaq Erica Briones‐Vozmediano       Ivan David Benitez 
-                      20                       19                       17 
-         Rosa Maria Poch           Emiliano Borri         Joan Tahull Fort 
-                      17                       16                       16 
-  Joaquín Reverter Masià     Muhammad Kashif Amin            Pere Gelabert 
-                      16                       16                       16 
-      Xavier Matías‐Guiu    Robert Soliva‐Fortuny             Carles Mateu 
-                      16                       15                       14 
-            Ferrán Barbé         Reinald Pamplona 
-                      14                       14 </code></pre>
-</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>tots_autors <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">lapply</span>(df_oa<span class="sc">$</span>authorships, <span class="cf">function</span>(a) {</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  a<span class="sc">$</span>display_name</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>}))</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">table</span>(tots_autors), <span class="at">decreasing =</span> <span class="cn">TRUE</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>]</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Quines institucions són les responsables d’aquesta producció?</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>totes_inst <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">lapply</span>(df_oa<span class="sc">$</span>authorships, <span class="cf">function</span>(a) {</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.null</span>(a) <span class="sc">||</span> <span class="fu">nrow</span>(a) <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">return</span>(<span class="cn">NA</span>)</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unlist</span>(<span class="fu">lapply</span>(a<span class="sc">$</span>affiliations, <span class="cf">function</span>(af) {</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">is.null</span>(af) <span class="sc">||</span> <span class="fu">nrow</span>(af) <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">return</span>(<span class="cn">NA</span>)</span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>    af<span class="sc">$</span>display_name</span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>  }))</span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>}))</span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>totes_inst <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(totes_inst)</span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">table</span>(totes_inst), <span class="at">decreasing =</span> <span class="cn">TRUE</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>totes_inst
-                                Universitat de Lleida 
-                                                 2544 
-       Instituto de Investigación Biomédica de Lleida 
-                                                  607 
-Agrotecnio - Centre for Food and Agriculture Research 
-                                                  426 
-                        Instituto de Salud Carlos III 
-                                                  283 
-              Hospital Universitari Arnau de Vilanova 
-                                                  233 
-                             Universitat de Barcelona 
-                                                  180 
-                    Universitat Autònoma de Barcelona 
-                                                  143 
-      Consejo Superior de Investigaciones Científicas 
-                                                  132 
-    Forest Science and Technology Centre of Catalonia 
-                                                  129 
-                              Universidad de Zaragoza 
-                                                  102 </code></pre>
-</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>totes_inst <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">lapply</span>(df_oa<span class="sc">$</span>authorships, <span class="cf">function</span>(a) {</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.null</span>(a) <span class="sc">||</span> <span class="fu">nrow</span>(a) <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">return</span>(<span class="cn">NA</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unlist</span>(<span class="fu">lapply</span>(a<span class="sc">$</span>affiliations, <span class="cf">function</span>(af) {</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">is.null</span>(af) <span class="sc">||</span> <span class="fu">nrow</span>(af) <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">return</span>(<span class="cn">NA</span>)</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    af<span class="sc">$</span>display_name</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>  }))</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>}))</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>totes_inst <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(totes_inst)</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">table</span>(totes_inst), <span class="at">decreasing =</span> <span class="cn">TRUE</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Els resultat anterior mostra la Universitat de Lleida com responsable d’un nombre de documents superior al que hi ha al dataset. Cal suposar que la raó és que hi ha articles amb més d’un autor de la Universitat de Lleida en els quals se suma aquesta afiliació de forma repetida.</p>
 <p>Per evitar aquest problema, cal aplicar <code>unique()</code> dins de cada article abans d’ajuntar totes les institucions.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>totes_inst <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">lapply</span>(df_oa<span class="sc">$</span>authorships, <span class="cf">function</span>(a) {</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.null</span>(a) <span class="sc">||</span> <span class="fu">nrow</span>(a) <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">return</span>(<span class="cn">NA</span>)</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  inst_article <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">lapply</span>(a<span class="sc">$</span>affiliations, <span class="cf">function</span>(af) {</span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">is.null</span>(af) <span class="sc">||</span> <span class="fu">nrow</span>(af) <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">return</span>(<span class="cn">NA</span>)</span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>    af<span class="sc">$</span>display_name</span>
-<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>  }))</span>
-<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>(inst_article)</span>
-<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>}))</span>
-<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>totes_inst <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(totes_inst)</span>
-<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">table</span>(totes_inst), <span class="at">decreasing =</span> <span class="cn">TRUE</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>totes_inst
-                                Universitat de Lleida 
-                                                 1279 
-       Instituto de Investigación Biomédica de Lleida 
-                                                  192 
-Agrotecnio - Centre for Food and Agriculture Research 
-                                                  170 
-                             Universitat de Barcelona 
-                                                  105 
-              Hospital Universitari Arnau de Vilanova 
-                                                   82 
-                    Universitat Autònoma de Barcelona 
-                                                   81 
-      Consejo Superior de Investigaciones Científicas 
-                                                   65 
-    Forest Science and Technology Centre of Catalonia 
-                                                   65 
-                        Instituto de Salud Carlos III 
-                                                   65 
-     Institut Nacional d'Educació Física de Catalunya 
-                                                   50 </code></pre>
-</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>totes_inst <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">lapply</span>(df_oa<span class="sc">$</span>authorships, <span class="cf">function</span>(a) {</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.null</span>(a) <span class="sc">||</span> <span class="fu">nrow</span>(a) <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">return</span>(<span class="cn">NA</span>)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  inst_article <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">lapply</span>(a<span class="sc">$</span>affiliations, <span class="cf">function</span>(af) {</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">is.null</span>(af) <span class="sc">||</span> <span class="fu">nrow</span>(af) <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">return</span>(<span class="cn">NA</span>)</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    af<span class="sc">$</span>display_name</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  }))</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>(inst_article)</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>}))</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>totes_inst <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(totes_inst)</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">table</span>(totes_inst), <span class="at">decreasing =</span> <span class="cn">TRUE</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="exportació-de-registres" class="level1" data-number="6">

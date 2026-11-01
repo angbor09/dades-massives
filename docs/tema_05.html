@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="">
-<meta name="dcterms.date" content="2026-01-10">
+<meta name="dcterms.date" content="2026-01-11">
 
 <title>Regressió – Dades massives</title>
 <style>
@@ -257,7 +257,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Publicat</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">01/10/2026</p>
+      <p class="date">01/11/2026</p>
     </div>
   </div>
   
@@ -274,14 +274,16 @@ window.Quarto = {
 <p>Fins ara ens hem centrat a explorar i visualitzar dades: entendre com es distribueixen les variables, detectar relacions i representar-les gràficament. A partir d’ara, farem un pas més enllà i entrarem en el camp de l’aprenentatge automàtic (<em>machine learning</em>), que té com a objectiu construir models capaços de predir o classificar automàticament a partir de dades.</p>
 <p>Dins de l’aprenentatge automàtic, es distingeix habitualment entre dos grans enfocaments:</p>
 <ul>
-<li>aprenentatge no supervisat: les dades no inclouen una variable «resposta» coneguda; l’objectiu és descobrir patrons o estructures ocultes en les dades (per exemple, agrupar clients amb comportaments similars sense saber prèviament a quin grup pertanyen).</li>
+<li><p>aprenentatge supervisat: disposem d’una variable «resposta» coneguda per a cada observació, i l’objectiu és construir un model que aprengui la relació entre les variables predictores i aquesta resposta, de manera que puguem predir-la per a noves observacions on encara no la coneixem. És en aquest segon enfocament en el que centrarem els propers temes.</p></li>
+<li><p>aprenentatge no supervisat: les dades no inclouen una variable «resposta» coneguda; l’objectiu és descobrir patrons o estructures ocultes en les dades (per exemple, agrupar clients amb comportaments similars sense saber prèviament a quin grup pertanyen).</p></li>
 </ul>
-<p>-aprenentatge supervisat: disposem d’una variable «resposta» coneguda per a cada observació, i l’objectiu és construir un model que aprengui la relació entre les variables predictores i aquesta resposta, de manera que puguem predir-la per a noves observacions on encara no la coneixem. És en aquest segon enfocament en el que centrarem els propers temes.</p>
 <section id="regressió-i-classificació" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="regressió-i-classificació"><span class="header-section-number">1.1</span> Regressió i classificació</h2>
 <p>Dins de l’aprenentatge supervisat, la naturalesa de la variable resposta determina el tipus de problema al qual ens enfrontem:</p>
-<p>-quan la variable resposta és quantitativa (per exemple, un preu, una temperatura o un nivell d’assistència), parlem d’un problema de regressió. L’objectiu és predir un valor numèric el més aproximat possible al valor real.</p>
-<p>-quan la variable resposta és categòrica (per exemple, si un client serà morós o no, si un correu és spam o no, o si un bolet és comestible o verinós), parlem d’un problema de classificació. L’objectiu és predir a quina categoria pertany cada observació.</p>
+<ul>
+<li><p>quan la variable resposta és quantitativa (per exemple, un preu, una temperatura o un nivell d’assistència), parlem d’un problema de regressió. L’objectiu és predir un valor numèric el més aproximat possible al valor real.</p></li>
+<li><p>quan la variable resposta és categòrica (per exemple, si un client serà morós o no, si un correu és spam o no, o si un bolet és comestible o verinós), parlem d’un problema de classificació. L’objectiu és predir a quina categoria pertany cada observació.</p></li>
+</ul>
 <p>Cal fer, però, una petita matisació: existeix un mètode anomenat regressió logística que, malgrat el seu nom, s’utilitza per resoldre problemes de classificació (habitualment amb dues categories, com «sí/no» o «morós/no morós»). S’anomena «regressió» perquè, internament, el model estima una equació de tipus lineal per calcular la probabilitat que una observació pertanyi a una categoria determinada. Aquesta probabilitat es converteix després en una predicció categòrica. És, per tant, un pont natural entre els dos mons: tècnicament és una regressió, però la seva finalitat pràctica és la classificació.</p>
 <p>Als propers temes veurem exemples de tots dos tipus de problemes: la regressió lineal (simple i múltiple) ens permetrà predir variables quantitatives, mentre que els arbres de decisió i els classificadors bayesians s’utilitzen habitualment per a problemes de classificació.</p>
 </section>
@@ -289,8 +291,10 @@ window.Quarto = {
 <h2 data-number="1.2" class="anchored" data-anchor-id="conjunt-dentrenament-i-conjunt-de-test"><span class="header-section-number">1.2</span> Conjunt d’entrenament i conjunt de test</h2>
 <p>Un dels principis fonamentals de l’aprenentatge automàtic és que un model no s’ha d’avaluar amb les mateixes dades amb les que s’ha construït. Si ho féssim així, el model podria semblar molt precís simplement perquè ha «memoritzat» les particularitats d’aquelles dades concretes, sense que això garanteixi que funcionarà bé amb dades noves.</p>
 <p>Per evitar-ho, és habitual dividir el conjunt de dades disponible en dues parts:</p>
-<p>-conjunt d’entrenament (<em>training set</em>): la part de les dades que s’utilitza per construir o «entrenar» el model (normalment, entre un 70% i un 80% de les dades disponibles).</p>
-<p>-conjunt de test (<em>test set</em>): la part restant de les dades, que no s’utilitza durant la construcció del model, sinó únicament per avaluar-ne el rendiment amb observacions que el model no ha «vist» prèviament.</p>
+<ul>
+<li><p>conjunt d’entrenament (<em>training set</em>): la part de les dades que s’utilitza per construir o «entrenar» el model (normalment, entre un 70% i un 80% de les dades disponibles).</p></li>
+<li><p>conjunt de test (<em>test set</em>): la part restant de les dades, que no s’utilitza durant la construcció del model, sinó únicament per avaluar-ne el rendiment amb observacions que el model no ha «vist» prèviament.</p></li>
+</ul>
 <p>Aquesta divisió ens permet obtenir una estimació més realista de com es comportarà el model quan s’apliqui a dades noves, que és, al cap i a la fi, el seu objectiu últim.</p>
 </section>
 <section id="sobreajust-overfitting" class="level2" data-number="1.3">
@@ -423,20 +427,26 @@ Assistència = 4.1032 + 33.2684 \cdot Equipaments
 <p>Mitjançant la funció <code>predict()</code>, el model estima un nivell d’assistència aproximat de 60,66 persones per cada 1.000 habitants.</p>
 <p>Aquesta predicció és una estimació puntual: un únic valor que representa la millor predicció del model per a aquell municipi concret. No obstant, com qualsevol estimació basada en una mostra, aquesta predicció està subjecta a incertesa i és recomanable acompanyar-la d’un interval que en reflecteixi el marge d’error, en lloc de presentar-la com si fos un valor exacte.</p>
 <p>La funció <code>predict()</code> permet calcular aquest interval afegint l’argument interval, que pot prendre dos valors:</p>
-<p>-<code>predict(model_cultura, newdata = nou_municipi, interval = "confidence")</code></p>
-<p>-<code>predict(model_cultura, newdata = nou_municipi, interval = "prediction")</code></p>
+<ul>
+<li><p><code>predict(model_cultura, newdata = nou_municipi, interval = "confidence")</code></p></li>
+<li><p><code>predict(model_cultura, newdata = nou_municipi, interval = "prediction")</code></p></li>
+</ul>
 <p>És important distingir entre els dos tipus d’interval, ja que responen a preguntes diferents:</p>
-<p>-interval de confiança (interval = “confidence”): informa sobre la incertesa al voltant del valor mitjà esperat d’assistència per a municipis amb aquest nivell d’equipaments culturals. És a dir, respon a la pregunta: «si tinguéssim molts municipis amb 1,7 equipaments per 10.000 habitants, en quin rang se situaria l’assistència mitjana d’aquest conjunt?»</p>
-<p>-interval de predicció (interval = “prediction”): informa sobre la incertesa al voltant del valor esperat per a un municipi individual concret. Respon a la pregunta: «quin rang d’assistència podem esperar per a aquest municipi en particular?»</p>
+<ul>
+<li><p>interval de confiança (interval = “confidence”): informa sobre la incertesa al voltant del valor mitjà esperat d’assistència per a municipis amb aquest nivell d’equipaments culturals. És a dir, respon a la pregunta: «si tinguéssim molts municipis amb 1,7 equipaments per 10.000 habitants, en quin rang se situaria l’assistència mitjana d’aquest conjunt?»</p></li>
+<li><p>interval de predicció (interval = “prediction”): informa sobre la incertesa al voltant del valor esperat per a un municipi individual concret. Respon a la pregunta: «quin rang d’assistència podem esperar per a aquest municipi en particular?»</p></li>
+</ul>
 <p>L’interval de predicció sempre serà més ampli que l’interval de confiança, ja que a la incertesa sobre la mitjana s’hi suma la variabilitat pròpia de cada observació individual. En la pràctica, quan volem predir un valor concret (com en el nostre exemple, un nou municipi), l’interval de predicció sol ser el més rellevant, mentre que l’interval de confiança és més adequat quan volem estimar el comportament mitjà d’un grup d’observacions amb característiques similars.</p>
 <p>Presentar les prediccions acompanyades del seu interval, en lloc d’un únic valor, és una bona pràctica que ajuda a comunicar honestament el grau de certesa (o incertesa) que té el nostre model, especialment tenint en compte la mida reduïda de la mostra amb què treballem en aquest exemple.</p>
 <section id="supòsits-de-la-regressió-lineal" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="supòsits-de-la-regressió-lineal"><span class="header-section-number">3.1</span> Supòsits de la regressió lineal</h2>
 <p>Perquè els resultats d’un model de regressió lineal (els coeficients, els p-valors, els intervals de confiança) siguin fiables, cal que es compleixin una sèrie de supòsits bàsics. Fins ara ens hem centrat a interpretar el model, però és igualment important validar-lo, és a dir, comprovar que aquests supòsits es compleixen raonablement bé. Els quatre supòsits principals són:</p>
-<p>-linealitat: la relació entre les variables predictores i la variable resposta ha de ser aproximadament lineal. Si la relació real fos, per exemple, corba, un model lineal no la captaria correctament.</p>
-<p>-normalitat dels residus: els residus del model (la diferència entre els valors observats i els valors predits) han de seguir, aproximadament, una distribució normal. Aquest supòsit és especialment rellevant per a la validesa dels contrastos d’hipòtesi (p-valors) del model.</p>
-<p>-homocedasticitat: la variabilitat dels residus ha de ser constant al llarg de tot el rang de valors predits. Quan això no es compleix (és a dir, quan els residus són més dispersos per a alguns valors que per a d’altres), es parla d’heterocedasticitat i pot indicar que el model no és adequat o que caldria transformar alguna variable.</p>
-<p>-independència dels residus: els residus no haurien d’estar correlacionats entre si. Aquest supòsit sol ser especialment rellevant en dades temporals o seqüencials, on una observació pot estar influenciada per l’anterior.</p>
+<ul>
+<li><p>linealitat: la relació entre les variables predictores i la variable resposta ha de ser aproximadament lineal. Si la relació real fos, per exemple, corba, un model lineal no la captaria correctament.</p></li>
+<li><p>normalitat dels residus: els residus del model (la diferència entre els valors observats i els valors predits) han de seguir, aproximadament, una distribució normal. Aquest supòsit és especialment rellevant per a la validesa dels contrastos d’hipòtesi (p-valors) del model.</p></li>
+<li><p>homocedasticitat: la variabilitat dels residus ha de ser constant al llarg de tot el rang de valors predits. Quan això no es compleix (és a dir, quan els residus són més dispersos per a alguns valors que per a d’altres), es parla d’heterocedasticitat i pot indicar que el model no és adequat o que caldria transformar alguna variable.</p></li>
+<li><p>independència dels residus: els residus no haurien d’estar correlacionats entre si. Aquest supòsit sol ser especialment rellevant en dades temporals o seqüencials, on una observació pot estar influenciada per l’anterior.</p></li>
+</ul>
 <p>En R, una manera ràpida i molt visual de comprovar aquests supòsits és representar gràficament el model amb la funció <code>plot()</code>:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model_cultura)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
@@ -470,10 +480,12 @@ Assistència = 4.1032 + 33.2684 \cdot Equipaments
 </div>
 </div>
 <p>Aquesta funció genera quatre gràfics de diagnòstic:</p>
-<p>-<em>Residuals vs Fitted</em>: permet detectar problemes de linealitat i d’homocedasticitat. Idealment, els punts s’haurien de distribuir de manera aleatòria al voltant de la línia horitzontal de zero, sense cap patró clar.</p>
-<p>-<em>Q-Q Residuals</em>: compara la distribució dels residus amb una distribució normal teòrica. Si els punts s’ajusten aproximadament a la línia diagonal, es pot considerar que el supòsit de normalitat es compleix raonablement.</p>
-<p>-<em>Scale-Location</em>: similar al primer gràfic, però útil específicament per detectar problemes d’homocedasticitat. Els punts s’haurien de distribuir de manera uniforme al llarg de l’eix horitzontal.</p>
-<p>-<em>Residuals vs Leverage</em>: permet identificar observacions atípiques o influents que podrien estar condicionant excessivament els resultats del model.</p>
+<ul>
+<li><p><em>Residuals vs Fitted</em>: permet detectar problemes de linealitat i d’homocedasticitat. Idealment, els punts s’haurien de distribuir de manera aleatòria al voltant de la línia horitzontal de zero, sense cap patró clar.</p></li>
+<li><p><em>Q-Q Residuals</em>: compara la distribució dels residus amb una distribució normal teòrica. Si els punts s’ajusten aproximadament a la línia diagonal, es pot considerar que el supòsit de normalitat es compleix raonablement.</p></li>
+<li><p><em>Scale-Location</em>: similar al primer gràfic, però útil específicament per detectar problemes d’homocedasticitat. Els punts s’haurien de distribuir de manera uniforme al llarg de l’eix horitzontal.</p></li>
+<li><p><em>Residuals vs Leverage</em>: permet identificar observacions atípiques o influents que podrien estar condicionant excessivament els resultats del model.</p></li>
+</ul>
 <p>Cal remarcar que, amb mostres petites (com la de només 10 municipis del nostre exemple), aquests gràfics de diagnòstic tenen un valor limitat, ja que és difícil valorar amb garanties si es compleix un supòsit amb tan poques observacions. No obstant això, és una bona pràctica revisar-los sempre, especialment quan es treballa amb mostres més grans, per assegurar-nos que les conclusions extretes del model són fiables i no estan condicionades per un incompliment greu d’algun d’aquests supòsits.</p>
 </section>
 </section>

@@ -1,0 +1,108 @@
+---
+title: "Informe"
+author: "Ángel Borrego"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+---
+
+# Introducció
+En primer, carreguem els paquets que necessitem
+
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(knitr)
+```
+
+Carreguem les dades
+
+```{r, message=FALSE, warning=FALSE}
+dades <- read_csv2("data/empleats.csv")
+```
+
+```{r}
+head(dades, 7)
+```
+
+Una presentació millorada:
+
+```{r}
+knitr::kable(dades[1:10, 1:7])
+```
+
+
+## Característiques dels nostres empleats
+
+L'edat mitjana dels nostres empleats és `r round(mean(dades$edat))` anys.
+
+
+
+```{r}
+mean(dades$edat)
+```
+
+
+
+
+
+## Subsecció 1 de la Introducció
+Bla, bla, bla.
+
+Podeu posar **negretes** i *cursives*.
+
+## Subsecció 2
+A continuació, sumem 4 + 3.
+
+```{r}
+a <- 4
+b <- 3
+c <- a + b
+c
+```
+
+Aquí també podem carregar dades, per exemple datasets que venen per defecte en RStudio
+
+```{r}
+data(cars)
+```
+
+I mostrar les primeres files:
+
+```{r}
+head(cars, 10)
+```
+
+I fer un resum estadístic de les dues variables:
+
+```{r}
+summary(cars)
+```
+
+Puc generar un gràfic a partir de les dades
+
+```{r, echo=FALSE}
+plot(cars)
+```
+
+
+# Metodologia
+
+# Gràfic de l'evolució del bitcoin (versió millorada)
+
+```{r, echo=FALSE}
+bitcoin <- read.table("https://bit.ly/3dyZXbz", header = T) # Importem el dataset
+
+bitcoin$date <- as.Date(bitcoin$date) # Convertim el camp "date" a format "date"
+
+graf.bitcoin <- ggplot(bitcoin, aes(x = date, y = value)) +
+                  geom_line() +
+                  xlab("Evolució del preu del bitcoin") +
+                  ylab("Dòlars") +
+                  theme_classic()
+
+graf.bitcoin
+```
+

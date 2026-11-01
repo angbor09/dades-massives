@@ -1,0 +1,19 @@
+---
+title: "Informe"
+author: "Ángel Borrego"
+date: "2026-10-19"
+output: html_document
+---
+
+# Introducció
+Aquest és un informe sobre els llocs que són patrimoni de la Humanitat.
+
+## Subsecció 1 de la Introducció
+Bla, bla, bla.
+
+Podeu posar *negretes* i **cursives**.
+
+
+# Metodologia
+
+# Resultats
