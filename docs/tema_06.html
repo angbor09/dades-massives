@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="">
-<meta name="dcterms.date" content="2026-01-11">
+<meta name="dcterms.date" content="2026-04-11">
 
 <title>Arbres de decisió – Dades massives</title>
 <style>
@@ -199,9 +199,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#arbres-de-decisió" id="toc-arbres-de-decisió" class="nav-link active" data-scroll-target="#arbres-de-decisió"><span class="header-section-number">1</span> Arbres de decisió</a></li>
   <li><a href="#creació-dun-arbre-de-decisió-amb-r" id="toc-creació-dun-arbre-de-decisió-amb-r" class="nav-link" data-scroll-target="#creació-dun-arbre-de-decisió-amb-r"><span class="header-section-number">2</span> Creació d’un arbre de decisió amb R</a>
   <ul class="collapse">
-  <li><a href="#exemple-1-morositat-amb-el-paquet-party" id="toc-exemple-1-morositat-amb-el-paquet-party" class="nav-link" data-scroll-target="#exemple-1-morositat-amb-el-paquet-party"><span class="header-section-number">2.1</span> Exemple 1: morositat amb el paquet <code>party</code></a></li>
-  <li><a href="#exemple-2-classificació-de-flors-amb-el-paquet-rpart" id="toc-exemple-2-classificació-de-flors-amb-el-paquet-rpart" class="nav-link" data-scroll-target="#exemple-2-classificació-de-flors-amb-el-paquet-rpart"><span class="header-section-number">2.2</span> Exemple 2: classificació de flors amb el paquet <code>rpart</code></a></li>
-  <li><a href="#exemple-3-classificació-de-parlants-natius-amb-el-paquet-party" id="toc-exemple-3-classificació-de-parlants-natius-amb-el-paquet-party" class="nav-link" data-scroll-target="#exemple-3-classificació-de-parlants-natius-amb-el-paquet-party"><span class="header-section-number">2.3</span> Exemple 3: classificació de parlants natius amb el paquet <code>party</code></a></li>
+  <li><a href="#exemple-1-morositat" id="toc-exemple-1-morositat" class="nav-link" data-scroll-target="#exemple-1-morositat"><span class="header-section-number">2.1</span> Exemple 1: morositat</a></li>
+  <li><a href="#exemple-2-classificació-de-flors" id="toc-exemple-2-classificació-de-flors" class="nav-link" data-scroll-target="#exemple-2-classificació-de-flors"><span class="header-section-number">2.2</span> Exemple 2: classificació de flors</a></li>
+  <li><a href="#exemple-3-classificació-de-parlants-natius" id="toc-exemple-3-classificació-de-parlants-natius" class="nav-link" data-scroll-target="#exemple-3-classificació-de-parlants-natius"><span class="header-section-number">2.3</span> Exemple 3: classificació de parlants natius</a></li>
   </ul></li>
   <li><a href="#exercici-portar-ulleres-o-lentilles" id="toc-exercici-portar-ulleres-o-lentilles" class="nav-link" data-scroll-target="#exercici-portar-ulleres-o-lentilles"><span class="header-section-number">3</span> Exercici: portar ulleres o lentilles?</a></li>
   </ul>
@@ -223,7 +223,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Publicat</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">01/11/2026</p>
+      <p class="date">04/11/2026</p>
     </div>
   </div>
   
@@ -250,7 +250,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Vegem un segon exemple. La nit del 14 al 15 d’abril de 1912, el «Titanic» es va enfonsar en xocar contra un iceberg en el seu viatge inaugural. Van sobreviure unes 700 persones d’entre les 2.200, entre passatgers i tripulació, que viatjaven en el vaixell. Diversos estudis han mostrat que les possibilitats de salvar-se depenien de diversos factors.</p>
-<p>Podem intentar construir un algoritme que sigui capaç de predir si un determinat viatger se salvarà o no. Per a això comptem amb un fitxer amb les dades corresponents a 1309 passatgers disponible en https://www.kaggle.com/datasets/yasserh/titanic-dataset. Entre les variables predictores trobem la classe en la qual viatjava cada passatger («pclass» amb tres possibles valors: “primera”, “segona” o “tercera”), el tractament (“Mr”, “Mrs”, “Miss”, “Master”, etc.), el sexe («sex»), l’edat («age»), la tarifa («fare») o el port d’embarcament («embarked» que adopta tres valors: “Southampton”, “Cherbourg” o “Queenstown”), entre altres variables. La variable de resposta («survived») indica si cada passatger va sobreviure (“1”) o no (“0”).</p>
+<p>Podem intentar construir un algoritme que sigui capaç de predir si un determinat viatger se salvarà o no. Per a això comptem amb un fitxer amb les dades corresponents a 1309 passatgers disponible en <a href="https://www.kaggle.com/datasets/yasserh/titanic-dataset" class="uri">https://www.kaggle.com/datasets/yasserh/titanic-dataset</a>. Entre les variables predictores trobem la classe en la qual viatjava cada passatger («pclass» amb tres possibles valors: “primera”, “segona” o “tercera”), el tractament (“Mr”, “Mrs”, “Miss”, “Master”, etc.), el sexe («sex»), l’edat («age»), la tarifa («fare») o el port d’embarcament («embarked» que adopta tres valors: “Southampton”, “Cherbourg” o “Queenstown”), entre altres variables. La variable de resposta («survived») indica si cada passatger va sobreviure (“1”) o no (“0”).</p>
 <p>L’exercici és purament teòric perquè el succés no es repetirà, però pot resultar un repte intel·lectual. El portal Kaggle.com inclou competicions en ciència de dades seguint sempre la mateixa dinàmica: s’ofereix als participants un conjunt de dades (<em>training set</em>) per a construir el seu algoritme i, a continuació, es mesura el rendiment amb un nou fitxer de dades (<em>test set</em>).</p>
 <p>Una manera molt senzilla d’enfrontar-se al problema seria predir que cap viatger va sobreviure. D’aquesta manera tan simple classifiquem correctament el 62% dels casos (el 62% dels passatgers van perdre la vida).</p>
 <p>Podem complicar lleugerament l’arbre de classificació i afirmar que tots els homes van morir mentre que totes les dones van sobreviure. Amb aquesta afirmació el nostre algoritme ha millorat i el percentatge de casos classificats correctament s’ha elevat fins al 78% (els marcats en gris en la figura).</p>
@@ -265,12 +265,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>A partir d’aquesta formulació tan simple podem explorar si es produeixen millores com a resultat d’introduir regles més sofisticades (per exemple, una nova regla que determini que els homes que viatjaven en primera classe es van salvar mentre que la resta van morir).</p>
-<p><strong>Font de les dades del Titanic: es dona un enllaç a Kaggle però no s’aprofita per fer un exemple de R amb aquestes dades (a diferència de morositat, iris i natius, que sí que tenen codi). Si la intenció és deixar el Titanic només per a reflexió teòrica, estaria bé dir-ho explícitament; si no, es podria afegir un quart exemple pràctic amb R, ja que el dataset ja s’ha presentat amb detall.</strong></p>
 </section>
 <section id="creació-dun-arbre-de-decisió-amb-r" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Creació d’un arbre de decisió amb R</h1>
-<section id="exemple-1-morositat-amb-el-paquet-party" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="exemple-1-morositat-amb-el-paquet-party"><span class="header-section-number">2.1</span> Exemple 1: morositat amb el paquet <code>party</code></h2>
+<section id="exemple-1-morositat" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="exemple-1-morositat"><span class="header-section-number">2.1</span> Exemple 1: morositat</h2>
 <p>Per fer aquesta activitat recuperarem el <em>dataset</em> sobre morositat del Tema 2. Les dades estan en format <em>character</em>. Per construir l’algoritme, necessitem convertir-les a <em>factor</em>. Ho podem fer camp a camp.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>morositat <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"data/morositat.txt"</span>, <span class="at">header =</span> T, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>)</span>
@@ -301,22 +300,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="exemple-2-classificació-de-flors-amb-el-paquet-rpart" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="exemple-2-classificació-de-flors-amb-el-paquet-rpart"><span class="header-section-number">2.2</span> Exemple 2: classificació de flors amb el paquet <code>rpart</code></h2>
-<p>Per aquest exemple, utilitzarem un segon paquet anomenat <code>rpart</code>. També necessitarem carregar el paquet <code>rpart.plot</code> per representar l’arbre.`</p>
+<section id="exemple-2-classificació-de-flors" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="exemple-2-classificació-de-flors"><span class="header-section-number">2.2</span> Exemple 2: classificació de flors</h2>
+<p>Per al següent exemple, farem servir el dataset <code>iris</code> que conté mesures de tres espècies diferents de flors Iris: “setosa”, “versicolor” i “virginica”.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart.plot)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Hi ha diferències en els tests estadístics que utilitzen <code>party</code> i <code>rpart</code> per crear els arbres i l’un o l’altre poden ser més o menys adient segons les variables estiguin més o menys equilibrades o amb diferents escales.</p>
-<p>Encara que tots dos paquets serveixen per construir arbres de decisió, el criteri estadístic que fan servir internament per decidir com dividir cada node és diferent, cosa que pot donar lloc a arbres lleugerament diferents fins i tot partint de les mateixes dades.</p>
-<p>-<code>rpart</code> construeix l’arbre buscant, a cada node, la divisió que redueix més la impuresa dels subgrups resultants. Per defecte, en problemes de classificació utilitza l’índex de Gini com a mesura d’impuresa (similar en esperit a l’entropia que ja vam veure al Tema 2, encara que amb una fórmula lleugerament diferent), i continua dividint els nodes fins que arriba a un criteri d’aturada (per exemple, un nombre mínim d’observacions per node). És per això que sovint cal “podar” l’arbre resultant a posteriori per evitar que sigui excessivament complex.</p>
-<p>-<code>party</code> (amb la funció <code>ctree</code>) es basa, en canvi, en tests d’independència estadística (concretament, tests de permutació) per decidir si una variable té una relació prou significativa amb la variable resposta com per justificar una nova divisió. Si cap variable supera un llindar de significació estadística en un node determinat, l’arbre deixa de créixer en aquell punt. Aquesta característica fa que ctree tendeixi a generar arbres una mica més “conservadors” i, sovint, no calgui podar-los posteriorment de la mateixa manera que amb <code>rpart</code>.</p>
-<p>En la pràctica, aquesta diferència de criteri fa que cadascun dels dos paquets tingui punts forts en situacions diferents: <code>party</code>/<code>ctree</code> sol comportar-se millor quan les variables predictores tenen escales molt diferents entre si o quan hi ha un nombre desigual de categories entre variables (ja que els tests estadístics que utilitza corregeixen aquest biaix), mentre que <code>rpart</code> és més ràpid computacionalment i està més estès, amb més eines complementàries disponibles (com <code>rpart.plot</code> per a la visualització o <code>printcp()</code> per analitzar la complexitat de l’arbre). A la pràctica, per a molts problemes senzills com els que veurem en aquest tema, ambdós paquets solen oferir resultats similars, i la tria de l’un o l’altre és sovint una qüestió de preferència personal o de la disponibilitat d’eines de visualització.</p>
-<p>Per al següent exemple, farem servir el paquet <code>iris</code> que conté mesures de tres espècies diferents de flors Iris: “setosa”, “versicolor” i “virginica”.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(iris)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(iris)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(iris)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(iris)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
@@ -327,27 +316,48 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Creem l’arbre de decisió per predir la variable ‘Species’:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>arbre_flors <span class="ot">&lt;-</span> <span class="fu">rpart</span>(Species <span class="sc">~</span> ., iris)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>arbre_flors <span class="ot">&lt;-</span> <span class="fu">ctree</span>(<span class="at">formula =</span> Species <span class="sc">~</span> ., <span class="at">data =</span> iris)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>I el representem.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rpart.plot</span>(arbre_flors)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(arbre_flors)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="tema_06_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="tema_06_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
+<p>Comprovarem si l’arbre classifica correctament tres flors del dataset: la 1, la 51 i la 71.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>iris[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">51</span>, <span class="dv">71</span>), ]</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Sepal.Length"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["Sepal.Width"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Petal.Length"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Petal.Width"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Species"],"name":[5],"type":["fct"],"align":["left"]}],"data":[{"1":"5.1","2":"3.5","3":"1.4","4":"0.2","5":"setosa","_rn_":"1"},{"1":"7.0","2":"3.2","3":"4.7","4":"1.4","5":"versicolor","_rn_":"51"},{"1":"5.9","2":"3.2","3":"4.8","4":"1.8","5":"versicolor","_rn_":"71"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>Les prediccions que fa el nostre arbre de decisió per classificar aquestes tres flors són les següents:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(arbre_flors, <span class="at">newdata =</span> iris[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">51</span>, <span class="dv">71</span>), ])</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] setosa     versicolor virginica 
+Levels: setosa versicolor virginica</code></pre>
+</div>
+</div>
+<p>Si comparem les prediccions amb les espècies reals, observem que l’arbre classifica correctament les flors 1 (setosa) i 51 (versicolor), però classifica incorrectament la flor 71 com a virginica, quan en realitat és versicolor.</p>
+<p>Recordeu, en qualsevol cas, que per avaluar adequadament la capacitat predictiva d’un arbre de decisió hauríem d’utilitzar dades diferents de les que hem fet servir per entrenar el model. En aquest exemple, només estem examinant algunes prediccions sobre les dades d’entrenament per entendre com funciona l’arbre.</p>
 </section>
-<section id="exemple-3-classificació-de-parlants-natius-amb-el-paquet-party" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="exemple-3-classificació-de-parlants-natius-amb-el-paquet-party"><span class="header-section-number">2.3</span> Exemple 3: classificació de parlants natius amb el paquet <code>party</code></h2>
+<section id="exemple-3-classificació-de-parlants-natius" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="exemple-3-classificació-de-parlants-natius"><span class="header-section-number">2.3</span> Exemple 3: classificació de parlants natius</h2>
 <p>Una escola d’anglès ha fet una prova de nivell a 200 nens d’entre 5 i 11 anys. Per a cadascun tenim l’edat i el resultat d’una prova d’escriptura i una altra de lectura. Així mateix, sabem si els nens són parlants natius d’anglès o no. A continuació es presenta un extracte amb els 10 primers casos.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>natius <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"data/natius.txt"</span>, <span class="at">header =</span> T, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>natius<span class="sc">$</span>Natiu <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(natius<span class="sc">$</span>Natiu)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(natius, <span class="dv">10</span>)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>natius <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"data/natius.txt"</span>, <span class="at">header =</span> T, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>natius<span class="sc">$</span>Natiu <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(natius<span class="sc">$</span>Natiu)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(natius, <span class="dv">10</span>)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
@@ -359,26 +369,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>A partir de les dades d’edat i del resultat de les proves de lectura i escriptura, crearem un arbre de decisió que ens permeti determinar si un nen és parlant natiu d’anglès o no.</p>
 <p>En comptes de treballar amb totes les dades, seleccionarem les primeres 105 entrades que emmagatzemem en l’objecte <code>natius_1</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>natius_1 <span class="ot">&lt;-</span> natius[<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">105</span>), ]</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>natius_1 <span class="ot">&lt;-</span> natius[<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">105</span>), ]</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Creem l’arbre utilitzant la funció <code>ctree</code>. Indiquem que la variable que volem predir és la probabilitat que un nen sigui natiu basant-nos en tres variables predictores: edat, lectura i escriptura. Emmagatzemem el resultat en un objecte denominat <code>arbre</code> i el representem.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>arbre_natiu <span class="ot">&lt;-</span> <span class="fu">ctree</span>(<span class="at">formula =</span> Natiu <span class="sc">~</span> Edat <span class="sc">+</span> Lectura <span class="sc">+</span> Escriptura,</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> natius_1)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(arbre_natiu)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="tema_06_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Provem ara a repetir el procés amb les dades dels 200 nens. En tenir més informació, l’arbre es torna més complex. Si no el veieu completament, podeu reproduir el codi en RStudio.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>arbre_natiu2 <span class="ot">&lt;-</span> <span class="fu">ctree</span>(Natiu <span class="sc">~</span> Edat <span class="sc">+</span> Lectura <span class="sc">+</span> Escriptura,</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>                natius)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(arbre_natiu2)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>arbre_natiu <span class="ot">&lt;-</span> <span class="fu">ctree</span>(<span class="at">formula =</span> Natiu <span class="sc">~</span> Edat <span class="sc">+</span> Lectura <span class="sc">+</span> Escriptura,</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> natius_1)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(arbre_natiu)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -387,14 +384,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<p>Provem ara a repetir el procés amb les dades dels 200 nens. En tenir més informació, l’arbre es torna més complex. Si no el veieu completament, podeu reproduir el codi en RStudio.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>arbre_natiu2 <span class="ot">&lt;-</span> <span class="fu">ctree</span>(Natiu <span class="sc">~</span> Edat <span class="sc">+</span> Lectura <span class="sc">+</span> Escriptura,</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>                natius)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(arbre_natiu2)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="tema_06_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 <p>Utilitzarem aquest últim arbre per fer una predicció sobre un nou cas. Es tracta d’un nen de 5 anys amb un resultat de 50 tant a la prova de lectura com a la d’escriptura.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>cas<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Edat =</span> <span class="fu">as.integer</span>(<span class="dv">5</span>),</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Lectura =</span> <span class="fu">as.integer</span>(<span class="dv">50</span>),</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Escriptura =</span> <span class="fu">as.integer</span>(<span class="dv">50</span>))</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(arbre_natiu2, <span class="at">newdata =</span> cas<span class="fl">.1</span>, <span class="at">type =</span> <span class="st">"response"</span>)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>cas<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Edat =</span> <span class="fu">as.integer</span>(<span class="dv">5</span>),</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Lectura =</span> <span class="fu">as.integer</span>(<span class="dv">50</span>),</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Escriptura =</span> <span class="fu">as.integer</span>(<span class="dv">50</span>))</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(arbre_natiu2, <span class="at">newdata =</span> cas<span class="fl">.1</span>, <span class="at">type =</span> <span class="st">"response"</span>)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] si
 Levels: no si</code></pre>
@@ -402,7 +412,7 @@ Levels: no si</code></pre>
 </div>
 <p>L’algoritme classifica el cas com a parlant natiu. Per consultar la probabilitat, modifiquem el paràmetre “type”.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(arbre_natiu2, <span class="at">newdata =</span> cas<span class="fl">.1</span>, <span class="at">type =</span> <span class="st">"prob"</span>)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(arbre_natiu2, <span class="at">newdata =</span> cas<span class="fl">.1</span>, <span class="at">type =</span> <span class="st">"prob"</span>)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
 [1] 0.06451613 0.93548387</code></pre>
@@ -410,17 +420,17 @@ Levels: no si</code></pre>
 </div>
 <p>Acabarem amb la classificació d’un nou cas, corresponent a un nen de 10 anys amb un resultat de 45 tant a la prova de lectura com a la d’escriptura.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>cas<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Edat =</span> <span class="fu">as.integer</span>(<span class="dv">10</span>),</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Lectura =</span> <span class="fu">as.integer</span>(<span class="dv">45</span>),</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Escriptura =</span> <span class="fu">as.integer</span>(<span class="dv">45</span>))</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(arbre_natiu2, <span class="at">newdata =</span> cas<span class="fl">.2</span>, <span class="at">type =</span> <span class="st">"response"</span>)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>cas<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Edat =</span> <span class="fu">as.integer</span>(<span class="dv">10</span>),</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Lectura =</span> <span class="fu">as.integer</span>(<span class="dv">45</span>),</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Escriptura =</span> <span class="fu">as.integer</span>(<span class="dv">45</span>))</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(arbre_natiu2, <span class="at">newdata =</span> cas<span class="fl">.2</span>, <span class="at">type =</span> <span class="st">"response"</span>)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] no
 Levels: no si</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(arbre_natiu2, <span class="at">newdata =</span> cas<span class="fl">.2</span>, <span class="at">type =</span> <span class="st">"prob"</span>)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(arbre_natiu2, <span class="at">newdata =</span> cas<span class="fl">.2</span>, <span class="at">type =</span> <span class="st">"prob"</span>)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
 [1] 0.94117647 0.05882353</code></pre>
@@ -430,9 +440,9 @@ Levels: no si</code></pre>
 <p>Fins ara hem fet servir l’arbre per predir casos nous, però també és interessant preguntar-nos: com d’encertades són, en general, les prediccions del model? Una manera senzilla de respondre-ho és comparar les prediccions de l’arbre amb els valors reals mitjançant una matriu de confusió, que classifica cada cas segons si la predicció ha estat correcta o no.</p>
 <p>Calculem les prediccions de l’arbre <code>arbre_natiu2</code> per a tots els nens del dataset original i les comparem amb els valors reals de la variable «Natiu»:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>prediccions <span class="ot">&lt;-</span> <span class="fu">predict</span>(arbre_natiu2, <span class="at">newdata =</span> natius, <span class="at">type =</span> <span class="st">"response"</span>)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>matriu_confusio <span class="ot">&lt;-</span> <span class="fu">table</span>(<span class="at">Real =</span> natius<span class="sc">$</span>Natiu, Predicció <span class="ot">=</span> prediccions)</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>matriu_confusio</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>prediccions <span class="ot">&lt;-</span> <span class="fu">predict</span>(arbre_natiu2, <span class="at">newdata =</span> natius, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>matriu_confusio <span class="ot">&lt;-</span> <span class="fu">table</span>(<span class="at">Real =</span> natius<span class="sc">$</span>Natiu, Predicció <span class="ot">=</span> prediccions)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>matriu_confusio</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    Predicció
 Real no si
@@ -442,29 +452,59 @@ Real no si
 </div>
 <p>La matriu resultant mostra, a cada fila, els casos reals («no» o «si») i, a cada columna, les prediccions del model. Els valors de la diagonal (real = «no» i predicció = «no»; real = «si» i predicció = «si») corresponen als encerts del model, mentre que els valors fora de la diagonal corresponen als errors de classificació. A partir d’aquesta matriu, podem calcular fàcilment el percentatge global d’encert (<em>accuracy</em>) del model, dividint la suma de la diagonal entre el nombre total de casos:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">diag</span>(matriu_confusio)) <span class="sc">/</span> <span class="fu">sum</span>(matriu_confusio)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">diag</span>(matriu_confusio)) <span class="sc">/</span> <span class="fu">sum</span>(matriu_confusio)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.955</code></pre>
 </div>
 </div>
-<p>Cal tenir en compte, però, que aquesta xifra s’ha calculat sobre les mateixes dades amb les quals s’ha entrenat l’arbre, de manera que probablement sobreestima el rendiment real del model amb dades noves (recordeu el concepte de sobreajust que vam introduir al començament d’aquest bloc). Per obtenir una estimació més realista, caldria dividir prèviament les dades en un conjunt d’entrenament i un conjunt de test, entrenar l’arbre només amb el primer, i calcular la matriu de confusió únicament sobre el segon, que el model no ha «vist» durant la seva construcció.</p>
-<p><strong>Divisió entrenament/test: cap dels tres exemples divideix les dades en conjunt d’entrenament i de test (tot el model es crea i s’avalua implícitament sobre les mateixes dades). Atès que en la introducció del bloc d’aprenentatge automàtic (el text que vam redactar abans) s’explica aquest concepte, seria un bon moment per aplicar-lo per primera vegada en un exemple pràctic, ni que sigui en un dels tres casos.</strong></p>
+<p>Cal tenir en compte, però, que aquesta xifra s’ha calculat sobre les mateixes dades amb les quals s’ha entrenat l’arbre, de manera que probablement sobreestima el rendiment real del model amb dades noves (recordeu el concepte de sobreajust que vam introduir al Tema 5). Per obtenir una estimació més realista, caldria dividir prèviament les dades en un conjunt d’entrenament i un conjunt de test, entrenar l’arbre només amb el primer, i calcular la matriu de confusió únicament sobre el segon, que el model no ha «vist» durant la seva construcció.</p>
 </section>
 </section>
 <section id="exercici-portar-ulleres-o-lentilles" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Exercici: portar ulleres o lentilles?</h1>
-<p>Una òptica ha recopilat la següent informació sobre una mostra de clients: edat, patologia, astigmatisme i lacrimositat. A partir d’aquestes dades, s’indica si la persona ha de portar lents de contacte (toves o rígides) o si és convenient que usi ulleres i no lents de contacte. L’objectiu de l’activitat és elaborar un arbre de decisió per determinar la prescripció adequada per a un jove amb miopia i astigmatisme i lacrimositat reduïda.</p>
+<p>Una òptica ha recopilat informació sobre 120 clients: edat, patologia visual, astigmatisme i lacrimositat. Per a cada client també s’indica si es recomana utilitzar lents de contacte (toves o rígides) o bé ulleres.</p>
+<p>L’objectiu de l’exercici és construir un arbre de decisió que permeti predir la recomanació a partir de les característiques dels clients. Per fer-ho:</p>
+<ul>
+<li>Importa el dataset disponible al Campus Virtual i examina’n el contingut.</li>
+</ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>lents <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"data/lents.txt"</span>, <span class="at">header =</span> T, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>lents</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>clients <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/clients_optica.csv"</span>)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 120 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (5): edat, patologia, astigmatisme, lacrimositat, lents
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(clients)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["edat"],"name":[1],"type":["chr"],"align":["left"]},{"label":["patologia"],"name":[2],"type":["chr"],"align":["left"]},{"label":["astigmatisme"],"name":[3],"type":["chr"],"align":["left"]},{"label":["lacrimositat"],"name":[4],"type":["chr"],"align":["left"]},{"label":["lents"],"name":[5],"type":["chr"],"align":["left"]}],"data":[{"1":"adolescent","2":"miopia","3":"no","4":"reduida","5":"no"},{"1":"adolescent","2":"miopia","3":"no","4":"normal","5":"suaus"},{"1":"adolescent","2":"miopia","3":"si","4":"reduida","5":"no"},{"1":"adolescent","2":"miopia","3":"si","4":"normal","5":"rigides"},{"1":"adolescent","2":"hipermetropia","3":"no","4":"reduida","5":"no"},{"1":"adolescent","2":"hipermetropia","3":"no","4":"normal","5":"suaus"},{"1":"adolescent","2":"hipermetropia","3":"si","4":"reduida","5":"no"},{"1":"adolescent","2":"hipermetropia","3":"si","4":"normal","5":"rigides"},{"1":"jove","2":"miopia","3":"no","4":"reduida","5":"no"},{"1":"jove","2":"miopia","3":"no","4":"normal","5":"suaus"},{"1":"jove","2":"miopia","3":"si","4":"reduida","5":"no"},{"1":"jove","2":"miopia","3":"si","4":"normal","5":"rigides"},{"1":"jove","2":"hipermetropia","3":"no","4":"reduida","5":"no"},{"1":"jove","2":"hipermetropia","3":"no","4":"normal","5":"suaus"},{"1":"jove","2":"hipermetropia","3":"si","4":"reduida","5":"no"},{"1":"jove","2":"hipermetropia","3":"si","4":"normal","5":"no"},{"1":"adult","2":"miopia","3":"no","4":"reduida","5":"no"},{"1":"adult","2":"miopia","3":"no","4":"normal","5":"no"},{"1":"adult","2":"miopia","3":"si","4":"reduida","5":"no"},{"1":"adult","2":"miopia","3":"si","4":"normal","5":"rigides"},{"1":"adult","2":"hipermetropia","3":"no","4":"reduida","5":"no"},{"1":"adult","2":"hipermetropia","3":"no","4":"normal","5":"suaus"},{"1":"adult","2":"hipermetropia","3":"si","4":"reduida","5":"no"},{"1":"adult","2":"hipermetropia","3":"si","4":"normal","5":"no"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["edat"],"name":[1],"type":["chr"],"align":["left"]},{"label":["patologia"],"name":[2],"type":["chr"],"align":["left"]},{"label":["astigmatisme"],"name":[3],"type":["chr"],"align":["left"]},{"label":["lacrimositat"],"name":[4],"type":["chr"],"align":["left"]},{"label":["lents"],"name":[5],"type":["chr"],"align":["left"]}],"data":[{"1":"adolescent","2":"hipermetropia","3":"no","4":"normal","5":"suaus"},{"1":"adolescent","2":"hipermetropia","3":"no","4":"reduida","5":"no"},{"1":"adolescent","2":"miopia","3":"no","4":"reduida","5":"no"},{"1":"adult","2":"hipermetropia","3":"no","4":"reduida","5":"no"},{"1":"adult","2":"miopia","3":"si","4":"reduida","5":"no"},{"1":"adult","2":"miopia","3":"no","4":"normal","5":"no"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
 </div>
+<ul>
+<li>Divideix aleatòriament el conjunt de dades en dues parts: un 80% per entrenar el model i un 20% per avaluar-lo. Pots fer servir el següent codi. D’aquesta manera, obtindreu 96 clients per entrenar l’arbre i 24 per avaluar-lo.</li>
+</ul>
+<p>La utilització de <code>set.seed(123)</code> permet que tots treballem amb la mateixa divisió aleatòria. <code>nrow</code> calcula el nombre total de files (120 clients), <code>1:nrow</code> genera una seqüència de números de l’1 al 120; <code>sample()</code> selecciona aleatòriament el 80% d’aquests números (96 files). Els números seleccionats es guarden a l’objecte <code>files</code>. El conjunt de dades <code>entrenament</code> conté les 96 files seleccionades aleatòriament, mentre que <code>prova</code> conté les 24 files restants. El signe menys (<code>-</code>) indica que volem excloure les files seleccionades anteriorment.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>files <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(clients), <span class="fl">0.8</span> <span class="sc">*</span> <span class="fu">nrow</span>(clients))</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>entrenament <span class="ot">&lt;-</span> clients[files, ]</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>prova <span class="ot">&lt;-</span> clients[<span class="sc">-</span>files, ]</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li><p>Construeix un arbre de decisió amb les dades d’entrenament.</p></li>
+<li><p>Representa gràficament l’arbre de decisió i interpreta les regles de classificació que ha generat.</p></li>
+<li><p>Utilitza l’arbre per determinar quina recomanació faria per a un client jove amb miopia, astigmatisme i lacrimositat reduïda.</p></li>
+<li><p>Ara, utilitza l’arbre per predir les recomanacions dels clients del conjunt de prova. Compara les prediccions amb les recomanacions reals. Quants clients s’han classificat correctament? Quin percentatge d’encerts ha obtingut el model?</p></li>
+</ul>
 
 
 </section>

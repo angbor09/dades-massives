@@ -25,7 +25,7 @@ knitr::include_graphics("figures/arbol.png")
 
 Vegem un segon exemple. La nit del 14 al 15 d'abril de 1912, el «Titanic» es va enfonsar en xocar contra un iceberg en el seu viatge inaugural. Van sobreviure unes 700 persones d'entre les 2.200, entre passatgers i tripulació, que viatjaven en el vaixell. Diversos estudis han mostrat que les possibilitats de salvar-se depenien de diversos factors.
 
-Podem intentar construir un algoritme que sigui capaç de predir si un determinat viatger se salvarà o no. Per a això comptem amb un fitxer amb les dades corresponents a 1309 passatgers disponible en https://www.kaggle.com/datasets/yasserh/titanic-dataset. Entre les variables predictores trobem la classe en la qual viatjava cada passatger («pclass» amb tres possibles valors: “primera”, “segona” o “tercera”), el tractament (“Mr”, “Mrs”, “Miss”, “Master”, etc.), el sexe («sex»), l'edat («age»), la tarifa («fare») o el port d'embarcament («embarked» que adopta tres valors: “Southampton”, “Cherbourg” o “Queenstown”), entre altres variables. La variable de resposta («survived») indica si cada passatger va sobreviure (“1”) o no (“0”).
+Podem intentar construir un algoritme que sigui capaç de predir si un determinat viatger se salvarà o no. Per a això comptem amb un fitxer amb les dades corresponents a 1309 passatgers disponible en <https://www.kaggle.com/datasets/yasserh/titanic-dataset>. Entre les variables predictores trobem la classe en la qual viatjava cada passatger («pclass» amb tres possibles valors: “primera”, “segona” o “tercera”), el tractament (“Mr”, “Mrs”, “Miss”, “Master”, etc.), el sexe («sex»), l'edat («age»), la tarifa («fare») o el port d'embarcament («embarked» que adopta tres valors: “Southampton”, “Cherbourg” o “Queenstown”), entre altres variables. La variable de resposta («survived») indica si cada passatger va sobreviure (“1”) o no (“0”).
 
 L'exercici és purament teòric perquè el succés no es repetirà, però pot resultar un repte intel·lectual. El portal Kaggle.com inclou competicions en ciència de dades seguint sempre la mateixa dinàmica: s'ofereix als participants un conjunt de dades (*training set*) per a construir el seu algoritme i, a continuació, es mesura el rendiment amb un nou fitxer de dades (*test set*). 
 
@@ -39,12 +39,10 @@ knitr::include_graphics("figures/titanic.png")
 
 A partir d'aquesta formulació tan simple podem explorar si es produeixen millores com a resultat d'introduir regles més sofisticades (per exemple, una nova regla que determini que els homes que viatjaven en primera classe es van salvar mentre que la resta van morir).
 
-**Font de les dades del Titanic: es dona un enllaç a Kaggle però no s'aprofita per fer un exemple de R amb aquestes dades (a diferència de morositat, iris i natius, que sí que tenen codi). Si la intenció és deixar el Titanic només per a reflexió teòrica, estaria bé dir-ho explícitament; si no, es podria afegir un quart exemple pràctic amb R, ja que el dataset ja s'ha presentat amb detall.**
-
 
 # Creació d'un arbre de decisió amb R
 
-## Exemple 1: morositat amb el paquet `party`
+## Exemple 1: morositat
 Per fer aquesta activitat recuperarem el *dataset* sobre morositat del Tema 2. Les dades estan en format *character*. Per construir l'algoritme, necessitem convertir-les a *factor*. Ho podem fer camp a camp.
 
 ```{r}
@@ -79,26 +77,8 @@ plot(arbre_morositat)
 
 ```
 
-## Exemple 2: classificació de flors amb el paquet `rpart`
-Per aquest exemple, utilitzarem un segon paquet anomenat `rpart`. També necessitarem carregar el paquet `rpart.plot` per representar l'arbre.`
-
-```{r}
-library(rpart)
-library(rpart.plot)
-
-```
-
-Hi ha diferències en els tests estadístics que utilitzen `party` i `rpart` per crear els arbres i l'un o l'altre poden ser més o menys adient segons les variables estiguin més o menys equilibrades o amb diferents escales.
-
-Encara que tots dos paquets serveixen per construir arbres de decisió, el criteri estadístic que fan servir internament per decidir com dividir cada node és diferent, cosa que pot donar lloc a arbres lleugerament diferents fins i tot partint de les mateixes dades.
-
--`rpart` construeix l'arbre buscant, a cada node, la divisió que redueix més la impuresa dels subgrups resultants. Per defecte, en problemes de classificació utilitza l'índex de Gini com a mesura d'impuresa (similar en esperit a l'entropia que ja vam veure al Tema 2, encara que amb una fórmula lleugerament diferent), i continua dividint els nodes fins que arriba a un criteri d'aturada (per exemple, un nombre mínim d'observacions per node). És per això que sovint cal "podar" l'arbre resultant a posteriori per evitar que sigui excessivament complex.
-
--`party` (amb la funció `ctree`) es basa, en canvi, en tests d'independència estadística (concretament, tests de permutació) per decidir si una variable té una relació prou significativa amb la variable resposta com per justificar una nova divisió. Si cap variable supera un llindar de significació estadística en un node determinat, l'arbre deixa de créixer en aquell punt. Aquesta característica fa que ctree tendeixi a generar arbres una mica més "conservadors" i, sovint, no calgui podar-los posteriorment de la mateixa manera que amb `rpart`.
-
-En la pràctica, aquesta diferència de criteri fa que cadascun dels dos paquets tingui punts forts en situacions diferents: `party`/`ctree` sol comportar-se millor quan les variables predictores tenen escales molt diferents entre si o quan hi ha un nombre desigual de categories entre variables (ja que els tests estadístics que utilitza corregeixen aquest biaix), mentre que `rpart` és més ràpid computacionalment i està més estès, amb més eines complementàries disponibles (com `rpart.plot` per a la visualització o `printcp()` per analitzar la complexitat de l'arbre). A la pràctica, per a molts problemes senzills com els que veurem en aquest tema, ambdós paquets solen oferir resultats similars, i la tria de l'un o l'altre és sovint una qüestió de preferència personal o de la disponibilitat d'eines de visualització.
-
-Per al següent exemple, farem servir el paquet `iris` que conté mesures de tres espècies diferents de flors Iris: "setosa", "versicolor" i "virginica".
+## Exemple 2: classificació de flors
+Per al següent exemple, farem servir el dataset `iris` que conté mesures de tres espècies diferents de flors Iris: "setosa", "versicolor" i "virginica".
 
 ```{r}
 data(iris)
@@ -109,19 +89,36 @@ head(iris)
 Creem l'arbre de decisió per predir la variable 'Species':
 
 ```{r}
-arbre_flors <- rpart(Species ~ ., iris)
+arbre_flors <- ctree(formula = Species ~ ., data = iris)
 
 ```
 
 I el representem.
 
 ```{r}
-rpart.plot(arbre_flors)
+plot(arbre_flors)
 
 ```
 
+Comprovarem si l'arbre classifica correctament tres flors del dataset: la 1, la 51 i la 71.
 
-## Exemple 3: classificació de parlants natius amb el paquet `party`
+```{r}
+iris[c(1, 51, 71), ]
+
+```
+
+Les prediccions que fa el nostre arbre de decisió per classificar aquestes tres flors són les següents:
+
+```{r}
+predict(arbre_flors, newdata = iris[c(1, 51, 71), ])
+
+```
+
+Si comparem les prediccions amb les espècies reals, observem que l'arbre classifica correctament les flors 1 (setosa) i 51 (versicolor), però classifica incorrectament la flor 71 com a virginica, quan en realitat és versicolor.
+
+Recordeu, en qualsevol cas, que per avaluar adequadament la capacitat predictiva d'un arbre de decisió hauríem d'utilitzar dades diferents de les que hem fet servir per entrenar el model. En aquest exemple, només estem examinant algunes prediccions sobre les dades d'entrenament per entendre com funciona l'arbre.
+
+## Exemple 3: classificació de parlants natius
 Una escola d'anglès ha fet una prova de nivell a 200 nens d'entre 5 i 11 anys. Per a cadascun tenim l'edat i el resultat d'una prova d'escriptura i una altra de lectura. Així mateix, sabem si els nens són parlants natius d'anglès o no. A continuació es presenta un extracte amb els 10 primers casos.
 
 ```{r}
@@ -211,19 +208,43 @@ A partir d'aquesta matriu, podem calcular fàcilment el percentatge global d'enc
 sum(diag(matriu_confusio)) / sum(matriu_confusio)
 ```
 
-Cal tenir en compte, però, que aquesta xifra s'ha calculat sobre les mateixes dades amb les quals s'ha entrenat l'arbre, de manera que probablement sobreestima el rendiment real del model amb dades noves (recordeu el concepte de sobreajust que vam introduir al començament d'aquest bloc). Per obtenir una estimació més realista, caldria dividir prèviament les dades en un conjunt d'entrenament i un conjunt de test, entrenar l'arbre només amb el primer, i calcular la matriu de confusió únicament sobre el segon, que el model no ha «vist» durant la seva construcció.
-
-
-**Divisió entrenament/test: cap dels tres exemples divideix les dades en conjunt d'entrenament i de test (tot el model es crea i s'avalua implícitament sobre les mateixes dades). Atès que en la introducció del bloc d'aprenentatge automàtic (el text que vam redactar abans) s'explica aquest concepte, seria un bon moment per aplicar-lo per primera vegada en un exemple pràctic, ni que sigui en un dels tres casos.**
-
+Cal tenir en compte, però, que aquesta xifra s'ha calculat sobre les mateixes dades amb les quals s'ha entrenat l'arbre, de manera que probablement sobreestima el rendiment real del model amb dades noves (recordeu el concepte de sobreajust que vam introduir al Tema 5). Per obtenir una estimació més realista, caldria dividir prèviament les dades en un conjunt d'entrenament i un conjunt de test, entrenar l'arbre només amb el primer, i calcular la matriu de confusió únicament sobre el segon, que el model no ha «vist» durant la seva construcció.
 
 # Exercici: portar ulleres o lentilles?
-Una òptica ha recopilat la següent informació sobre una mostra de clients: edat, patologia, astigmatisme i lacrimositat. A partir d'aquestes dades, s'indica si la persona ha de portar lents de contacte (toves o rígides) o si és convenient que usi ulleres i no lents de contacte. L'objectiu de l'activitat és elaborar un arbre de decisió per determinar la prescripció adequada per a un jove amb miopia i astigmatisme i lacrimositat reduïda.
+Una òptica ha recopilat informació sobre 120 clients: edat, patologia visual, astigmatisme i lacrimositat. Per a cada client també s'indica si es recomana utilitzar lents de contacte (toves o rígides) o bé ulleres.
+
+L'objectiu de l'exercici és construir un arbre de decisió que permeti predir la recomanació a partir de les característiques dels clients. Per fer-ho:
+
+- Importa el dataset disponible al Campus Virtual i examina'n el contingut.
 
 ```{r}
-lents <- read.table("data/lents.txt", header = T, sep = "\t")
-lents
+clients <- read_csv("data/clients_optica.csv")
+head(clients)
 
 ```
+
+- Divideix aleatòriament el conjunt de dades en dues parts: un 80% per entrenar el model i un 20% per avaluar-lo. Pots fer servir el següent codi. D'aquesta manera, obtindreu 96 clients per entrenar l'arbre i 24 per avaluar-lo.
+
+La utilització de `set.seed(123)` permet que tots treballem amb la mateixa divisió aleatòria. `nrow` calcula el nombre total de files (120 clients), `1:nrow` genera una seqüència de números de l'1 al 120; `sample()` selecciona aleatòriament el 80% d'aquests números (96 files). Els números seleccionats es guarden a l'objecte `files`. El conjunt de dades `entrenament` conté les 96 files seleccionades aleatòriament, mentre que `prova` conté les 24 files restants. El signe menys (`-`) indica que volem excloure les files seleccionades anteriorment.
+
+```{r}
+set.seed(123)
+
+files <- sample(1:nrow(clients), 0.8 * nrow(clients))
+
+entrenament <- clients[files, ]
+prova <- clients[-files, ]
+
+```
+
+
+- Construeix un arbre de decisió amb les dades d'entrenament.
+
+- Representa gràficament l'arbre de decisió i interpreta les regles de classificació que ha generat.
+
+- Utilitza l'arbre per determinar quina recomanació faria per a un client jove amb miopia, astigmatisme i lacrimositat reduïda.
+
+- Ara, utilitza l'arbre per predir les recomanacions dels clients del conjunt de prova. Compara les prediccions amb les recomanacions reals. Quants clients s'han classificat correctament? Quin percentatge d'encerts ha obtingut el model?
+
 
 
