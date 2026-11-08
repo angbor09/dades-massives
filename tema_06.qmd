@@ -19,7 +19,7 @@ Un arbre de decisió és un tipus d'algoritme que consisteix en una sèrie de pr
 
 La següent figura mostra un exemple d'arbre. Partint de la part superior, l'arbre segmenta les dades de manera que cada costat correspon a un únic camí. Tornant a l'exemple de la morositat que vam fer servir al Tema 2, imaginem que volem classificar un subjecte de 40 anys, sense ocupació i amb uns estalvis de 115.000 €. Començant en la part superior, com que no té «ocupació», prenem el camí de la dreta. El següent node és el dels «estalvis». Com són superiors a 50 000 €, prenem de nou el camí de la dreta fins al node «edat». El valor és 40, de manera que anem a l'esquerra que ens indica que la predicció és que aquest subjecte no serà morós. Habitualment, més que saber la categoria en què queda classificat un subjecte, el que retornarà l'algoritme serà la probabilitat que acabi dins d'aquesta categoria. En aquest cas, les branques de l'arbre inclouran les probabilitats en comptes d'un valor simple.
 
-```{r echo=FALSE, out.width='40%', fig.align='center', fig.cap = "Exemple d'arbre de decisió"}
+```{r echo=FALSE, out.width='60%', fig.align='center', fig.cap = "Exemple d'arbre de decisió"}
 knitr::include_graphics("figures/arbol.png")
 ```
 
@@ -33,17 +33,17 @@ Una manera molt senzilla d'enfrontar-se al problema seria predir que cap viatger
 
 Podem complicar lleugerament l'arbre de classificació i afirmar que tots els homes van morir mentre que totes les dones van sobreviure. Amb aquesta afirmació el nostre algoritme ha millorat i el percentatge de casos classificats correctament s'ha elevat fins al 78% (els marcats en gris en la figura).
 
-```{r echo=FALSE, out.width='40%', fig.align='center', fig.cap = "Exemple d'arbre de classificació"}
+```{r echo=FALSE, out.width='60%', fig.align='center', fig.cap = "Exemple d'arbre de classificació"}
 knitr::include_graphics("figures/titanic.png")
 ```
 
 A partir d'aquesta formulació tan simple podem explorar si es produeixen millores com a resultat d'introduir regles més sofisticades (per exemple, una nova regla que determini que els homes que viatjaven en primera classe es van salvar mentre que la resta van morir).
 
 
-# Creació d'un arbre de decisió amb R
+# Creació d'arbres de decisió amb R
 
 ## Exemple 1: morositat
-Per fer aquesta activitat recuperarem el *dataset* sobre morositat del Tema 2. Les dades estan en format *character*. Per construir l'algoritme, necessitem convertir-les a *factor*. Ho podem fer camp a camp.
+Per al primer exemple, recuperarem el *dataset* sobre morositat del Tema 2. Les dades estan en format *character*. Per construir l'algoritme, necessitem convertir-les a *factor*. Ho podem fer camp a camp.
 
 ```{r}
 morositat <- read.table("data/morositat.txt", header = T, sep = "\t")
@@ -78,7 +78,12 @@ plot(arbre_morositat)
 ```
 
 ## Exemple 2: classificació de flors
-Per al següent exemple, farem servir el dataset `iris` que conté mesures de tres espècies diferents de flors Iris: "setosa", "versicolor" i "virginica".
+Per al següent exemple, farem servir el dataset `iris` que conté mesures de tres espècies diferents de flors Iris: «setosa», «versicolor» i «virginica».
+
+```{r echo=FALSE, out.width='60%', fig.align='center', fig.cap = "Flors de la família Iris"}
+knitr::include_graphics("figures/iris.png")
+```
+
 
 ```{r}
 data(iris)
@@ -86,7 +91,7 @@ head(iris)
 
 ```
 
-Creem l'arbre de decisió per predir la variable 'Species':
+Creem l'arbre de decisió per predir la variable «Species». Observeu que fem servir les quatre variables restants per fer la predicció:
 
 ```{r}
 arbre_flors <- ctree(formula = Species ~ ., data = iris)
@@ -124,7 +129,7 @@ Una escola d'anglès ha fet una prova de nivell a 200 nens d'entre 5 i 11 anys. 
 ```{r}
 natius <- read.table("data/natius.txt", header = T, sep = "\t")
 natius$Natiu <- as.factor(natius$Natiu)
-head(natius, 10)
+head(natius)
 
 ```
 
@@ -133,7 +138,7 @@ A partir de les dades d'edat i del resultat de les proves de lectura i escriptur
 En comptes de treballar amb totes les dades, seleccionarem les primeres 105 entrades que emmagatzemem en l'objecte `natius_1`.
 
 ```{r}
-natius_1 <- natius[c(1:105), ]
+natius_1 <- natius[1:105, ]
 
 ```
 
@@ -174,6 +179,9 @@ predict(arbre_natiu2, newdata = cas.1, type = "prob")
 
 ```
 
+Els dos valors corresponen a la probabilitat de cada nivell de la variable resposta tal com apareixen alfabèticament a l'apartat *levels* («no», «si»). Per tant, en aquest cas, el model estima una probabilitat del 6,4% que el nen no sigui parlant natiu i del 93,5% que sí que ho sigui.
+
+
 Acabarem amb la classificació d'un nou cas, corresponent a un nen de 10 anys amb un resultat de 45 tant a la prova de lectura com a la d'escriptura. 
 
 ```{r}
@@ -188,16 +196,14 @@ predict(arbre_natiu2, newdata = cas.2, type = "prob")
 
 ```
 
-Els dos valors corresponen, per ordre, a la probabilitat de cada nivell de la variable resposta tal com apareixen alfabèticament als seus levels («no», «si»); per tant, en aquest cas, el model estima una probabilitat del 6,45% que el nen no sigui parlant natiu i del 93,55% que sí que ho sigui.
-
-Fins ara hem fet servir l'arbre per predir casos nous, però també és interessant preguntar-nos: com d'encertades són, en general, les prediccions del model? Una manera senzilla de respondre-ho és comparar les prediccions de l'arbre amb els valors reals mitjançant una matriu de confusió, que classifica cada cas segons si la predicció ha estat correcta o no.
+Com d'encertades són, en general, les prediccions del model? Una manera senzilla de respondre-ho és comparar les prediccions de l'arbre amb els valors reals mitjançant una matriu de confusió, que classifica cada cas segons si la predicció ha estat correcta o no.
 
 Calculem les prediccions de l'arbre `arbre_natiu2` per a tots els nens del dataset original i les comparem amb els valors reals de la variable «Natiu»:
 
 ```{r}
 prediccions <- predict(arbre_natiu2, newdata = natius, type = "response")
-matriu_confusio <- table(Real = natius$Natiu, Predicció = prediccions)
-matriu_confusio
+matriu <- table(Real = natius$Natiu, Predicció = prediccions)
+matriu
 
 ```
 
@@ -205,10 +211,10 @@ La matriu resultant mostra, a cada fila, els casos reals («no» o «si») i, a 
 A partir d'aquesta matriu, podem calcular fàcilment el percentatge global d'encert (*accuracy*) del model, dividint la suma de la diagonal entre el nombre total de casos:
 
 ```{r}
-sum(diag(matriu_confusio)) / sum(matriu_confusio)
+sum(diag(matriu)) / sum(matriu)
 ```
 
-Cal tenir en compte, però, que aquesta xifra s'ha calculat sobre les mateixes dades amb les quals s'ha entrenat l'arbre, de manera que probablement sobreestima el rendiment real del model amb dades noves (recordeu el concepte de sobreajust que vam introduir al Tema 5). Per obtenir una estimació més realista, caldria dividir prèviament les dades en un conjunt d'entrenament i un conjunt de test, entrenar l'arbre només amb el primer, i calcular la matriu de confusió únicament sobre el segon, que el model no ha «vist» durant la seva construcció.
+Cal tenir en compte, de nou, que aquesta xifra s'ha calculat sobre les mateixes dades amb les quals s'ha entrenat l'arbre, de manera que probablement sobreestima el rendiment real del model amb dades noves (recordeu el concepte de sobreajust que vam introduir al Tema 5). Per obtenir una estimació més realista, caldria dividir prèviament les dades en un conjunt d'entrenament i un conjunt de test, entrenar l'arbre només amb el primer, i calcular la matriu de confusió únicament sobre el segon, que el model no ha «vist» durant la seva construcció. És el que farem al següent exercici.
 
 # Exercici: portar ulleres o lentilles?
 Una òptica ha recopilat informació sobre 120 clients: edat, patologia visual, astigmatisme i lacrimositat. Per a cada client també s'indica si es recomana utilitzar lents de contacte (toves o rígides) o bé ulleres.
@@ -217,34 +223,21 @@ L'objectiu de l'exercici és construir un arbre de decisió que permeti predir l
 
 - Importa el dataset disponible al Campus Virtual i examina'n el contingut.
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 clients <- read_csv("data/clients_optica.csv")
-head(clients)
+head(clients,10)
 
 ```
 
-- Divideix aleatòriament el conjunt de dades en dues parts: un 80% per entrenar el model i un 20% per avaluar-lo. Pots fer servir el següent codi. D'aquesta manera, obtindreu 96 clients per entrenar l'arbre i 24 per avaluar-lo.
+- Converteix els camps a format *factor*.
 
-La utilització de `set.seed(123)` permet que tots treballem amb la mateixa divisió aleatòria. `nrow` calcula el nombre total de files (120 clients), `1:nrow` genera una seqüència de números de l'1 al 120; `sample()` selecciona aleatòriament el 80% d'aquests números (96 files). Els números seleccionats es guarden a l'objecte `files`. El conjunt de dades `entrenament` conté les 96 files seleccionades aleatòriament, mentre que `prova` conté les 24 files restants. El signe menys (`-`) indica que volem excloure les files seleccionades anteriorment.
-
-```{r}
-set.seed(123)
-
-files <- sample(1:nrow(clients), 0.8 * nrow(clients))
-
-entrenament <- clients[files, ]
-prova <- clients[-files, ]
-
-```
-
+- Divideix el conjunt de dades en dues parts: les 96 primeres fileres (80%) per entrenar el model i les 24 restants (20%) per avaluar-lo.
 
 - Construeix un arbre de decisió amb les dades d'entrenament.
 
 - Representa gràficament l'arbre de decisió i interpreta les regles de classificació que ha generat.
 
-- Utilitza l'arbre per determinar quina recomanació faria per a un client jove amb miopia, astigmatisme i lacrimositat reduïda.
-
-- Ara, utilitza l'arbre per predir les recomanacions dels clients del conjunt de prova. Compara les prediccions amb les recomanacions reals. Quants clients s'han classificat correctament? Quin percentatge d'encerts ha obtingut el model?
+- Utilitza l'arbre per predir les recomanacions dels clients del conjunt de prova. Compara les prediccions amb les recomanacions reals. Quants clients s'han classificat correctament? Quin percentatge d'encerts ha obtingut el model?
 
 
 
