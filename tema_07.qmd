@@ -212,14 +212,14 @@ Fins ara hem utilitzat el model per predir un únic cas nou, però també és in
 
 ```{r}
 prediccions <- predict(VolarModel, vols)
-matriu_confusio <- table(Real = vols$Volar, Predicció = prediccions)
-matriu_confusio
+matriu <- table(Real = vols$Volar, Predicció = prediccions)
+matriu
 ```
 
 A partir d'aquesta matriu, podem calcular el percentatge global d'encert del model (accuracy), dividint la suma de la diagonal (els casos correctament classificats) entre el nombre total d'observacions:
 
 ```{r}
-sum(diag(matriu_confusio)) / sum(matriu_confusio)
+sum(diag(matriu)) / sum(matriu)
 ```
 
 Igual que en el cas dels arbres de decisió, cal tenir present que aquesta xifra s'ha calculat sobre les mateixes dades amb les quals s'ha entrenat el model, de manera que probablement sobreestima el seu rendiment real amb dades noves. Amb un dataset de només 14 observacions com el nostre, dividir-lo en un conjunt d'entrenament i un de test no seria gaire representatiu, però amb mostres més grans és imprescindible seguir aquesta pràctica per obtenir una estimació fiable de com es comportarà el model davant de casos que no ha vist mai.
@@ -238,26 +238,26 @@ VolarModel_laplace <- e1071::naiveBayes(Volar ~ ., vols, laplace = 1)
 
 En general, és una bona pràctica aplicar sempre una correcció de Laplace (encara que sigui petita) quan es treballa amb mostres reduïdes o amb moltes variables predictores, ja que augmenta la probabilitat de trobar-se combinacions no observades a les dades d'entrenament.
 
-Tots els exemples que hem vist fins ara —tant l'exemple teòric del spam com el model de vols implementat en R— fan servir únicament variables categòriques (sol/núvol/pluja, fred/calent, sí/no). En aquests casos, el càlcul de les probabilitats és molt senzill: n'hi ha prou de comptar freqüències relatives per a cada categoria.
+Tots els exemples que hem vist fins ara —tant l'exemple teòric del *spam* com el model de vols implementat en R— fan servir únicament variables categòriques (sol/núvol/pluja, fred/calent, sí/no). En aquests casos, el càlcul de les probabilitats és molt senzill: n'hi ha prou de comptar freqüències relatives per a cada categoria.
 
 No obstant, el Naive Bayes també es pot aplicar quan alguna de les variables predictores és numèrica (per exemple, la temperatura exacta en graus, en lloc de la categoria "fred" o "calent"). En aquest cas, ja no és possible calcular una simple freqüència relativa, ja que cada valor numèric podria ser gairebé únic a les dades. La solució habitual consisteix a assumir que la variable numèrica segueix una determinada distribució de probabilitat dins de cada categoria —normalment una distribució normal— i estimar-ne la mitjana i la desviació estàndard per a cada classe (per exemple, la temperatura mitjana i la seva variabilitat en els dies que sí es va poder volar, i separadament en els dies que no). A partir d'aquests paràmetres, el model pot calcular la probabilitat (més precisament, la densitat de probabilitat) que un nou valor numèric concret pertanyi a cadascuna de les categories.
 
 A R, la funció `naiveBayes()` del paquet `e1071` gestiona automàticament aquesta situació: si alguna de les variables predictores del dataframe és numèrica (`numeric` o `integer`) en lloc de categòrica (`factor` o `character`), el model calcularà automàticament la mitjana i la desviació estàndard corresponents, sense necessitat de canviar la sintaxi de la funció. És per això que, si teniu un dataset amb variables numèriques que voleu incloure en un model Naive Bayes, no cal convertir-les prèviament a categories (per exemple, agrupant la temperatura en trams "fred"/"calent"), tot i que fer-ho de vegades pot ajudar a interpretar millor el model, especialment si es preveu que la relació entre la variable numèrica i la classe no sigui simètrica al voltant d'una mitjana.
 
 # Comparació dels mètodes d'aprenentatge supervisat
-Al llarg d'aquest bloc hem treballat amb tres mètodes diferents d'aprenentatge supervisat: la regressió (lineal simple i múltiple), els arbres de decisió i els classificadors bayesians (Naive Bayes). Cadascun d'ells parteix d'una lògica pròpia i és més adequat per a unes situacions que per a unes altres. En aquest document tancarem el bloc fent una comparació general dels tres mètodes i aplicant-los conjuntament a un mateix problema, per poder observar de primera mà les seves diferències.
+Als temes 5, 6 i 7 hem treballat amb tres mètodes diferents d'aprenentatge supervisat: la regressió (lineal simple i múltiple), els arbres de decisió i els classificadors bayesians (Naive Bayes). Cadascun d'ells parteix d'una lògica pròpia i és més adequat per a unes situacions que per a unes altres. En aquest document tancarem el bloc fent una comparació general dels tres mètodes.
 
 Quan fer servir cada mètode?
 
--Regressió: és el mètode natural quan la variable que volem predir és quantitativa (un preu, una quantitat, un nivell d'assistència). La regressió logística n'és l'excepció que permet predir variables categòriques, però continua basant-se en una equació lineal subjacent. Els seus principals avantatges són la interpretabilitat directa dels coeficients (quant varia la resposta per cada unitat de canvi en una variable predictora) i la seva base estadística sòlida, que permet quantificar la incertesa de les estimacions (errors estàndard, intervals de confiança). Com a contrapartida, assumeix relacions lineals entre variables i és sensible a problemes com la multicolinealitat.
+- Regressió: és el mètode natural quan la variable que volem predir és quantitativa (un preu, una quantitat, un nivell d'assistència). La regressió logística n'és l'excepció que permet predir variables categòriques, però continua basant-se en una equació lineal subjacent. Els seus principals avantatges són la interpretabilitat directa dels coeficients (quant varia la resposta per cada unitat de canvi en una variable predictora) i la seva base estadística sòlida. Com a contrapartida, assumeix relacions lineals entre variables i és sensible a problemes com la multicolinealitat.
 
--Arbres de decisió: són especialment útils quan volem un model fàcilment interpretable i visualitzable, capaç de capturar relacions no lineals i interaccions entre variables sense haver-les d'especificar prèviament (a diferència de la regressió, on cal decidir explícitament si incloure termes d'interacció). Funcionen bé tant amb variables numèriques com categòriques, i no requereixen que les dades compleixin supòsits estadístics estrictes. El seu principal risc és el sobreajust, ja que un arbre massa profund pot acabar memoritzant les particularitats del conjunt d'entrenament.
+- Arbres de decisió: són especialment útils quan volem un model fàcilment interpretable i visualitzable, capaç de capturar relacions no lineals i interaccions entre variables sense haver-les d'especificar prèviament. Funcionen bé tant amb variables numèriques com categòriques, i no requereixen que les dades compleixin supòsits estadístics estrictes. El seu principal risc és el sobreajust, ja que un arbre massa profund pot acabar memoritzant les particularitats del conjunt d'entrenament.
 
--Naive Bayes: destaca per la seva simplicitat i rapidesa de càlcul, cosa que el fa molt adequat quan es treballa amb un gran nombre de variables predictores (per exemple, la presència o absència de moltes paraules en un text, com en els filtres de spam). Funciona especialment bé en problemes de classificació amb variables categòriques. La seva limitació principal és l'assumpció d'independència entre les variables predictores, que rarament es compleix de manera estricta a la realitat, encara que això no acostuma a impedir que el mètode obtingui bons resultats pràctics.
+- Naive Bayes: destaca per la seva simplicitat i rapidesa de càlcul, cosa que el fa molt adequat quan es treballa amb un gran nombre de variables predictores (per exemple, la presència o absència de moltes paraules en un text, com en els filtres de spam). Funciona especialment bé en problemes de classificació amb variables categòriques. La seva limitació principal és l'assumpció d'independència entre les variables predictores, que rarament es compleix de manera estricta a la realitat, encara que això no acostuma a impedir que el mètode obtingui bons resultats pràctics.
 
 Per il·lustrar les diferències entre els tres mètodes, els aplicarem al mateix problema que ja hem fet servir en temes anteriors: predir la morositat d'un client a partir dels seus «estalvis» i la disponibilitat del seu «habitatge».
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(party)
 library(e1071)
@@ -267,7 +267,7 @@ morositat <- read.table("data/morositat.txt", header = T, sep = "\t") %>%
 ```
 
 
-Com que la variable resposta (Morositat) és categòrica, no podem aplicar-hi directament una regressió lineal; en el seu lloc, faríem servir una regressió logística, que no hem desenvolupat amb detall en aquest curs però que es construiria de manera molt similar amb la funció `glm()` en lloc de `lm()`, indicant l'argument `family = "binomial"`. Per aquest motiu, nosaltres compararem aquí únicament l'arbre de decisió i el classificador bayesià, dos mètodes que sí que hem après a aplicar directament a variables categòriques.
+Com que la variable resposta (Morositat) és categòrica, no podem aplicar-hi directament una regressió lineal; en el seu lloc, faríem servir una regressió logística, que no hem desenvolupat amb detall en aquesta assignatura però que es construiria de manera molt similar amb la funció `glm()` en lloc de `lm()`, indicant l'argument `family = "binomial"`. Per aquest motiu, nosaltres compararem aquí únicament l'arbre de decisió i el classificador bayesià, dos mètodes que sí que hem après a aplicar directament a variables categòriques.
 
 Arbre de decisió:
 
@@ -277,7 +277,7 @@ prediccions_arbre <- predict(arbre_morositat, morositat)
 table(Real = morositat$Morositat, Predicció = prediccions_arbre)
 ```
 
-Naive BAyes
+Naive Bayes:
 
 ```{r}
 model_bayes <- naiveBayes(Morositat ~ Estalvis + Habitatge, data = morositat)
@@ -285,60 +285,29 @@ prediccions_bayes <- predict(model_bayes, morositat)
 table(Real = morositat$Morositat, Predicció = prediccions_bayes)
 ```
 
-Comparant les dues matrius de confusió, podem valorar si els dos mètodes classifiquen els clients de manera similar o si hi ha diferències notables en els seus encerts i errors. En un cas real, aquesta comparació s'hauria de fer sempre sobre un conjunt de test independent (i no sobre les mateixes dades d'entrenament, com fem aquí per simplicitat), tal com hem comentat en temes anteriors.
+Comparant les dues matrius, podem valorar si els dos mètodes classifiquen els clients de manera similar o si hi ha diferències en els seus encerts i errors. En aquest cas, tots dos mètodes tenen la mateixa taxa d'encert. En un cas real, aquesta comparació s'hauria de fer sempre sobre un conjunt de test independent (i no sobre les mateixes dades d'entrenament, com fem aquí per simplicitat), tal com hem comentat en temes anteriors.
 
-Els tres mètodes que hem treballat en aquest bloc són només una petita part de l'ampli ventall de tècniques d'aprenentatge supervisat que existeixen. Entre les línies naturals per continuar aprofundint hi ha:
+# Exercici: prediccions de compra
+Un supermercat disposa d'informació sobre 120 clients: edat, composició de la unitat familiar, freqüència de compra, despesa mensual i hàbits de consum de productes ecològics. Per a cada client també s'indica si ha comprat anteriorment un determinat producte.
 
--La validació creuada (*cross-validation*), que permet obtenir una estimació més robusta del rendiment d'un model dividint les dades en múltiples subconjunts d'entrenament i test, en lloc d'una única divisió.
+El supermercat vol utilitzar aquesta informació per identificar els clients amb més probabilitats de comprar el producte i decidir a quins convé enviar un missatge publicitari.
 
--Mètodes més sofisticats basats en arbres, com els boscos aleatoris (*random forests*) o el gradient boosting, que combinen molts arbres de decisió per millorar la capacitat predictiva.
+L'objectiu de l'exercici és construir un classificador bayesià que permeti predir si un client comprarà el producte a partir de les seves característiques i dels seus hàbits de compra. Per fer-ho:
 
--Altres mètodes de classificació com les màquines de vector suport (*support vector machines*) o les xarxes neuronals, que permeten capturar relacions encara més complexes entre variables, a costa d'una interpretabilitat menor.
-
-En qualsevol cas, els principis fonamentals que hem après en aquest bloc —la distinció entre entrenament i test, el risc de sobreajust, la importància d'avaluar els models de manera rigorosa— es mantenen vàlids independentment de la complexitat del mètode que s'utilitzi.
-
-# Exercicis
-## Exercici 1: prediccions de compra
-Una empresa vol analitzar si els clients compren un producte o no en funció de dues variables: si han rebut una promoció (sí o no) i el tipus de client que són (nou, habitual o premium). Fes servir el següent *dataset* per crear un model bayesià en R. Recorda que pots copiar i enganxar les dades fent servir l'opció `Copy Code` a la part superior dreta del requadre.
+- Importa el dataset disponible al Campus Virtual i examina'n el contingut.
 
 ```{r}
-dades <- data.frame(
-  Promocio = c("Si", "No", "Si", "Si", "No", "No", "Si", "No", "Si", "No"),
-  Tipus_client = c("Nou", "Habitual", "Premium", "Habitual", "Nou", "Premium", "Nou", "Nou", "Premium", "Habitual"),
-  Compra = c("Si", "No", "Si", "Si", "No", "No", "Si", "No", "Si", "No"))
+clients <- read_csv("data/clients_supermercat.csv")
+head(clients, 10)
 ```
 
-Comenta les característiques del model: Quins clients tenen més probabilitats de comprar? Com afecta rebre una promoció al comportament de compra?
+- Divideix el conjunt de dades en dues parts: les 96 primeres fileres (80%) per entrenar el model i les 24 restants (20%) per avaluar-lo.
 
-## Exercici 2: detecció de correu brossa
-Fes servir les següents dades per entrenar un model Naive Bayes per classificar missatges com a "spam" o "no spam" a partir de la presència o absència de quatre paraules clau: "amic", "gratis", "oferta" i "urgent".
+- Construeix un classificador bayesià amb les dades d'entrenament, utilitzant la funció naiveBayes() del paquet e1071.
 
+- Examina el model obtingut. Quina és la probabilitat inicial que un client compri el producte? Com varia la distribució de les característiques dels clients segons si han comprat o no el producte?
 
-```{r, echo=FALSE}
-missatges <- data.frame(
-  amic    = c("no","si","no","si","no","si","si","si","si","no"),
-  gratis  = c("si","no","si","no","si","no","si","no","si","no"),
-  oferta  = c("si","no","si","no","no","si","si","no","si","no"),
-  urgent  = c("si","no","no","si","si","no","si","no","no","si"),
-  classe  = c("spam", "no_spam", "spam", "no_spam", "spam",
-              "no_spam", "spam", "no_spam", "spam", "no_spam"))
+- Utilitza el model per predir si els clients del conjunt de test compraran el producte. Compara les prediccions amb els valors reals. Quants clients s'han classificat correctament? Quin percentatge d'encerts ha obtingut el model?
 
-print(missatges)
-
-```
-
-Pots replicar el dataset amb el següent codi:
-
-```{r}
-missatges <- data.frame(
-  amic    = c("no","si","no","si","no","si","si","si","si","no"),
-  gratis  = c("si","no","si","no","si","no","si","no","si","no"),
-  oferta  = c("si","no","si","no","no","si","si","no","si","no"),
-  urgent  = c("si","no","no","si","si","no","si","no","no","si"),
-  classe  = c("spam", "no_spam", "spam", "no_spam", "spam", 
-              "no_spam", "spam", "no_spam", "spam", "no_spam"))
-```
-
-Quines paraules semblen més associades a missatges d'*spam* segons el model? Quina és la probabilitat que un nou missatge amb les paraules "gratis" i "oferta", però sense "amic" ni "urgent", sigui *spam*?
-Què passa si el nou correu només conté la paraula "amic"? Inventa dos missatges més i classifica-los amb el model.
+- Utilitza l'argument type = "raw" de la funció predict() per obtenir les probabilitats estimades de compra dels clients del conjunt de prova. El supermercat disposa de pressupost per enviar publicitat a 10 clients. Quins seleccionaries segons el model? Quants d'aquests clients havien comprat realment el producte?
 

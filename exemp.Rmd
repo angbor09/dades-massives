@@ -1,0 +1,40 @@
+---
+title: "unesco"
+author: "Ángel Borrego"
+date: "2026-11-12"
+output: html_document
+---
+carreguem la llibreria
+
+```{r}
+library(tidyverse)
+library(readxl)
+```
+
+importem dades
+
+```{r setup, include=FALSE}
+dataset_UNESCO <- read_excel("data/unesco.xlsx")
+```
+
+veiem els priemers registres
+
+```{r}
+head(dataset_UNESCO,10)
+```
+
+recompte de regions
+
+```{r}
+regions <- dataset_UNESCO %>% count(region_en)
+head(regions)
+```
+
+
+gràfic de columnes
+
+```{r}
+ggplot(regions, aes(x=region_en, y=n))+
+  geom_col() +
+  coord_flip()
+```
