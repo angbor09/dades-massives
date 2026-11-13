@@ -296,7 +296,7 @@ L'objectiu de l'exercici és construir un classificador bayesià que permeti pre
 
 - Importa el dataset disponible al Campus Virtual i examina'n el contingut.
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 clients <- read_csv("data/clients_supermercat.csv")
 head(clients, 10)
 ```
