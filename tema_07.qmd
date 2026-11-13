@@ -303,11 +303,11 @@ head(clients, 10)
 
 - Divideix el conjunt de dades en dues parts: les 96 primeres fileres (80%) per entrenar el model i les 24 restants (20%) per avaluar-lo.
 
-- Construeix un classificador bayesià amb les dades d'entrenament, utilitzant la funció naiveBayes() del paquet e1071.
+- Construeix un classificador bayesià amb les dades d'entrenament, utilitzant la funció `naiveBayes()` del paquet `e1071`.
 
 - Examina el model obtingut. Quina és la probabilitat inicial que un client compri el producte? Com varia la distribució de les característiques dels clients segons si han comprat o no el producte?
 
 - Utilitza el model per predir si els clients del conjunt de test compraran el producte. Compara les prediccions amb els valors reals. Quants clients s'han classificat correctament? Quin percentatge d'encerts ha obtingut el model?
 
-- Utilitza l'argument type = "raw" de la funció predict() per obtenir les probabilitats estimades de compra dels clients del conjunt de prova. El supermercat disposa de pressupost per enviar publicitat a 10 clients. Quins seleccionaries segons el model? Quants d'aquests clients havien comprat realment el producte?
+- Utilitza l'argument `type = "raw"` de la funció `predict()` per obtenir les probabilitats estimades de compra dels clients del conjunt de prova. El supermercat disposa de pressupost per enviar publicitat a 10 clients. Quins seleccionaries segons el model? Quants d'aquests clients havien comprat realment el producte?
 
