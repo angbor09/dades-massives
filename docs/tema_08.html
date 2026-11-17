@@ -236,12 +236,11 @@ window.Quarto = {
   <li><a href="#clustering-no-jeràrquic-k-means" id="toc-clustering-no-jeràrquic-k-means" class="nav-link" data-scroll-target="#clustering-no-jeràrquic-k-means"><span class="header-section-number">2.3</span> Clustering no jeràrquic (<em>k-means</em>)</a></li>
   <li><a href="#clustering-no-jeràrquic-amb-les-dades-de-delinqüència" id="toc-clustering-no-jeràrquic-amb-les-dades-de-delinqüència" class="nav-link" data-scroll-target="#clustering-no-jeràrquic-amb-les-dades-de-delinqüència"><span class="header-section-number">2.4</span> Clustering no jeràrquic amb les dades de delinqüència</a></li>
   </ul></li>
-  <li><a href="#exercicis" id="toc-exercicis" class="nav-link" data-scroll-target="#exercicis"><span class="header-section-number">3</span> Exercicis</a>
+  <li><a href="#exercicis-segmentació-de-clients-i-productes-dun-supermercat" id="toc-exercicis-segmentació-de-clients-i-productes-dun-supermercat" class="nav-link" data-scroll-target="#exercicis-segmentació-de-clients-i-productes-dun-supermercat"><span class="header-section-number">3</span> Exercicis: segmentació de clients i productes d’un supermercat</a>
   <ul class="collapse">
-  <li><a href="#clustering-de-clients-dun-centre-comercial" id="toc-clustering-de-clients-dun-centre-comercial" class="nav-link" data-scroll-target="#clustering-de-clients-dun-centre-comercial"><span class="header-section-number">3.1</span> Clustering de clients d’un centre comercial</a></li>
-  <li><a href="#variacions-del-clustering-de-clients" id="toc-variacions-del-clustering-de-clients" class="nav-link" data-scroll-target="#variacions-del-clustering-de-clients"><span class="header-section-number">3.2</span> Variacions del clustering de clients</a></li>
-  <li><a href="#vins-amb-denominació-dorígen" id="toc-vins-amb-denominació-dorígen" class="nav-link" data-scroll-target="#vins-amb-denominació-dorígen"><span class="header-section-number">3.3</span> Vins amb denominació d’orígen</a></li>
-  <li><a href="#agrupament-de-flors-per-espècie" id="toc-agrupament-de-flors-per-espècie" class="nav-link" data-scroll-target="#agrupament-de-flors-per-espècie"><span class="header-section-number">3.4</span> Agrupament de flors per espècie</a></li>
+  <li><a href="#clustering-jeràrquic-de-clients" id="toc-clustering-jeràrquic-de-clients" class="nav-link" data-scroll-target="#clustering-jeràrquic-de-clients"><span class="header-section-number">3.1</span> Clustering jeràrquic de clients</a></li>
+  <li><a href="#clustering-de-clients-amb-k-means" id="toc-clustering-de-clients-amb-k-means" class="nav-link" data-scroll-target="#clustering-de-clients-amb-k-means"><span class="header-section-number">3.2</span> Clustering de clients amb <em>k-means</em></a></li>
+  <li><a href="#clustering-de-productes-amb-k-means" id="toc-clustering-de-productes-amb-k-means" class="nav-link" data-scroll-target="#clustering-de-productes-amb-k-means"><span class="header-section-number">3.3</span> Clustering de productes amb <em>k-means</em></a></li>
   </ul></li>
   </ul>
 </nav>
@@ -262,7 +261,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Publicat</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">13/11/2026</p>
+      <p class="date">17/11/2026</p>
     </div>
   </div>
   
@@ -276,12 +275,12 @@ window.Quarto = {
 
 <section id="introducció" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Introducció</h1>
-<p>En apartats anteriors hem vist com classificar objectes en funció d’alguna característica d’interès (per exemple, discriminar els clients susceptibles de ser morosos dels que no). Aquest tipus de tasques se denominen de segmentació «supervisada». Es denomina «supervisada» perquè, d’entrada, ja tenim una variable (en aquest cas la «morositat») en funció de la qual volem classificar els objectes. No obstant això, en altres ocasions potser volem trobar grups (per exemple, grups de clients), sense cap característica predefinida. És a dir, poden dividir-se els clients de manera natural en diversos grups? Aquesta idea d’agrupar les dades en categories «no supervisades» es denomina <em>clustering</em>.</p>
+<p>En apartats anteriors hem vist com classificar objectes en funció d’alguna característica d’interès (per exemple, discriminar els clients susceptibles de ser morosos dels que no). Aquest tipus de tasques se denominen de segmentació «supervisada». Es denomina «supervisada» perquè, d’entrada, ja tenim una variable (en aquest cas la «morositat») en funció de la qual volem classificar els subjectes. En altres ocasions potser volem trobar grups (per exemple, grups de clients), sense cap característica predefinida. És a dir, poden dividir-se els clients de manera natural en diversos grups? Aquesta idea d’agrupar les dades en categories «no supervisades» es denomina <em>clustering</em>.</p>
 <p>El punt de partida acostuma a ser una matriu de dades que proporciona valors de les variables per a un conjunt d’individus. Cada fila conté els valors de cada variable per a un individu i cada columna mostra els valors d’una variable al llarg de tots els individus. L’objectiu és agrupar els individus representats en files, si bé també és perfectament possible agrupar variables.</p>
 <p>La realització d’una anàlisi de clústers implica la presa de diverses decisions en etapes consecutives: elecció de les variables per a descriure a cada individu; elecció de la mesura d’associació que permeti mesurar la similitud o distància entre els objectes (ja sigui entre dos objectes o entre un objecte i un clúster); i elecció de la tècnica de clúster a emprar. En primer lloc, analitzarem les mesures de similitud i distància i, a continuació, ens centrarem en les tècniques de <em>clustering</em>.</p>
 <section id="similitud-i-distàncies" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="similitud-i-distàncies"><span class="header-section-number">1.1</span> Similitud i distàncies</h2>
-<p>La següent taula mostra la freqüència amb la qual cinc clients han adquirit quatre productes. A partir d’aquesta informació, podem, per exemple, identificar subjectes de característiques similars, com faríem en el cas de voler trobar persones que se semblin als nostres millors clients per a dirigir-nos a ells. També és possible agrupar productes. Molts venedors, com Amazon o Netflix, utilitzen aquestes tècniques per a oferir recomanacions de productes similars o procedents d’usuaris similars. És el que ocorre quan veiem missatges com “les persones que van comprar A també van comprar B”.</p>
+<p>La següent taula mostra la freqüència amb la qual cinc clients han adquirit quatre productes. A partir d’aquesta informació, podem, per exemple, identificar subjectes de característiques similars, com faríem en el cas de voler trobar persones que se semblin als nostres millors clients per a dirigir-nos a ells. També és possible agrupar productes. Molts venedors, com Amazon o Netflix, utilitzen aquestes tècniques per a oferir recomanacions de productes similars o procedents d’usuaris similars. És el que ocorre quan veiem missatges com «les persones que van comprar A també van comprar B».</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span><span class="fu">read.table</span> (<span class="st">"data/prod.txt"</span>, <span class="at">row.names =</span> <span class="dv">1</span>, <span class="at">sep=</span><span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>data</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
@@ -293,7 +292,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>Ara necessitem algun mètode que permeti mesurar la similitud o la distància entre clients. Com determinar que dues persones (o dos productes) són similars? Una manera de calcular la distància entre dos objectes A i B és la distància euclidiana. La següent Figura mostra dos objectes, A i B, en un pla bidimensional. L’objecte A està en les coordenades (<span class="math inline">\(x_A\)</span>, <span class="math inline">\(y_A\)</span>) i l’objecte B en les coordenades (<span class="math inline">\(x_B\)</span>, <span class="math inline">\(y_B\)</span>). Podem traçar un triangle entre els dos objectes, tal com mostra la Figura. Sabem que el quadrat de la hipotenusa (la distància entre A i B) és la suma dels quadrats dels altres dos costats del triangle.</p>
+<p>En primer lloc, necessitem algun mètode que permeti mesurar la similitud o la distància entre clients. Com determinar que dues persones són similars? Una manera de calcular la distància entre dos objectes A i B és la distància euclidiana. La següent Figura mostra dos objectes, A i B, en un pla bidimensional. L’objecte A està en les coordenades (<span class="math inline">\(x_A\)</span>, <span class="math inline">\(y_A\)</span>) i l’objecte B en les coordenades (<span class="math inline">\(x_B\)</span>, <span class="math inline">\(y_B\)</span>). Podem traçar un triangle entre els dos objectes, tal com mostra la Figura. Sabem que el quadrat de la hipotenusa (la distància entre A i B) és la suma dels quadrats dels altres dos costats del triangle.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -516,7 +515,7 @@ Client.4  9.746794 10.723805  6.855655
 Client.5  9.000000  9.848858  5.744563  2.000000</code></pre>
 </div>
 </div>
-<p>Procedirem ara a crear un dendrograma d’un clúster jeràrquic aglomeratiu amb mètrode d’agrupació <em>single</em> (també conegut com <em>nearest neighbor</em>).</p>
+<p>Procedirem ara a crear un dendrograma d’un clúster jeràrquic aglomeratiu amb mètode d’agrupació <em>single</em> (també conegut com <em>nearest neighbor</em>).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>cluster_clients <span class="ot">&lt;-</span> <span class="fu">hclust</span>(data_dist, <span class="at">method=</span><span class="st">"single"</span>)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -546,10 +545,10 @@ Client.5  9.000000  9.848858  5.744563  2.000000</code></pre>
 </div>
 </div>
 </div>
-<p>En aquest cas farem un dendrograma d’un clúster jeràrquic aglomeratiu, però amb mètode d’agrupació <em>average</em>.</p>
+<p>En aquest cas farem un dendrograma d’un clúster jeràrquic aglomeratiu, però amb mètode d’agrupació <em>average</em>. Observeu que en aquest exemple el càlcul de les distàncies està dins de la funció <code>hclust</code>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>crim <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">dist</span>(USArrests), <span class="st">"average"</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(crim, <span class="at">hang=</span><span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(crim, <span class="at">hang =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -582,7 +581,7 @@ Client.5  9.000000  9.848858  5.744563  2.000000</code></pre>
 </div>
 <p>Podem dividir el dendrograma en 4 clústers.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(crim, <span class="at">hang=</span><span class="sc">-</span><span class="dv">1</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(crim, <span class="at">hang =</span> <span class="sc">-</span><span class="dv">1</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rect.hclust</span>(crim, <span class="at">k =</span> <span class="dv">4</span>)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
@@ -658,42 +657,53 @@ Client.5  9.000000  9.848858  5.744563  2.000000</code></pre>
 </div>
 </section>
 </section>
-<section id="exercicis" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Exercicis</h1>
-<section id="clustering-de-clients-dun-centre-comercial" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="clustering-de-clients-dun-centre-comercial"><span class="header-section-number">3.1</span> Clustering de clients d’un centre comercial</h2>
-<p>Un centre comercial ha recopilat les dades de 40 clients. Per a cadascun d’ells té, a més del nom, la seva edat, els seus ingressos (en milers d’euros) i el nombre de visites anuals al centre comercial. A partir d’aquestes dades, crea un dendrograma jeràrquic utilitzant el mètode d’agrupació que prefereixis (<em>single</em>, <em>complete</em> o <em>average</em>). Comenta el resultat. Qui és el client amb un comportament més semblant al de Liam? I el més similar a Maria?</p>
+<section id="exercicis-segmentació-de-clients-i-productes-dun-supermercat" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Exercicis: segmentació de clients i productes d’un supermercat</h1>
+<p>Un supermercat disposa d’informació sobre les compres realitzades per 100 clients durant els darrers tres mesos. Per a cada client es coneix el nombre d’unitats adquirides de 12 categories de productes, com ara fruita, verdura, carn, peix, lactis o productes de neteja.</p>
+<p>La direcció del supermercat vol aprofitar aquesta informació per conèixer millor els hàbits de consum dels seus clients i millorar la seva estratègia comercial. Concretament, vol identificar grups de clients amb hàbits de compra similars per dissenyar promocions personalitzades (per exemple, clients orientats a productes frescos, clients de compra familiar, clients orientats a productes preparats, etc.). També vol identificar grups de productes amb patrons de consum semblants per planificar accions comercials.</p>
+<p>En primer lloc, importa el dataset disponible al Campus Virtual i examina’n el contingut:</p>
 <div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>compres <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/compres_supermercat.csv"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="at">var =</span> <span class="st">"client"</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(compres, <span class="dv">10</span>)</span></code></pre></div><button title="Copia al porta-retalls" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Edad"],"name":[1],"type":["int"],"align":["right"]},{"label":["Ingresos"],"name":[2],"type":["int"],"align":["right"]},{"label":["Visitas"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"40","2":"29","3":"31","_rn_":"Abril"},{"1":"21","2":"30","3":"73","_rn_":"Aina"},{"1":"20","2":"21","3":"66","_rn_":"Aleix"},{"1":"22","2":"17","3":"76","_rn_":"Alex"},{"1":"53","2":"33","3":"4","_rn_":"Arlet"},{"1":"37","2":"20","3":"13","_rn_":"Arnau"},{"1":"23","2":"18","3":"94","_rn_":"Biel"},{"1":"58","2":"20","3":"15","_rn_":"Bruno"},{"1":"21","2":"33","3":"81","_rn_":"Carla"},{"1":"42","2":"34","3":"17","_rn_":"Chloe"},{"1":"20","2":"37","3":"75","_rn_":"Claudia"},{"1":"25","2":"24","3":"73","_rn_":"Emma"},{"1":"22","2":"20","3":"79","_rn_":"Enzo"},{"1":"24","2":"20","3":"77","_rn_":"Eric"},{"1":"67","2":"19","3":"14","_rn_":"Hugo"},{"1":"21","2":"15","3":"81","_rn_":"Jan"},{"1":"49","2":"33","3":"14","_rn_":"Jana"},{"1":"35","2":"24","3":"35","_rn_":"Julia"},{"1":"35","2":"28","3":"61","_rn_":"Laia"},{"1":"31","2":"17","3":"40","_rn_":"Leo"},{"1":"30","2":"34","3":"73","_rn_":"Lia"},{"1":"35","2":"19","3":"99","_rn_":"Liam"},{"1":"30","2":"19","3":"72","_rn_":"Lucas"},{"1":"54","2":"28","3":"14","_rn_":"Lucia"},{"1":"19","2":"15","3":"39","_rn_":"Marc"},{"1":"23","2":"29","3":"87","_rn_":"Maria"},{"1":"35","2":"18","3":"6","_rn_":"Marti"},{"1":"46","2":"25","3":"5","_rn_":"Martina"},{"1":"52","2":"23","3":"29","_rn_":"Mateo"},{"1":"35","2":"21","3":"35","_rn_":"Max"},{"1":"31","2":"25","3":"73","_rn_":"Mia"},{"1":"23","2":"16","3":"77","_rn_":"Nil"},{"1":"60","2":"30","3":"4","_rn_":"Noa"},{"1":"29","2":"28","3":"82","_rn_":"Ona"},{"1":"64","2":"19","3":"3","_rn_":"Pau"},{"1":"18","2":"33","3":"92","_rn_":"Paula"},{"1":"20","2":"16","3":"6","_rn_":"Pol"},{"1":"35","2":"23","3":"98","_rn_":"Roc"},{"1":"36","2":"37","3":"26","_rn_":"Sara"},{"1":"45","2":"28","3":"32","_rn_":"Sofia"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["fruita"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["verdura"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["carn"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["peix"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["lactis"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["pa"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["pasta"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["arros"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["congelats"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["refrescos"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["snacks"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["neteja"],"name":[12],"type":["dbl"],"align":["right"]}],"data":[{"1":"13","2":"10","3":"27","4":"6","5":"17","6":"36","7":"17","8":"17","9":"13","10":"6","11":"10","12":"13","_rn_":"C001"},{"1":"19","2":"17","3":"10","4":"14","5":"13","6":"13","7":"11","8":"5","9":"3","10":"2","11":"8","12":"2","_rn_":"C002"},{"1":"19","2":"30","3":"11","4":"11","5":"15","6":"7","7":"6","8":"5","9":"3","10":"1","11":"1","12":"4","_rn_":"C003"},{"1":"11","2":"10","3":"11","4":"5","5":"21","6":"15","7":"18","8":"12","9":"50","10":"33","11":"30","12":"11","_rn_":"C004"},{"1":"3","2":"3","3":"8","4":"0","5":"19","6":"10","7":"10","8":"12","9":"18","10":"9","11":"19","12":"12","_rn_":"C005"},{"1":"1","2":"6","3":"6","4":"2","5":"12","6":"3","7":"15","8":"12","9":"28","10":"16","11":"20","12":"5","_rn_":"C006"},{"1":"5","2":"7","3":"6","4":"1","5":"14","6":"13","7":"11","8":"10","9":"23","10":"34","11":"38","12":"5","_rn_":"C007"},{"1":"24","2":"9","3":"8","4":"16","5":"9","6":"7","7":"7","8":"10","9":"2","10":"0","11":"4","12":"5","_rn_":"C008"},{"1":"16","2":"12","3":"17","4":"5","5":"18","6":"24","7":"20","8":"15","9":"5","10":"4","11":"5","12":"21","_rn_":"C009"},{"1":"5","2":"9","3":"19","4":"5","5":"19","6":"14","7":"13","8":"13","9":"7","10":"7","11":"5","12":"11","_rn_":"C010"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
 </div>
+<section id="clustering-jeràrquic-de-clients" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="clustering-jeràrquic-de-clients"><span class="header-section-number">3.1</span> Clustering jeràrquic de clients</h2>
+<p>En primer lloc, volem identificar grups de clients amb patrons de compra similars mitjançant un algoritme de clustering jeràrquic aglomeratiu. Aquest procediment comença considerant cada client com un grup independent i fusiona progressivament els grups més propers.</p>
+<ul>
+<li><p>Calcula les distàncies euclidianes entre els clients mitjançant la funció <code>dist()</code>.</p></li>
+<li><p>Aplica el clustering jeràrquic amb la funció <code>hclust()</code>, utilitzant el mètode single (<em>nearest neighbour</em>).</p></li>
+<li><p>Representa el dendrograma resultant amb la funció <code>plot()</code>.</p></li>
+</ul>
 </section>
-<section id="variacions-del-clustering-de-clients" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="variacions-del-clustering-de-clients"><span class="header-section-number">3.2</span> Variacions del clustering de clients</h2>
-<p>Fent servir el mateix dataset de l’exercici anterior, prova de modificar el mètode d’agrupació (<em>single</em>, <em>complete</em> o <em>average</em>). Compara els dendogrames resultants. Són iguals? Diferents? Selecciona algun dels clústers de clients i comenta les similituds o diferències en funció del mètode d’agrupació emprat.</p>
+<section id="clustering-de-clients-amb-k-means" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="clustering-de-clients-amb-k-means"><span class="header-section-number">3.2</span> Clustering de clients amb <em>k-means</em></h2>
+<p>Ara volem agrupar els mateixos clients utilitzant l’algoritme <em>k-means</em>, que divideix les observacions en un nombre de clústers establert prèviament, buscant que els elements de cada grup siguin tan semblants com sigui possible.</p>
+<ul>
+<li><p>Aplica la funció <code>kmeans()</code> per agrupar els clients en 4 clústers.</p></li>
+<li><p>Representa gràficament els clústers amb la funció <code>fviz_cluster()</code> del paquet <code>factoextra</code>.</p></li>
+<li><p>Compara les agrupacions obtingudes amb <em>k-means</em> i amb el clustering jeràrquic de l’apartat anterior.</p></li>
+</ul>
 </section>
-<section id="vins-amb-denominació-dorígen" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="vins-amb-denominació-dorígen"><span class="header-section-number">3.3</span> Vins amb denominació d’orígen</h2>
-<p>Tenim les dades d’alcohol, acidesa i intensitat de 18 vins procedents de tres denominacions d’origen. Els vins estan identificats amb una lletra corresponent a la denominació d’origen (P = Priorat, R = Rioja, S = Somontano) i un número correlatiu. Prova d’agrupar els vins en clústers utilitzant diferents mètodes i comprova si en cada cas els vins s’agrupen correctament per denominació d’origen o no.</p>
-<div class="cell">
-<div class="cell-output-display">
-<div data-pagedtable="false">
-  <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Alcohol"],"name":[1],"type":["int"],"align":["right"]},{"label":["Acidesa"],"name":[2],"type":["int"],"align":["right"]},{"label":["Intensitat"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"14","2":"1","3":"90","_rn_":"P1"},{"1":"15","2":"2","3":"91","_rn_":"P2"},{"1":"15","2":"2","3":"90","_rn_":"P3"},{"1":"14","2":"1","3":"93","_rn_":"P4"},{"1":"13","2":"2","3":"90","_rn_":"P5"},{"1":"16","2":"3","3":"90","_rn_":"P6"},{"1":"9","2":"4","3":"88","_rn_":"S1"},{"1":"10","2":"4","3":"83","_rn_":"S2"},{"1":"9","2":"4","3":"85","_rn_":"S3"},{"1":"8","2":"5","3":"85","_rn_":"S4"},{"1":"10","2":"4","3":"86","_rn_":"S5"},{"1":"15","2":"5","3":"81","_rn_":"S6"},{"1":"17","2":"7","3":"70","_rn_":"R1"},{"1":"16","2":"6","3":"74","_rn_":"R2"},{"1":"16","2":"5","3":"75","_rn_":"R3"},{"1":"15","2":"7","3":"78","_rn_":"R4"},{"1":"18","2":"6","3":"75","_rn_":"R5"},{"1":"17","2":"6","3":"75","_rn_":"R6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
-</div>
-</div>
-</section>
-<section id="agrupament-de-flors-per-espècie" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="agrupament-de-flors-per-espècie"><span class="header-section-number">3.4</span> Agrupament de flors per espècie</h2>
-<p>Carrega el dataset <code>iris</code> que ja hem emprat en diverses ocaions. El dataset conté quatre variables numèriques (Sepal.Length, Sepal.Width, Petal.Length, Petal.Width) de tres espècies de flors (setosa, versicolor i virginica).</p>
-<p>De manera opcional, pots estandarditzar les variables numèriques amb la funció <code>scale</code> (com hem fet al quart exemple amb les dades de criminalitat). A continuació, aplica k-means amb diferents valors de <em>k</em> i observa si les flors s’agrupen o no en funció de les espècies a les quals pertanyen.</p>
+<section id="clustering-de-productes-amb-k-means" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="clustering-de-productes-amb-k-means"><span class="header-section-number">3.3</span> Clustering de productes amb <em>k-means</em></h2>
+<p>En els apartats anteriors, hem agrupat clients a partir dels seus hàbits de compra. Ara analitzarem les mateixes dades des d’una altra perspectiva: volem identificar categories de productes que presenten patrons de compra similars entre els clients</p>
+<ul>
+<li><p>Utilitza la funció <code>t()</code> per transposar la matriu original de dades, de manera que les fileres corresponguin a les 12 categories de productes i les columnes als 100 clients.</p></li>
+<li><p>Aplica l’algoritme <code>kmeans()</code> per agrupar els productes en 4 clústers.</p></li>
+<li><p>Representa gràficament els clústers amb <code>fviz_cluster()</code>.</p></li>
+<li><p>Examina quines categories de productes formen part de cada clúster.</p></li>
+</ul>
 
 
 </section>
